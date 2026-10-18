@@ -1,0 +1,98 @@
+{
+  "fechaUTC": "2026-10-18T03:40:23.298Z",
+  "alcance": "SQLite local y HTTP, sin Azure ni IA",
+  "resultados": [
+    {
+      "prueba": "Semilla local con inventario y sin ventas ficticias",
+      "ok": true
+    },
+    {
+      "prueba": "Interpretación de venta y gasto con número en palabras",
+      "ok": true
+    },
+    {
+      "prueba": "Propuesta pendiente no altera dinero ni stock",
+      "ok": true
+    },
+    {
+      "prueba": "Confirmación aplica correcciones, dos movimientos y stock",
+      "ok": true
+    },
+    {
+      "prueba": "Comprobante local recuperable y consistente",
+      "ok": true
+    },
+    {
+      "prueba": "No se puede confirmar dos veces",
+      "ok": true
+    },
+    {
+      "prueba": "Rechazar no altera los registros",
+      "ok": true
+    },
+    {
+      "prueba": "Rollback completo ante stock insuficiente",
+      "ok": true
+    },
+    {
+      "prueba": "Separación de negocios y productos ajenos rechazados",
+      "ok": true
+    },
+    {
+      "prueba": "Dinero y cantidades deben ser enteros válidos",
+      "ok": true
+    },
+    {
+      "prueba": "Compra seguida de venta se evalúa en orden",
+      "ok": true
+    },
+    {
+      "prueba": "Ajuste de inventario no inventa ingresos ni gastos",
+      "ok": true
+    },
+    {
+      "prueba": "Texto desconocido exige revisión y permite entrada manual",
+      "ok": true
+    },
+    {
+      "prueba": "Arquetipo actual e historial de autoelección",
+      "ok": true
+    },
+    {
+      "prueba": "Diagnósticos históricos y plan sin duplicar ni perder progreso",
+      "ok": true
+    },
+    {
+      "prueba": "Aprendizaje persistente sin duplicación",
+      "ok": true
+    },
+    {
+      "prueba": "Conversación local guardada y separada por negocio",
+      "ok": true
+    },
+    {
+      "prueba": "Etapa y planteamiento editables sin perder historial",
+      "ok": true
+    },
+    {
+      "prueba": "Perfil productivo exportable con datos reales locales",
+      "ok": true
+    },
+    {
+      "prueba": "Solicitudes con origen ajeno y JSON inválido se rechazan",
+      "ok": true
+    },
+    {
+      "prueba": "Persistencia real después de reiniciar el servidor",
+      "ok": true
+    },
+    {
+      "prueba": "Navegador: navegar, proponer, confirmar, perfil y móvil sin errores",
+      "ok": true
+    },
+    {
+      "prueba": "API local deshabilitada fuera del modo local",
+      "ok": true
+    }
+  ]
+}

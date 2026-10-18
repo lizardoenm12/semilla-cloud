@@ -1,0 +1,16 @@
+node_modules
+.next
+.git
+.env*
+evidencias
+docs
+
+.npm-cache
+output
+tmp
+*.tsbuildinfo
+
+.data
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

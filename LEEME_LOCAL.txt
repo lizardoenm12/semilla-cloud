@@ -1,0 +1,31 @@
+SEMILLA - VERSIÓN LOCAL 0.2.0 - 17/10/2026
+Nombre provisional para el proyecto del equipo.
+Lizardo Gonzalez 24000682 / Jessel Contreras 23011020
+
+REQUISITO: Node.js 24 LTS.
+EN WINDOWS: descomprimir el ZIP y abrir INICIAR_LOCAL.cmd.
+O desde la carpeta que contiene package.json:
+  npm.cmd ci
+  npm.cmd run dev:local
+Después abrir http://127.0.0.1:3000
+La instalación inicial necesita Internet. El producto local no requiere Azure ni claves.
+
+LOS DATOS: se guardan en .data/negocios.sqlite y se conservan al reiniciar.
+La semilla trae Tienda La Ceiba, agua y pan con cantidades iniciales sintéticas,
+sin ventas o gastos ficticios. Puedes crear otro negocio independiente.
+
+PRUEBA: Contar mi día -> escribir
+Vendí diez aguas a Q5 cada una y gasté Q20 de transporte
+Revisar/corregir -> Confirmar -> comprobar resumen e inventario.
+
+INCLUYE: frontend, backend SQLite, múltiples negocios, propuestas, inventario,
+arquetipos, autoevaluación, plan, aprendizaje, guía local, modelo Chen ampliado,
+DDL y evidencia real de 23 pruebas integrales más 13 de regresión.
+
+NO INCLUYE AÚN: IA generativa, login multiusuario, proyecciones calculadas,
+contabilidad completa ni despliegue Azure. Interpretación y guía usan reglas.
+Semilla y capturas son de demostración; no es una aplicación lista para producción.
+
+DOCUMENTOS: README.md, docs/avance-local-2026-10-17.md y docs/modelo-ampliado.md.
+DIAGRAMAS: docs/modelo-chen (las proyecciones se etiquetan como futuras).
+Los documentos M2 de fecha 16/10 corresponden a una etapa anterior del avance.

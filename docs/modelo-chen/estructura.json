@@ -1,0 +1,427 @@
+[
+  {
+    "lamina": "01-acceso-catalogo",
+    "entidades": [
+      {
+        "entidad": "USUARIO",
+        "debil": false,
+        "atributos": [
+          "id_usuario",
+          "identidad_externa",
+          "nombre",
+          "email",
+          "creado_en"
+        ]
+      },
+      {
+        "entidad": "NEGOCIO",
+        "debil": false,
+        "atributos": [
+          "id_negocio",
+          "nombre",
+          "moneda = GTQ",
+          "zona_horaria",
+          "etapa",
+          "idea",
+          "cliente_objetivo",
+          "propuesta_valor"
+        ]
+      },
+      {
+        "entidad": "PRODUCTO",
+        "debil": false,
+        "atributos": [
+          "id_producto",
+          "sku",
+          "nombre",
+          "precio_venta_gtq",
+          "controla_stock",
+          "activo"
+        ]
+      }
+    ]
+  },
+  {
+    "lamina": "02-movimientos-comprobantes",
+    "entidades": [
+      {
+        "entidad": "NEGOCIO",
+        "debil": false,
+        "atributos": [
+          "id_negocio",
+          "nombre",
+          "moneda = GTQ",
+          "zona_horaria",
+          "etapa",
+          "idea",
+          "cliente_objetivo",
+          "propuesta_valor"
+        ]
+      },
+      {
+        "entidad": "MOVIMIENTO",
+        "debil": false,
+        "atributos": [
+          "id_movimiento",
+          "tipo",
+          "total_gtq",
+          "estado",
+          "ocurrido_en"
+        ]
+      },
+      {
+        "entidad": "COMPROBANTE",
+        "debil": false,
+        "atributos": [
+          "id_comprobante",
+          "ruta_blob",
+          "mime_type",
+          "creado_en"
+        ]
+      },
+      {
+        "entidad": "USUARIO",
+        "debil": false,
+        "atributos": [
+          "id_usuario",
+          "identidad_externa",
+          "nombre",
+          "email",
+          "creado_en"
+        ]
+      }
+    ]
+  },
+  {
+    "lamina": "03-propuestas-ia",
+    "entidades": [
+      {
+        "entidad": "USUARIO",
+        "debil": false,
+        "atributos": [
+          "id_usuario",
+          "identidad_externa",
+          "nombre",
+          "email",
+          "creado_en"
+        ]
+      },
+      {
+        "entidad": "PROPUESTA_IA",
+        "debil": false,
+        "atributos": [
+          "id_propuesta",
+          "texto_original",
+          "datos_propuestos",
+          "datos_confirmados",
+          "estado",
+          "creado_en"
+        ]
+      },
+      {
+        "entidad": "MOVIMIENTO",
+        "debil": false,
+        "atributos": [
+          "id_movimiento",
+          "tipo",
+          "total_gtq",
+          "estado",
+          "ocurrido_en"
+        ]
+      },
+      {
+        "entidad": "NEGOCIO",
+        "debil": false,
+        "atributos": [
+          "id_negocio",
+          "nombre",
+          "moneda = GTQ",
+          "zona_horaria",
+          "etapa",
+          "idea",
+          "cliente_objetivo",
+          "propuesta_valor"
+        ]
+      }
+    ]
+  },
+  {
+    "lamina": "04-detalle-inventario",
+    "entidades": [
+      {
+        "entidad": "MOVIMIENTO",
+        "debil": false,
+        "atributos": [
+          "id_movimiento",
+          "tipo",
+          "total_gtq",
+          "estado",
+          "ocurrido_en"
+        ]
+      },
+      {
+        "entidad": "DETALLE_MOVIMIENTO",
+        "debil": true,
+        "atributos": [
+          "numero_linea",
+          "descripcion",
+          "cantidad",
+          "precio_unitario_gtq",
+          "subtotal_gtq"
+        ]
+      },
+      {
+        "entidad": "PRODUCTO",
+        "debil": false,
+        "atributos": [
+          "id_producto",
+          "sku",
+          "nombre",
+          "precio_venta_gtq",
+          "controla_stock",
+          "activo"
+        ]
+      },
+      {
+        "entidad": "ENTRADA_INVENTARIO",
+        "debil": false,
+        "atributos": [
+          "id_entrada",
+          "cantidad_delta",
+          "motivo",
+          "ocurrido_en"
+        ]
+      }
+    ]
+  },
+  {
+    "lamina": "05-ejemplo-foto-corregido",
+    "entidades": [
+      {
+        "entidad": "CLIENTE",
+        "debil": false,
+        "atributos": [
+          "DNI",
+          "nombre"
+        ]
+      },
+      {
+        "entidad": "PEDIDO",
+        "debil": false,
+        "atributos": [
+          "id_pedido",
+          "fecha"
+        ]
+      },
+      {
+        "entidad": "ARTÍCULO",
+        "debil": false,
+        "atributos": [
+          "num_serie",
+          "descripcion"
+        ]
+      }
+    ]
+  },
+  {
+    "lamina": "06-arquetipos-perfil",
+    "entidades": [
+      {
+        "entidad": "USUARIO",
+        "debil": false,
+        "atributos": [
+          "id_usuario",
+          "identidad_externa",
+          "nombre",
+          "email",
+          "creado_en"
+        ]
+      },
+      {
+        "entidad": "EVALUACION_ARQUETIPO",
+        "debil": false,
+        "atributos": [
+          "id_evaluacion",
+          "metodo",
+          "creado_en"
+        ]
+      },
+      {
+        "entidad": "ARQUETIPO",
+        "debil": false,
+        "atributos": [
+          "id_arquetipo",
+          "nombre",
+          "descripcion",
+          "orientacion"
+        ]
+      }
+    ]
+  },
+  {
+    "lamina": "07-diagnostico-plan",
+    "entidades": [
+      {
+        "entidad": "NEGOCIO",
+        "debil": false,
+        "atributos": [
+          "id_negocio",
+          "nombre",
+          "moneda = GTQ",
+          "zona_horaria",
+          "etapa",
+          "idea",
+          "cliente_objetivo",
+          "propuesta_valor"
+        ]
+      },
+      {
+        "entidad": "DIAGNOSTICO",
+        "debil": false,
+        "atributos": [
+          "id_diagnostico",
+          "organizacion",
+          "registros",
+          "formalidad_declarada",
+          "creado_en"
+        ]
+      },
+      {
+        "entidad": "PLAN_MEJORA",
+        "debil": false,
+        "atributos": [
+          "id_plan",
+          "titulo",
+          "creado_en"
+        ]
+      },
+      {
+        "entidad": "ACCION_MEJORA",
+        "debil": false,
+        "atributos": [
+          "id_accion",
+          "titulo",
+          "motivo",
+          "estado"
+        ]
+      }
+    ]
+  },
+  {
+    "lamina": "08-aprendizaje",
+    "entidades": [
+      {
+        "entidad": "USUARIO",
+        "debil": false,
+        "atributos": [
+          "id_usuario",
+          "identidad_externa",
+          "nombre",
+          "email",
+          "creado_en"
+        ]
+      },
+      {
+        "entidad": "CONTENIDO_EDUCATIVO",
+        "debil": false,
+        "atributos": [
+          "id_contenido",
+          "titulo",
+          "minutos",
+          "contenido",
+          "actividad"
+        ]
+      }
+    ]
+  },
+  {
+    "lamina": "09-conversaciones",
+    "entidades": [
+      {
+        "entidad": "NEGOCIO",
+        "debil": false,
+        "atributos": [
+          "id_negocio",
+          "nombre",
+          "moneda = GTQ",
+          "zona_horaria",
+          "etapa",
+          "idea",
+          "cliente_objetivo",
+          "propuesta_valor"
+        ]
+      },
+      {
+        "entidad": "CONVERSACION",
+        "debil": false,
+        "atributos": [
+          "id_conversacion",
+          "creado_en"
+        ]
+      },
+      {
+        "entidad": "USUARIO",
+        "debil": false,
+        "atributos": [
+          "id_usuario",
+          "identidad_externa",
+          "nombre",
+          "email",
+          "creado_en"
+        ]
+      },
+      {
+        "entidad": "MENSAJE",
+        "debil": false,
+        "atributos": [
+          "id_mensaje",
+          "rol",
+          "contenido",
+          "creado_en"
+        ]
+      }
+    ]
+  },
+  {
+    "lamina": "10-proyecciones-futuro",
+    "entidades": [
+      {
+        "entidad": "NEGOCIO",
+        "debil": false,
+        "atributos": [
+          "id_negocio",
+          "nombre",
+          "moneda = GTQ",
+          "zona_horaria",
+          "etapa",
+          "idea",
+          "cliente_objetivo",
+          "propuesta_valor"
+        ]
+      },
+      {
+        "entidad": "PROYECCION",
+        "debil": false,
+        "atributos": [
+          "id_proyeccion",
+          "horizonte",
+          "supuestos",
+          "metodo_version",
+          "resultado",
+          "creado_en"
+        ]
+      },
+      {
+        "entidad": "USUARIO",
+        "debil": false,
+        "atributos": [
+          "id_usuario",
+          "identidad_externa",
+          "nombre",
+          "email",
+          "creado_en"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,90 @@
+erDiagram
+    USUARIO ||--o{ MEMBRESIA : participa
+    NEGOCIO ||--o{ MEMBRESIA : autoriza
+    NEGOCIO ||--o{ PRODUCTO : administra
+    NEGOCIO ||--o{ MOVIMIENTO : registra
+    MEMBRESIA ||--o{ PROPUESTA_IA : solicita
+    MEMBRESIA ||--o{ MOVIMIENTO : registra
+    PROPUESTA_IA o|--o| MOVIMIENTO : origina_al_confirmar
+    MOVIMIENTO ||--o{ DETALLE_MOVIMIENTO : contiene
+    PRODUCTO o|--o{ DETALLE_MOVIMIENTO : referencia
+    MOVIMIENTO ||--o{ COMPROBANTE : adjunta
+    PRODUCTO ||--o{ MOVIMIENTO_INVENTARIO : tiene
+    DETALLE_MOVIMIENTO o|--o{ MOVIMIENTO_INVENTARIO : genera
+
+    USUARIO {
+        uuid usuario_id PK
+        string identidad_externa UK "Proveedor + sujeto; sin contrasenas"
+        string nombre
+        string email "Contacto, no identificador de acceso"
+        datetime creado_en
+    }
+    NEGOCIO {
+        uuid negocio_id PK
+        string nombre
+        string moneda "GTQ"
+        string zona_horaria "America/Guatemala"
+        datetime creado_en
+    }
+    MEMBRESIA {
+        uuid negocio_id PK,FK
+        uuid usuario_id PK,FK
+        string rol "propietario, administrador, operador, lector"
+        boolean activa
+        datetime creado_en
+    }
+    PROPUESTA_IA {
+        uuid propuesta_id PK
+        uuid negocio_id FK "Junto a autor_id referencia MEMBRESIA"
+        uuid autor_id FK
+        text texto_original
+        jsonb datos_propuestos
+        string estado "pendiente, confirmada, rechazada"
+        datetime creado_en
+    }
+    MOVIMIENTO {
+        uuid movimiento_id PK
+        uuid negocio_id FK
+        uuid autor_id FK "Membresia del mismo negocio"
+        uuid propuesta_id FK,UK "Opcional; propuesta del mismo negocio"
+        string tipo "venta, compra, gasto"
+        decimal total_gtq "numeric(14,2)"
+        string estado "confirmado, anulado"
+        datetime ocurrido_en
+    }
+    PRODUCTO {
+        uuid producto_id PK
+        uuid negocio_id FK
+        string sku "Unico dentro del negocio"
+        string nombre
+        decimal precio_venta_gtq "numeric(14,2)"
+        boolean controla_stock
+        boolean activo
+    }
+    COMPROBANTE {
+        uuid comprobante_id PK
+        uuid negocio_id FK
+        uuid movimiento_id FK
+        string ruta_blob "Cuenta + contenedor + nombre; sin SAS"
+        string mime_type
+        datetime creado_en
+    }
+    DETALLE_MOVIMIENTO {
+        uuid detalle_id PK
+        uuid negocio_id FK
+        uuid movimiento_id FK
+        uuid producto_id FK "Opcional para gastos sin producto"
+        string descripcion
+        decimal cantidad "numeric(14,3)"
+        decimal precio_unitario_gtq "numeric(14,2)"
+        decimal subtotal_gtq "numeric(14,2)"
+    }
+    MOVIMIENTO_INVENTARIO {
+        uuid inventario_id PK
+        uuid negocio_id FK
+        uuid producto_id FK
+        uuid detalle_id FK "Opcional para ajuste o saldo inicial"
+        decimal cantidad_delta "Entrada positiva; salida negativa"
+        string motivo "venta, compra, ajuste, inicial, anulacion"
+        datetime ocurrido_en
+    }

@@ -1,0 +1,34 @@
+AVANCE M2 - ASISTENTE DE NEGOCIOS - AZURE - 16/10/2026
+
+Equipo:
+Lizardo Gonzalez - 24000682
+Jessel Contreras - 23011020
+
+AVANCE COMPROBADO: aplicación migrada de GCP a Azure, parche Next.js 16.4.1,
+instalación reproducible, tipos, build y 13 comprobaciones HTTP locales aprobados.
+Informe de avance de 4 páginas y arquitectura editable incluidos.
+
+PENDIENTE: acceso individual a la suscripción de Jessel, región, presupuesto,
+despliegue y pruebas reales de Container Apps + Blob Storage privado.
+NO se declara M2 completo ni siete servicios implementados.
+URL real, suscripción, grupo, región, cuenta Storage y revisión: pendientes.
+
+PRIMER PASO: Jessel abre Azure Portal -> Suscripciones y verifica nombre y estado.
+Después puede otorgar acceso individual mediante IAM. No compartir contraseñas.
+
+CONTENIDO:
+M2_Arquitectura_y_Avance_Azure.pdf - informe de avance real.
+Proyecto_Cloud-main/ - aplicación y lockfile actualizados.
+  docs/avance-M2.md - fuente editable del informe.
+  docs/arquitectura-provisional.mmd y .svg - diagrama editable/exportado.
+  docs/despliegue.md - guía Azure Cloud Shell Bash, por etapas.
+  scripts/desplegar-azure.sh - preparar / publicar (no ejecutados contra Azure).
+  scripts/verificar-m2.sh y .mjs - pruebas remotas con evidencia JSON.
+  evidencias/ - resultados locales reales; no capturas cloud inventadas.
+
+La selección de siete servicios Azure es una propuesta pendiente de contrastar
+con el Word del curso. El Word no venía adjunto. No se envió nada a GES.
+
+EXCLUSIONES: node_modules, .next, cachés, .env reales, claves y tokens de acceso.
+Solo se incluye .env.example vacío y un token sintético conocido del test local,
+que no sirve para Azure ni debe utilizarse en el despliegue.

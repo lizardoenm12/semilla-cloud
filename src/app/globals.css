@@ -1,0 +1,75 @@
+:root {
+  --papel: #f2f5f3;
+  --tinta: #14302b;
+  --tinta-suave: #4a625d;
+  --linea: #c9d6d1;
+  --acento: #1f7a6b;
+  --acento-fuerte: #145a4f;
+  --aviso: #8a5a00;
+  --error: #a32d2d;
+  --ok: #17603a;
+}
+* { box-sizing: border-box; }
+html { color-scheme: light; }
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.55;
+}
+main, header.sitio { max-width: 46rem; margin: 0 auto; padding: 1.25rem; }
+header.sitio { display: flex; flex-wrap: wrap; gap: 1rem; align-items: baseline; justify-content: space-between; border-bottom: 1px solid var(--linea); }
+header.sitio strong { font-size: 1.05rem; }
+nav { display: flex; gap: 1.25rem; }
+a { color: var(--acento-fuerte); }
+h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); line-height: 1.15; margin: 1.5rem 0 .75rem; }
+h2 { font-size: 1.2rem; margin-top: 2rem; }
+p, li { max-width: 62ch; }
+.etiqueta-demo { display: inline-block; padding: .15rem .6rem; border: 1px solid var(--aviso); color: var(--aviso); border-radius: 999px; font-size: .85rem; }
+label { display: block; font-weight: 600; margin: 1rem 0 .35rem; }
+input { width: 100%; max-width: 28rem; padding: .6rem .7rem; border: 1px solid var(--tinta-suave); border-radius: 6px; font: inherit; background: #fff; }
+button { margin-top: 1rem; padding: .65rem 1.1rem; border: 0; border-radius: 6px; background: var(--acento); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+button:hover:not(:disabled) { background: var(--acento-fuerte); }
+button:disabled { opacity: .6; cursor: progress; }
+:focus-visible { outline: 3px solid #e0a030; outline-offset: 2px; }
+.resultado { margin-top: 1.5rem; padding: 1rem; border-left: 4px solid var(--linea); background: #fff; overflow-x: auto; }
+.resultado.ok { border-color: var(--ok); }
+.resultado.error { border-color: var(--error); }
+pre { margin: .5rem 0 0; white-space: pre-wrap; word-break: break-word; font-size: .9rem; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* --- encabezado con acceso --- */
+header.sitio { max-width: 60rem; gap: .75rem 1.5rem; align-items: center; }
+header.sitio + main, main { max-width: 60rem; }
+.acceso { display: flex; align-items: center; gap: .5rem; }
+.acceso label { margin: 0; font-weight: 500; font-size: .9rem; color: var(--tinta-suave); }
+.acceso input { width: 12rem; padding: .35rem .5rem; font-size: .9rem; }
+.aviso { color: var(--aviso); }
+
+/* --- botones --- */
+.acciones { display: flex; flex-wrap: wrap; gap: .75rem; }
+button.secundario { background: transparent; color: var(--acento-fuerte); border: 1.5px solid var(--acento); }
+button.secundario:hover:not(:disabled) { background: #e3efeb; }
+button.chico { margin-top: 0; padding: .25rem .7rem; font-size: .9rem; }
+
+/* --- recibo --- */
+.recibo { margin-top: 1.5rem; padding: 1.25rem 1.5rem; background: #fff; max-width: 26rem;
+  border-top: 2px dashed var(--tinta-suave); border-bottom: 2px dashed var(--tinta-suave); }
+.recibo-total { font-size: 2.4rem; font-weight: 700; margin: .25rem 0; letter-spacing: -.02em; }
+.recibo dl { margin: 1rem 0 0; }
+.recibo dt { font-size: .85rem; color: var(--tinta-suave); margin-top: .6rem; }
+.recibo dd { margin: 0; overflow-wrap: anywhere; }
+.recibo summary { cursor: pointer; margin-top: 1rem; color: var(--acento-fuerte); }
+
+/* --- tablas e insignias --- */
+.tabla-scroll { overflow-x: auto; margin-top: 1rem; }
+table { border-collapse: collapse; width: 100%; background: #fff; }
+th, td { text-align: left; padding: .6rem .75rem; border-bottom: 1px solid var(--linea); vertical-align: top; }
+th { font-size: .9rem; color: var(--tinta-suave); font-weight: 600; }
+.insignia { display: inline-block; padding: .1rem .55rem; border-radius: 999px; font-size: .85rem; border: 1px solid; }
+.insignia.ok { color: var(--ok); border-color: var(--ok); background: #e6f3ec; }
+.insignia.falla { color: var(--error); border-color: var(--error); background: #f9e8e8; }
+.insignia.plan { color: var(--tinta-suave); border-color: var(--linea); background: #f4f7f6; }
+.detalle { font-size: .85rem; color: var(--tinta-suave); margin-top: .25rem; overflow-wrap: anywhere; }
+.solo-lector { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }

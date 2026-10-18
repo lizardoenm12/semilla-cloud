@@ -1,0 +1,82 @@
+{
+  "fechaUTC": "2026-10-18T03:40:58.195Z",
+  "alcance": "HTTP local, sin Azure; no prueba escritura remota",
+  "resultados": [
+    {
+      "prueba": "health",
+      "esperado": 200,
+      "obtenido": 200,
+      "ok": true
+    },
+    {
+      "prueba": "crear sin token",
+      "esperado": 401,
+      "obtenido": 401,
+      "ok": true
+    },
+    {
+      "prueba": "listar sin token",
+      "esperado": 401,
+      "obtenido": 401,
+      "ok": true
+    },
+    {
+      "prueba": "estado sin token",
+      "esperado": 401,
+      "obtenido": 401,
+      "ok": true
+    },
+    {
+      "prueba": "token incorrecto",
+      "esperado": 401,
+      "obtenido": 401,
+      "ok": true
+    },
+    {
+      "prueba": "ID inválido",
+      "esperado": 400,
+      "obtenido": 400,
+      "ok": true
+    },
+    {
+      "prueba": "ID de 36 guiones",
+      "esperado": 400,
+      "obtenido": 400,
+      "ok": true
+    },
+    {
+      "prueba": "crear sin Azure configurado",
+      "esperado": 500,
+      "obtenido": 500,
+      "ok": true
+    },
+    {
+      "prueba": "leer sin Azure configurado",
+      "esperado": 500,
+      "obtenido": 500,
+      "ok": true
+    },
+    {
+      "prueba": "inicio",
+      "esperado": 200,
+      "obtenido": 200,
+      "ok": true
+    },
+    {
+      "prueba": "comprobantes",
+      "esperado": 200,
+      "obtenido": 200,
+      "ok": true
+    },
+    {
+      "prueba": "estado",
+      "esperado": 200,
+      "obtenido": 200,
+      "ok": true
+    },
+    {
+      "prueba": "estado no simula servicios desplegados",
+      "ok": true
+    }
+  ]
+}

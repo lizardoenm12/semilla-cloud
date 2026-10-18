@@ -1,0 +1,20 @@
+flowchart LR
+  U["Navegador: token en memoria"] -->|"HTTPS; operaciones con Bearer"| A["Azure Container Apps: frontend y backend"]
+  A -->|"Escritura y lectura JSON Q50"| S["Azure Blob Storage: contenedor privado"]
+  I["Identidad administrada"] -. "Storage Blob Data Contributor al contenedor" .-> S
+  I -. "AcrPull al registro" .-> R["Azure Container Registry: imagen Docker"]
+  R -->|"imagen"| A
+  T["Secreto de Container Apps: DEMO_TOKEN"] -.-> A
+  subgraph Estado
+    E["Código adaptado y pruebas locales aprobadas. Ningún recurso remoto verificado."]
+  end
+  subgraph Final_planeado
+    P["Azure Database for PostgreSQL"]
+    AI["Servicio de IA de Azure: modelo por confirmar"]
+    K["Azure Key Vault"]
+    M["Azure Monitor / Log Analytics"]
+  end
+  A -. "futuro" .-> P
+  A -. "futuro" .-> AI
+  A -. "futuro" .-> K
+  A -. "futuro" .-> M

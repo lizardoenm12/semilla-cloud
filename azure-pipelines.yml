@@ -1,0 +1,79 @@
+# Validación del código GitHub. Preparado; no ejecutado todavía en Azure DevOps.
+# No crea recursos Azure ni publica el modo local como aplicación compartida.
+trigger:
+  branches:
+    include:
+      - main
+      - master
+
+pr:
+  branches:
+    include:
+      - main
+      - master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  NEXT_TELEMETRY_DISABLED: '1'
+  CI: 'true'
+
+steps:
+  - checkout: self
+    persistCredentials: false
+
+  - task: UseNode@1
+    displayName: Preparar Node.js 24
+    inputs:
+      version: '24.x'
+
+  - script: npm ci --no-fund
+    displayName: Instalar dependencias reproducibles
+
+  - script: npm run typecheck
+    displayName: Comprobar TypeScript
+
+  - script: npm run build
+    displayName: Compilar frontend y backend
+
+  - script: npm run test:workspace
+    displayName: Probar API, transacciones y persistencia SQLite
+
+  - script: npm run test:local
+    displayName: Probar regresión de la demo cloud
+
+  - task: CopyFiles@2
+    displayName: Preparar paquete de código sin bases de datos ni secretos
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)'
+      Contents: |
+        src/**
+        scripts/**
+        docs/**
+        evidencias/*.json
+        package.json
+        package-lock.json
+        tsconfig.json
+        next-env.d.ts
+        next.config.mjs
+        Dockerfile
+        .dockerignore
+        .gitignore
+        .gitattributes
+        .env.example
+        README.md
+        CONTRIBUTING.md
+        LEEME_LOCAL.txt
+        INICIAR_LOCAL.cmd
+        azure-pipelines.yml
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/semilla-source'
+
+  - task: PublishPipelineArtifact@1
+    displayName: Guardar código validado como artefacto de CI
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)/semilla-source'
+      artifact: semilla-source
+
+# CD se añadirá al implementar PostgreSQL, autenticación y configuración cloud.
+# La conexión ARM usará federación de identidades; no guardar contraseñas aquí.

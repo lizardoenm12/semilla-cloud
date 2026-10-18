@@ -1,0 +1,18 @@
+VALIDACIÓN REAL - 16/10/2026, Guatemala
+Entorno: Windows, Node v24.15.0, npm 11.12.1.
+
+npm ci --offline --cache .npm-cache --no-fund --no-audit: exit 0, 93 paquetes.
+npm run typecheck: exit 0.
+npm run build: exit 0, Next.js 16.4.1, salida standalone.
+node scripts/pruebas-locales.mjs: exit 0, 13 comprobaciones aprobadas.
+bash -n scripts/desplegar-azure.sh: exit 0 (Git Bash).
+bash -n scripts/verificar-m2.sh: exit 0 (Git Bash).
+node --check scripts/verificar-m2.mjs: exit 0.
+
+npm informó 0 vulnerabilidades al terminar de retirar @google-cloud/storage.
+No se ha construido la imagen Docker Node 22 en esta máquina.
+No se ha ejecutado la prueba HTTP remota ni se ha usado una suscripción Azure.
+El detalle por caso y fecha UTC está en pruebas-locales.json.
+
+Los primeros intentos fueron bloqueados por DNS/red y enlaces internos del sandbox.
+La validación posterior con los accesos necesarios fue satisfactoria.
