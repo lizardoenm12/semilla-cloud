@@ -6,6 +6,8 @@ import { useToken } from "../token-context";
 type Estado = {
   compute: { entornoDetectado: boolean; servicio: string | null; revision: string | null };
   storage: { ok: boolean; account: string | null; container: string | null };
+  keyVault: { ok: boolean; configurado: boolean; codigo: string };
+  identity: { modo: string; accesoVerificado: boolean };
   consultado: string;
 };
 
@@ -24,10 +26,10 @@ function filas(e: Estado | null): Fila[] {
     cr,
     st,
     { servicio: "Azure Database for PostgreSQL", funcion: "Negocios, productos y movimientos", estado: "Planeado", clase: "plan" },
-    { servicio: "Microsoft Entra ID / identidades administradas", funcion: "Acceso entre servicios con roles acotados", estado: "Pendiente de configurar y verificar", clase: "plan" },
+    { servicio: "Microsoft Entra ID / identidades administradas", funcion: "Acceso entre servicios con roles acotados", estado: e?.identity.accesoVerificado ? (e.identity.modo === "managed-identity" ? "Acceso mediante identidad administrada verificado" : "Acceso mediante sesión de desarrollo verificado; identidad administrada pendiente") : "Sin verificar", clase: e?.identity.accesoVerificado ? "ok" : "plan" },
     { servicio: "Azure Monitor", funcion: "Logs, errores, rendimiento y alertas", estado: "Planeado", clase: "plan" },
     { servicio: "Azure DevOps / Azure Pipelines", funcion: "Pruebas y despliegue desde GitHub", estado: "YAML de CI preparado; ejecución y despliegue pendientes", clase: "plan" },
-    { servicio: "Azure Key Vault", funcion: "Secretos del backend", estado: "Planeado; la demo usa un secreto de Container Apps", clase: "plan" },
+    { servicio: "Azure Key Vault", funcion: "Secretos del backend", estado: e?.keyVault.ok ? "Lectura de secreto verificada; valor oculto" : e ? `Sin acceso verificado: ${e.keyVault.codigo}` : "Sin consultar", clase: e?.keyVault.ok ? "ok" : e ? "falla" : "plan" },
   ];
 }
 
@@ -56,7 +58,7 @@ export default function EstadoServicios() {
     <>
       <h1>Estado de los servicios</h1>
       <p>
-        Se detecta el entorno de ejecución y se prueba acceso de listado al almacenamiento.
+        Se detecta el entorno, se prueba el listado de Blob Storage y se lee un secreto de Key Vault sin mostrar su valor.
         La escritura y lectura se demuestran en Comprobantes. El resto aparece como planeado hasta
         que exista una integración demostrable.
       </p>

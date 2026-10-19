@@ -1,9 +1,11 @@
+> **Guía para Jessel y demo de conexiones Azure:** [docs/GUIA-JESSEL.md](docs/GUIA-JESSEL.md). Ejecutar `npm run dev:cloud` para la demo Azure o `npm run dev:local` para el negocio con SQLite.
+
 # Semilla - asistente para negocios guatemaltecos
 
 **Versión local 0.2.0 - 17/10/2026.** Semilla es un nombre provisional.
 Equipo: Lizardo Gonzalez (24000682) y Jessel Contreras (23011020).
 
-Repositorio previsto: **`semilla-cloud` privado**, pendiente de crear y verificar su URL. Para colaborar, leer [CONTRIBUTING.md](CONTRIBUTING.md). Los [siete servicios Azure acordados](docs/servicios-azure.md) y el YAML `azure-pipelines.yml` definen la continuación hacia la versión compartida. El YAML está preparado para validar el código; no se ha ejecutado en Azure DevOps ni desplegado la aplicación.
+Repositorio privado: https://github.com/lizardoenm12/semilla-cloud. Para colaborar, leer [CONTRIBUTING.md](CONTRIBUTING.md). Los [siete servicios Azure acordados](docs/servicios-azure.md) y el YAML `azure-pipelines.yml` definen la continuación hacia la versión compartida. El YAML está preparado para validar el código; no se ha ejecutado en Azure DevOps ni desplegado la aplicación.
 
 Primera implementación del producto ampliado. Conserva el proyecto Next.js existente y la demostración Azure separada. Funciona localmente con SQLite, sin cuenta Azure, sin claves y sin servicios de IA.
 
@@ -73,7 +75,7 @@ npm.cmd run test:local
 Es una sesión de desarrollo de **un usuario local**, no un sistema de autenticación. El selector separa datos de varios negocios del mismo usuario; todavía no prueba aislamiento entre cuentas reales. Las rutas locales requieren APP_MODE=local (lo configura el lanzador), acceso loopback y origen coincidente para escrituras. Se rechazan entradas inválidas y referencias a productos de otro negocio. No publicar esta sesión como servicio multiusuario; se implementará identidad y autorización real antes de esa etapa.
 
 ## Azure y fases siguientes
-La demo anterior permanece en `/comprobantes` y `/estado`; requiere Azure y su token, y no se usa para trabajar en local. `docs/despliegue.md` conserva la guía de la fase cloud, aún no ejecutada. No hay recursos Azure ni siete servicios desplegados verificados.
+La demo anterior permanece en `/comprobantes` y `/estado`; requiere Azure y su token, y no se usa para trabajar en local. `docs/despliegue.md` conserva la guía de la fase cloud, aún no ejecutada. Lizardo reportó creación de Blob Storage, identidad administrada y Key Vault. La conexión del backend a esos recursos aún necesita una prueba real autenticada; no hay siete servicios integrados.
 
 Siguientes fases: proveedor real de IA, autenticación y roles reales, historial/auditoría más completo, pruebas de concurrencia y migraciones, proyecciones explicables con datos suficientes, mejoras del dashboard por arquetipo, controles de inventario/contabilidad más amplios y migración a PostgreSQL/Azure. Las finanzas personales y pagos recurrentes quedan como una línea futura separada del negocio.
 

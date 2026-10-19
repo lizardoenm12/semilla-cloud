@@ -1,6 +1,9 @@
 import { isAuthorized } from "@/lib/auth";
 import { container, PREFIX, storageErrorCode } from "@/lib/storage";
 
+import { azureCredential } from "@/lib/azure-credential";
+import { checkKeyVault } from "@/lib/keyvault";
+
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
@@ -13,7 +16,10 @@ export async function GET(req: Request) {
   } catch (err) {
     console.error(JSON.stringify({ severity: "WARNING", message: "estado: almacenamiento inaccesible", codigo: storageErrorCode(err) }));
   }
+  const keyVault = await checkKeyVault(azureCredential());
   return Response.json({
+    keyVault,
+    identity: { modo: process.env.CONTAINER_APP_NAME ? "managed-identity" : "developer-session", accesoVerificado: storageOk || keyVault.ok },
     compute: {
       entornoDetectado: Boolean(process.env.CONTAINER_APP_NAME),
       servicio: process.env.CONTAINER_APP_NAME ?? null,
@@ -26,5 +32,5 @@ export async function GET(req: Request) {
       prueba: "listado; escritura y lectura requieren crear y recuperar un comprobante",
     },
     consultado: new Date().toISOString(),
-  });
+  }, { headers: { "Cache-Control": "no-store" } });
 }

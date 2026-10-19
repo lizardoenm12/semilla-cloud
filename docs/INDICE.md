@@ -1,3 +1,5 @@
+Guía de ejecución y presentación actualizada al 19/10: [GUIA-JESSEL.md](GUIA-JESSEL.md). Incluye prueba de conexiones Azure desde una sesión CLI; falta verificarla contra la suscripción.
+
 # Documentación vigente del repositorio
 
 Versión local 0.2.0, actualizada el 17/10/2026.

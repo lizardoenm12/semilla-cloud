@@ -1,6 +1,6 @@
 # Trabajo de Lizardo y Jessel
 
-Repositorio previsto: `semilla-cloud`, privado. Se debe confirmar su URL real después de crearlo. El propietario invita a la otra integrante como colaboradora usando su usuario GitHub; cada uno inicia sesión con su propia cuenta.
+Repositorio privado: https://github.com/lizardoenm12/semilla-cloud. El propietario invita a la otra integrante como colaboradora usando su usuario GitHub; cada uno inicia sesión con su propia cuenta.
 
 ## Primer uso
 

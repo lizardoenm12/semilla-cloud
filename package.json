@@ -11,7 +11,9 @@
     "dev:local": "node scripts/local.mjs",
     "start:local": "node scripts/local.mjs --production",
     "test:workspace": "node scripts/test-workspace.mjs",
-    "diagrams:png": "node scripts/exportar-diagramas.mjs"
+    "diagrams:png": "node scripts/exportar-diagramas.mjs",
+    "dev:cloud": "node scripts/iniciar-cloud-demo.mjs",
+    "test:cloud": "node scripts/test-cloud.mjs"
   },
   "dependencies": {
     "@azure/identity": "4.14.0",

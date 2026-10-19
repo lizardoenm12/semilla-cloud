@@ -1,5 +1,5 @@
 import { BlobServiceClient, ContainerClient } from "@azure/storage-blob";
-import { DefaultAzureCredential } from "@azure/identity";
+import { azureCredential } from "./azure-credential";
 
 export const PREFIX = "comprobantes-demo/";
 const ID_RE = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
@@ -13,9 +13,7 @@ export function container(): ContainerClient {
   if (!account || !/^[a-z0-9]{3,24}$/.test(account) || !name) {
     throw new Error("Configura AZURE_STORAGE_ACCOUNT y AZURE_STORAGE_CONTAINER");
   }
-  const credential = new DefaultAzureCredential({
-    managedIdentityClientId: process.env.AZURE_CLIENT_ID,
-  });
+  const credential = azureCredential();
   client = new BlobServiceClient(`https://${account}.blob.core.windows.net`, credential)
     .getContainerClient(name);
   return client;

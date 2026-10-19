@@ -40,6 +40,9 @@ steps:
   - script: npm run test:workspace
     displayName: Probar API, transacciones y persistencia SQLite
 
+  - script: npm run test:cloud
+    displayName: Probar integración Key Vault con respuestas simuladas
+
   - script: npm run test:local
     displayName: Probar regresión de la demo cloud
 

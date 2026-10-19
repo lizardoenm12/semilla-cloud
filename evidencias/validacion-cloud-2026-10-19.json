@@ -1,0 +1,10 @@
+{
+ "fecha": "2026-10-19",
+ "typecheck": "aprobado",
+ "build": "aprobado",
+ "regresionHTTP": 13,
+ "workspaceBackend": 22,
+ "keyVault": "pruebas simuladas aprobadas: configuración, autenticación, errores, no exposición del secreto",
+ "azureReal": "pendiente de inicio de sesión y prueba contra la suscripción",
+ "navegador": "no repetido en esta revisión"
+}
