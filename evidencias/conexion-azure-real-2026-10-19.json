@@ -1,0 +1,23 @@
+{
+  "fechaUTC": "2026-10-19T23:22:14.117Z",
+  "alcance": "Backend Next.js ejecutado en equipo local con sesión Azure CLI; recursos reales de Azure. No ejecutado en Container Apps.",
+  "autenticacion": "Microsoft Entra ID mediante sesión de desarrollo Azure CLI; identidad administrada aún no probada en ejecución",
+  "storage": {
+    "account": "stclouddevlizardo01",
+    "container": "comprobantes",
+    "listado": true,
+    "escritura": true,
+    "lectura": true,
+    "objetoPrueba": "comprobantes-demo/da50ba46-ee2c-4cd3-a501-769c245079bb.json"
+  },
+  "keyVault": {
+    "vault": "kv-cloud-lizardo-dev",
+    "secreto": "prueba-conexion",
+    "lectura": true,
+    "valorExpuesto": false
+  },
+  "apiSinToken": 401,
+  "containerApps": false,
+  "postgresql": false,
+  "resultado": "aprobado"
+}

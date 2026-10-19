@@ -1,3 +1,5 @@
+> **Actualización 19/10/2026:** backend conectado a Blob Storage y Key Vault, con pruebas reales aprobadas usando Azure CLI. Evidencia en `evidencias/conexion-azure-real-2026-10-19.json`. Container Apps e identidad administrada en ejecución pendientes.
+
 > **Guía para Jessel y demo de conexiones Azure:** [docs/GUIA-JESSEL.md](docs/GUIA-JESSEL.md). Ejecutar `npm run dev:cloud` para la demo Azure o `npm run dev:local` para el negocio con SQLite.
 
 # Semilla - asistente para negocios guatemaltecos

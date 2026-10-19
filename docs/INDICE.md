@@ -1,3 +1,14 @@
+## Conexiones reales verificadas el 19/10/2026
+
+El backend Next.js se ejecutó en el equipo local autenticado con la sesión Azure CLI. Listó Blob Storage, escribió un comprobante sintético y lo recuperó mediante la API. También leyó el secreto prueba-conexion de Key Vault sin exponer su valor. Una consulta sin token de demo devolvió 401. Evidencia: [conexion-azure-real-2026-10-19.json](../evidencias/conexion-azure-real-2026-10-19.json).
+
+Dos servicios conectados y verificados desde el programa: Blob Storage y Key Vault. Microsoft Entra ID autentica la sesión de desarrollo. El uso de id-cloud-app-dev desde Container Apps aún no se ha probado. No hay una URL pública ni PostgreSQL integrado. La prueba cloud sigue separada del flujo del negocio con SQLite.
+
+Para repetir: configura .env.local según .env.example, inicia sesión con Azure CLI y ejecuta npm run dev:cloud. Para la prueba automatizada del equipo de Lizardo: node scripts/verificar-azure-real.mjs. Este script usa los nombres de recursos del proyecto, crea un comprobante sintético real en cada ejecución y necesita la sesión Azure CLI con permisos. No ejecutarlo en CI sin configurar identidad y recursos de prueba.
+
+
+## Registro anterior y guía de configuración
+
 Guía de ejecución y presentación actualizada al 19/10: [GUIA-JESSEL.md](GUIA-JESSEL.md). Incluye prueba de conexiones Azure desde una sesión CLI; falta verificarla contra la suscripción.
 
 # Documentación vigente del repositorio
