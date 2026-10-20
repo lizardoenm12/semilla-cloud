@@ -5,7 +5,7 @@ import { once } from 'node:events';
 const base = 'http://127.0.0.1:3211';
 const token = 'local-test-only-81af7ae6a3a74b569a8d';
 const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3211'],{
- env:{...process.env,NEXT_TELEMETRY_DISABLED:'1',DEMO_TOKEN:token,AZURE_STORAGE_ACCOUNT:'',AZURE_STORAGE_CONTAINER:''},stdio:['ignore','pipe','pipe']
+ env:{...process.env,NEXT_TELEMETRY_DISABLED:'1',DEMO_TOKEN:token,AZURE_STORAGE_ACCOUNT:'',AZURE_STORAGE_CONTAINER:'',AZURE_KEY_VAULT_NAME:''},stdio:['ignore','pipe','pipe']
 });
 try {
  await new Promise((resolve,reject)=>{
@@ -40,6 +40,8 @@ const res=await fetch(base+'/api/estado',{headers:{Authorization:`Bearer ${token
 const state=await res.json();
 assert.equal(state.compute.entornoDetectado,false);
 assert.equal(state.storage.ok,false);
+assert.equal(state.keyVault.ok,false);
+assert.equal(state.keyVault.configurado,false);
 results.push({prueba:'estado no simula servicios desplegados',ok:true});
 await writeFile('evidencias/pruebas-locales.json',JSON.stringify({fechaUTC:new Date().toISOString(),alcance:'HTTP local, sin Azure; no prueba escritura remota',resultados:results},null,2));
 console.log(`${results.length} comprobaciones locales aprobadas`);

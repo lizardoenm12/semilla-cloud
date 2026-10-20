@@ -1,3 +1,5 @@
+Comprobantes reales integrados al negocio, sin Azure: [comprobantes-locales.md](comprobantes-locales.md).
+
 ## Conexiones reales verificadas el 19/10/2026
 
 El backend Next.js se ejecutó en el equipo local autenticado con la sesión Azure CLI. Listó Blob Storage, escribió un comprobante sintético y lo recuperó mediante la API. También leyó el secreto prueba-conexion de Key Vault sin exponer su valor. Una consulta sin token de demo devolvió 401. Evidencia: [conexion-azure-real-2026-10-19.json](../evidencias/conexion-azure-real-2026-10-19.json).

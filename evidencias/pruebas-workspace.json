@@ -1,5 +1,5 @@
 {
-  "fechaUTC": "2026-10-18T03:40:23.298Z",
+  "fechaUTC": "2026-10-20T00:14:00.559Z",
   "alcance": "SQLite local y HTTP, sin Azure ni IA",
   "resultados": [
     {
@@ -83,7 +83,31 @@
       "ok": true
     },
     {
+      "prueba": "Adjunto real asociado al movimiento y descargado sin cambios",
+      "ok": true
+    },
+    {
+      "prueba": "Adjuntos de otro negocio y movimiento inexistente rechazados",
+      "ok": true
+    },
+    {
+      "prueba": "Duplicados, tipo falso, base64 y nombres peligrosos rechazados",
+      "ok": true
+    },
+    {
+      "prueba": "Adjunto mayor de 2 MiB rechazado sin guardarlo",
+      "ok": true
+    },
+    {
+      "prueba": "Límite de cinco archivos y eliminación sin alterar movimientos",
+      "ok": true
+    },
+    {
       "prueba": "Persistencia real después de reiniciar el servidor",
+      "ok": true
+    },
+    {
+      "prueba": "Adjuntos conservados tras reiniciar y esquema actualizado sin perder datos",
       "ok": true
     },
     {
