@@ -1,3 +1,5 @@
+Material de exposición y respuestas: [presentación](docs/presentaciones/Presentacion_defensa_cloud.pptx) y [defensa técnica](docs/defensa-tecnica-cloud.md).
+
 > **Nuevo: movimientos y comprobantes locales.** En la sección “Movimientos y comprobantes” puedes filtrar los 40 registros recientes, seleccionar uno, adjuntar PNG/JPG/PDF, descargarlos y quitarlos. No requiere Azure. Ver [alcance y límites](docs/comprobantes-locales.md).
 
 > **Actualización 19/10/2026:** backend conectado a Blob Storage y Key Vault, con pruebas reales aprobadas usando Azure CLI. Evidencia en `evidencias/conexion-azure-real-2026-10-19.json`. Container Apps e identidad administrada en ejecución pendientes.

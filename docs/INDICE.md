@@ -1,3 +1,5 @@
+Exposición y justificación: [presentación](presentaciones/Presentacion_defensa_cloud.pptx) y [24 preguntas resueltas](defensa-tecnica-cloud.md).
+
 Comprobantes reales integrados al negocio, sin Azure: [comprobantes-locales.md](comprobantes-locales.md).
 
 ## Conexiones reales verificadas el 19/10/2026
