@@ -1,3 +1,4 @@
+import { authMode } from "./identity";
 import { DatabaseSync } from "node:sqlite";
 import { mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -30,6 +31,11 @@ export function database(): DatabaseSync {
  INSERT OR IGNORE INTO schema_version VALUES(2);
  CREATE TABLE IF NOT EXISTS attachment_cloud(attachment_id TEXT PRIMARY KEY REFERENCES movement_attachments(id) ON DELETE CASCADE, account TEXT NOT NULL, container TEXT NOT NULL, object_name TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('pending','uploaded','failed')), updated_at TEXT NOT NULL);
  INSERT OR IGNORE INTO schema_version VALUES(3);
+ CREATE TABLE IF NOT EXISTS auth_sessions(token_hash TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id), expires_at INTEGER NOT NULL);
+ CREATE INDEX IF NOT EXISTS auth_sessions_expiry ON auth_sessions(expires_at);
+ CREATE TABLE IF NOT EXISTS auth_flows(state_hash TEXT PRIMARY KEY, browser_hash TEXT NOT NULL, verifier TEXT NOT NULL, nonce TEXT NOT NULL, expires_at INTEGER NOT NULL);
+ CREATE TABLE IF NOT EXISTS legacy_claims(legacy_user TEXT PRIMARY KEY REFERENCES users(id), owner_user TEXT NOT NULL REFERENCES users(id), claimed_at TEXT NOT NULL);
+ INSERT OR IGNORE INTO schema_version VALUES(4);
  CREATE TABLE IF NOT EXISTS entrepreneur_profiles(user_id TEXT PRIMARY KEY REFERENCES users(id), archetype_id TEXT NOT NULL, updated_at TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS archetype_evaluations(id TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id), archetype_id TEXT NOT NULL, method TEXT NOT NULL DEFAULT 'autoseleccion', created_at TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS diagnostics(id TEXT PRIMARY KEY, business_id TEXT NOT NULL, author_id TEXT NOT NULL, organization INTEGER NOT NULL CHECK(organization BETWEEN 0 AND 2), records INTEGER NOT NULL CHECK(records BETWEEN 0 AND 2), formality TEXT NOT NULL CHECK(formality IN ('sin_evaluar','en_proceso','formal')), created_at TEXT NOT NULL, FOREIGN KEY(business_id,author_id) REFERENCES memberships(business_id,user_id));
@@ -44,7 +50,7 @@ export function database(): DatabaseSync {
  `);
  globalDb.businessDb = db;
  db.prepare("INSERT OR IGNORE INTO users VALUES (?,?)").run(LOCAL_USER,"Emprendedor local");
- if (!db.prepare("SELECT 1 FROM businesses LIMIT 1").get() && process.env.LOCAL_SEED !== "empty") {
+ if (authMode()==="local" && !db.prepare("SELECT 1 FROM businesses LIMIT 1").get() && process.env.LOCAL_SEED !== "empty") {
   db.exec("BEGIN IMMEDIATE");
   try {
    const id = randomUUID(), now = new Date().toISOString();

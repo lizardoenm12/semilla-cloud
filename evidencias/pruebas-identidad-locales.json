@@ -1,0 +1,58 @@
+{
+  "fechaUTC": "2026-10-21T03:34:19.022Z",
+  "alcance": "Identidades simuladas y SQLite aislado, sin Microsoft ni Azure. No constituye un inicio de sesión real.",
+  "resultados": [
+    {
+      "prueba": "Modo Entra no permite principal local implícito",
+      "ok": true
+    },
+    {
+      "prueba": "Primer visitante no hereda los negocios previos",
+      "ok": true
+    },
+    {
+      "prueba": "Solo oid explícito recupera negocios y comprobantes sin cambiar importes",
+      "ok": true
+    },
+    {
+      "prueba": "Otro directorio y email sin oid no autentican",
+      "ok": true
+    },
+    {
+      "prueba": "Contextos concurrentes aíslan usuarios y propietarios",
+      "ok": true
+    },
+    {
+      "prueba": "Sesión opaca: solo hash persistido, token alterado rechazado",
+      "ok": true
+    },
+    {
+      "prueba": "Estado y cookie de navegador, caducidad y uso único del retorno",
+      "ok": true
+    },
+    {
+      "prueba": "HTTP sin sesión no expone negocios ni archivos",
+      "ok": true
+    },
+    {
+      "prueba": "HTTP sesión válida ve solo sus negocios y rechaza ajenos",
+      "ok": true
+    },
+    {
+      "prueba": "HTTP no acepta identidad inventada ni origen ajeno",
+      "ok": true
+    },
+    {
+      "prueba": "Callback sin estado o con cookie incorrecta se rechaza sin contactar Microsoft",
+      "ok": true
+    },
+    {
+      "prueba": "Logout exige origen correcto y revoca solo la sesión elegida",
+      "ok": true
+    },
+    {
+      "prueba": "Sesión caducada no permite acceso",
+      "ok": true
+    }
+  ]
+}

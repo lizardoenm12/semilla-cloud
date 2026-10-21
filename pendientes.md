@@ -11,6 +11,17 @@
 - 28 comprobaciones HTTP locales y pruebas simuladas de errores/reintentos, sin Azure.
 - Guía de ejecución: `docs/comprobantes-azure.md`. Presentación y defensa técnica en `docs`.
 
+## Inicio de sesión preparado — pendiente de habilitación
+- [x] Flujo OIDC con PKCE, validación de firma, state y nonce.
+- [x] Sesiones opacas, cierre de sesión y separación por usuario.
+- [x] Vinculación de los datos previos solo al oid comprobado del propietario.
+- [x] 13 pruebas de identidad y 7 de OIDC con identidades/proveedor simulados, sin Azure.
+- [ ] Registro de `cloud-negocios-dev`: el directorio universitario rechazó la creación por permisos insuficientes.
+- [ ] Validar un inicio de sesión real, consentimiento y MFA después de obtener el registro.
+- [ ] Activar AUTH_MODE=entra solo cuando estén completos el registro y la configuración.
+
+Ver `docs/inicio-sesion-entra.md` y `docs/solicitud-registro-entra.md`. Actualmente continúa el modo local y el respaldo Blob funciona igual.
+
 ## Siguiente prioridad
 - Inicio de sesión real y permisos multiusuario antes de abrir el acceso a terceros.
 - PostgreSQL y despliegue público cuando estén preparados autenticación, costes y cuotas.

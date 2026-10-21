@@ -1,7 +1,9 @@
--- Esquema SQLite local, versión 3: adjuntos y ubicación del respaldo Azure.
+-- Esquema SQLite local, versión 4: adjuntos, respaldo Azure y sesiones por usuario.
 -- Referencia; no ejecutar directamente en PostgreSQL.
 
 CREATE INDEX attachments_movement ON movement_attachments(business_id,movement_id);
+
+CREATE INDEX auth_sessions_expiry ON auth_sessions(expires_at);
 
 CREATE INDEX inventory_product ON inventory_entries(business_id,product_id);
 
@@ -12,6 +14,10 @@ CREATE INDEX proposals_business ON proposals(business_id,created_at);
 CREATE TABLE archetype_evaluations(id TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id), archetype_id TEXT NOT NULL, method TEXT NOT NULL DEFAULT 'autoseleccion', created_at TEXT NOT NULL);
 
 CREATE TABLE attachment_cloud(attachment_id TEXT PRIMARY KEY REFERENCES movement_attachments(id) ON DELETE CASCADE, account TEXT NOT NULL, container TEXT NOT NULL, object_name TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('pending','uploaded','failed')), updated_at TEXT NOT NULL);
+
+CREATE TABLE auth_flows(state_hash TEXT PRIMARY KEY, browser_hash TEXT NOT NULL, verifier TEXT NOT NULL, nonce TEXT NOT NULL, expires_at INTEGER NOT NULL);
+
+CREATE TABLE auth_sessions(token_hash TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id), expires_at INTEGER NOT NULL);
 
 CREATE TABLE businesses(id TEXT PRIMARY KEY, name TEXT NOT NULL, sector TEXT NOT NULL, stage TEXT NOT NULL CHECK(stage IN ('idea','en_marcha','crecimiento')), idea TEXT NOT NULL, customer TEXT NOT NULL, value TEXT NOT NULL, created_at TEXT NOT NULL);
 
@@ -26,6 +32,8 @@ CREATE TABLE improvement_plans(id TEXT PRIMARY KEY, business_id TEXT NOT NULL UN
 CREATE TABLE inventory_entries(id TEXT PRIMARY KEY, business_id TEXT NOT NULL, product_id TEXT NOT NULL, proposal_id TEXT, movement_id TEXT, detail_line INTEGER, quantity_delta INTEGER NOT NULL CHECK(quantity_delta<>0), reason TEXT NOT NULL, created_at TEXT NOT NULL, FOREIGN KEY(business_id,product_id) REFERENCES products(business_id,id), FOREIGN KEY(business_id,proposal_id) REFERENCES proposals(business_id,id), FOREIGN KEY(movement_id,detail_line) REFERENCES movement_details(movement_id,line_number), CHECK((movement_id IS NULL AND detail_line IS NULL) OR (movement_id IS NOT NULL AND detail_line IS NOT NULL)));
 
 CREATE TABLE learning_progress(user_id TEXT NOT NULL REFERENCES users(id), lesson_id TEXT NOT NULL, completed_at TEXT NOT NULL, PRIMARY KEY(user_id,lesson_id));
+
+CREATE TABLE legacy_claims(legacy_user TEXT PRIMARY KEY REFERENCES users(id), owner_user TEXT NOT NULL REFERENCES users(id), claimed_at TEXT NOT NULL);
 
 CREATE TABLE memberships(business_id TEXT NOT NULL REFERENCES businesses(id), user_id TEXT NOT NULL REFERENCES users(id), role TEXT NOT NULL, active INTEGER NOT NULL DEFAULT 1, PRIMARY KEY(business_id,user_id));
 

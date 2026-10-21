@@ -9,7 +9,7 @@ export type Action = { id: string; title: string; reason: string; status: "pendi
 export type Diagnostic = { id: string; organization: number; records: number; formality: string; created_at: string };
 export type Archetype = { id: string; name: string; description: string; guidance: string };
 export type Lesson = { id: string; title: string; minutes: number; body: string; activity: string };
-export type Bootstrap = { user: { id: string; name: string }; businesses: Business[]; archetypes: Archetype[]; lessons: Lesson[]; mode: "local" };
+export type Bootstrap = { authMode: "local" | "entra"; user: { id: string; name: string }; businesses: Business[]; archetypes: Archetype[]; lessons: Lesson[]; mode: "local" };
 export type Snapshot = { business: Business; products: Product[]; proposals: Proposal[]; movements: Movement[]; actions: Action[]; diagnostics: Diagnostic[]; archetypeId: string | null; evaluations: { archetype_id: string; created_at: string }[]; learning: string[]; messages: { id: string; role: string; content: string; created_at: string }[]; stats: { sales: number; expenses: number; purchases: number; balance: number; movements: number }; chart: { day: string; sales: number; expenses: number }[] };
 export const ARCHETYPES: Archetype[] = [
  { id: "equilibristas", name: "Equilibristas Esforzados", description: "Buscas ordenar el negocio mientras atiendes muchas responsabilidades.", guidance: "Empieza con un registro al día y una tarea pequeña." },

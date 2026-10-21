@@ -90,3 +90,7 @@ Los documentos M2 fechados 16/10 reflejan el avance anterior. Para el estado act
 ## Comprobantes de operaciones con Azure
 
 La app local permite respaldar los adjuntos de ventas, gastos y compras en el contenedor privado existente, con estado visible y reintento manual. Las operaciones siguen en SQLite. Ver [configuración y alcance](docs/comprobantes-azure.md).
+
+## Inicio de sesión y acceso por usuario
+
+Flujo Microsoft Entra preparado con sesiones y separación por negocio. **Activación real pendiente del registro autorizado por el administrador del directorio universitario.** El modo local sigue disponible. Ver [estado, configuración y pruebas](docs/inicio-sesion-entra.md) y [solicitud para el administrador](docs/solicitud-registro-entra.md).

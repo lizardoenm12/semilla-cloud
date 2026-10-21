@@ -1,0 +1,34 @@
+{
+  "fechaUTC": "2026-10-21T03:34:20.044Z",
+  "alcance": "Proveedor OIDC simulado, JWT RSA firmado localmente, fetch sustituido solo en esta prueba. Sin Microsoft ni Azure.",
+  "resultados": [
+    {
+      "prueba": "JWT firmado, state, nonce y PKCE válidos",
+      "ok": true
+    },
+    {
+      "prueba": "Rechazo de firma alterada",
+      "ok": true
+    },
+    {
+      "prueba": "Rechazo de emisor ajeno",
+      "ok": true
+    },
+    {
+      "prueba": "Rechazo de audiencia ajena",
+      "ok": true
+    },
+    {
+      "prueba": "Rechazo de nonce ajeno",
+      "ok": true
+    },
+    {
+      "prueba": "Rechazo de ID token caducado",
+      "ok": true
+    },
+    {
+      "prueba": "Rechazo de state ajeno",
+      "ok": true
+    }
+  ]
+}

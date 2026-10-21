@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <TokenProvider>
-          <Encabezado />
+          {process.env.APP_MODE!=="local"&&<Encabezado />}
           <main>{children}</main>
         </TokenProvider>
       </body>

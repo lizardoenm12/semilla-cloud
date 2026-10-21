@@ -15,12 +15,15 @@
     "dev:cloud": "node scripts/iniciar-cloud-demo.mjs",
     "test:cloud": "node scripts/test-cloud.mjs",
     "test:attachments": "node scripts/test-attachment-cloud.mjs",
-    "verify:azure-operation": "node scripts/verificar-operacion-azure.mjs"
+    "verify:azure-operation": "node scripts/verificar-operacion-azure.mjs",
+    "test:auth": "node scripts/test-auth.mjs",
+    "test:oidc": "node scripts/test-oidc.mjs"
   },
   "dependencies": {
     "@azure/identity": "4.14.0",
     "@azure/storage-blob": "12.34.0",
     "next": "16.4.1",
+    "openid-client": "6.8.8",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },

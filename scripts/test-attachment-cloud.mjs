@@ -5,9 +5,9 @@ import {pathToFileURL} from 'node:url';
 import {randomUUID} from 'node:crypto';
 import ts from 'typescript';
 const directory=resolve('tmp/tests','cloud-'+randomUUID());await mkdir(directory,{recursive:true});
-process.env.APP_MODE='local';process.env.LOCAL_DB_PATH=resolve(directory,'test.sqlite');process.env.ATTACHMENT_STORAGE='azure';process.env.AZURE_STORAGE_ACCOUNT='teststorage';process.env.AZURE_STORAGE_CONTAINER='comprobantes';
+process.env.AUTH_MODE='local';process.env.APP_MODE='local';process.env.LOCAL_DB_PATH=resolve(directory,'test.sqlite');process.env.ATTACHMENT_STORAGE='azure';process.env.AZURE_STORAGE_ACCOUNT='teststorage';process.env.AZURE_STORAGE_CONTAINER='comprobantes';
 const state={objects:new Map(),calls:[],fail:false,corrupt:false};globalThis.attachmentTest=state;
-for(const name of ['db','contracts','parser','service','attachments','attachment-cloud']){
+for(const name of ['identity','db','contracts','parser','service','attachments','attachment-cloud']){
  let source=await readFile(`src/lib/local/${name}.ts`,'utf8');
  if(name==='attachment-cloud')source=source.replace('import { BlobServiceClient } from "@azure/storage-blob";','import { BlobServiceClient } from "./mock.mjs";').replace('import { azureCredential } from "../azure-credential";','const azureCredential=()=>({});');
  source=source.replace(/from "\.\/([^".]+)"/g,'from "./$1.mjs"');

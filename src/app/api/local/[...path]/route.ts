@@ -1,3 +1,5 @@
+import { authMode,withPrincipal } from "@/lib/local/identity";
+import { SESSION_COOKIE,cookieValue,sessionPrincipal } from "@/lib/local/auth-store";
 import { cloudEnabled,syncAttachment,attachmentBytes,removeAttachment } from "@/lib/local/attachment-cloud";
 import { listAttachments,createAttachment } from "@/lib/local/attachments";
 import { bootstrap,business,snapshot,createBusiness,createProduct,createProposal,confirmProposal,rejectProposal,saveProfile,diagnose,updateAction,completeLesson,converse,updateBusiness,LocalError } from "@/lib/local/service";
@@ -5,7 +7,7 @@ import { one } from "@/lib/local/db";
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
 type Context={params:Promise<{path:string[]}>};
-async function handle(request:Request,context:Context){
+async function dispatch(request:Request,context:Context){
  const headers={"Cache-Control":"no-store","X-Content-Type-Options":"nosniff"};
  if(process.env.APP_MODE!=="local")return Response.json({error:"Modo local deshabilitado"},{status:404,headers});
  try{
@@ -60,5 +62,15 @@ async function handle(request:Request,context:Context){
   }else throw new LocalError("Ruta no encontrada.",404);
   return Response.json(result,{status:method==="POST"?201:200,headers});
  }catch(error){if(error instanceof LocalError)return Response.json({error:error.message},{status:error.status,headers});console.error("local_api_error",error instanceof Error?error.name:"Error");return Response.json({error:"No se pudo completar la operación local."},{status:500,headers});}
+}
+async function handle(request:Request,context:Context){
+ const headers={"Cache-Control":"no-store"};
+ if(process.env.APP_MODE!=="local")return Response.json({error:"Modo local deshabilitado"},{status:404,headers});
+ try{
+  if(authMode()==="local")return dispatch(request,context);
+  const user=sessionPrincipal(cookieValue(request.headers.get("cookie"),SESSION_COOKIE));
+  if(!user)return Response.json({error:"Inicia sesión para acceder a tu negocio."},{status:401,headers});
+  return await withPrincipal(user,()=>dispatch(request,context));
+ }catch{return Response.json({error:"No se pudo verificar la sesión."},{status:503,headers});}
 }
 export const GET=handle;export const POST=handle;export const PATCH=handle;export const DELETE=handle;
