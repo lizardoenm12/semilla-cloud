@@ -1,0 +1,43 @@
+{
+  "source": "https://prices.azure.com/api/retail/prices?%24filter=armRegionName+eq+%27centralus%27+and+serviceName+eq+%27Azure+Database+for+PostgreSQL%27+and+contains%28productName%2C+%27Flexible+Server%27%29",
+  "items": [
+    {
+      "productName": "Azure Database for PostgreSQL Flexible Server Burstable BS Series Compute",
+      "skuName": "B1MS",
+      "armSkuName": "B1MS",
+      "meterName": "B1MS",
+      "retailPrice": 0.01921,
+      "unitOfMeasure": "1 Hour",
+      "currencyCode": "USD",
+      "effectiveStartDate": "2021-12-01T00:00:00Z"
+    },
+    {
+      "productName": "Azure Database for PostgreSQL Flexible Server Backup Storage",
+      "skuName": "Backup Storage LRS",
+      "armSkuName": "Backup Storage",
+      "meterName": "Backup Storage LRS Data Stored",
+      "retailPrice": 0.108,
+      "unitOfMeasure": "1 GB/Month",
+      "currencyCode": "USD",
+      "effectiveStartDate": "2021-06-01T00:00:00Z"
+    },
+    {
+      "productName": "Azure Database for PostgreSQL Flex Server Storage",
+      "skuName": "Storage",
+      "meterName": "Storage Data Stored",
+      "retailPrice": 0.13,
+      "unitOfMeasure": "1 GB/Month",
+      "currencyCode": "USD"
+    }
+  ],
+  "morePages": false,
+  "estimate": {
+    "computeHours": 730,
+    "compute": 14.0233,
+    "storageGB": 32,
+    "storage": 4.16,
+    "totalBeforeExtras": 18.1833,
+    "notIncluded": "Impuestos, tr\u00e1fico, backup adicional u otros servicios",
+    "creditPlanVerified": "FreeTrial Enabled con spendingLimit On; saldo exacto no consultado"
+  }
+}

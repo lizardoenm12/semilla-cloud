@@ -1,3 +1,5 @@
+> Estado actual: inicio Google real, operaciones y sesiones en Azure PostgreSQL y comprobantes en Azure Blob. La app se ejecuta en este equipo; despliegue público pendiente. La instalación sin credenciales conserva el modo SQLite. Ver [PostgreSQL y migración verificada](docs/postgresql.md).
+
 Material de exposición y respuestas: [presentación](docs/presentaciones/Presentacion_defensa_cloud.pptx) y [defensa técnica](docs/defensa-tecnica-cloud.md).
 
 > **Nuevo: movimientos y comprobantes locales.** En la sección “Movimientos y comprobantes” puedes filtrar los 40 registros recientes, seleccionar uno, adjuntar PNG/JPG/PDF, descargarlos y quitarlos. No requiere Azure. Ver [alcance y límites](docs/comprobantes-locales.md).
@@ -98,3 +100,7 @@ Flujo Microsoft Entra preparado con sesiones y separación por negocio. **Activa
 ## Adaptación a los requisitos del curso
 
 Se prepara Google como acceso alternativo, manteniendo Azure para los servicios cloud. Ver [inicio con Google](docs/inicio-sesion-google.md) y [requisitos y orden de implementación](docs/requisitos/plan-segun-curso.md). La activación real de Google requiere su cliente OAuth; el modo local permanece disponible mientras se configura.
+
+## PostgreSQL para operaciones y sesiones
+
+La app admite PostgreSQL con TLS y conserva el modo SQLite. La migración verifica cada tabla y mantiene identificadores de Google y comprobantes. Ver [configuración, costos y recuperación](docs/postgresql.md). Las evidencias registran si el servidor y el traslado fueron verificados realmente.

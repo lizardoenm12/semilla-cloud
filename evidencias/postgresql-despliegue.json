@@ -1,0 +1,20 @@
+{
+  "fechaUTC": "2026-10-21T04:46:29.784519+00:00",
+  "resourceGroup": "rg-cloud-dev",
+  "server": "pg-cloud-lizardo-dev",
+  "region": "centralus",
+  "sku": "Standard_B1ms",
+  "storageGiB": 32,
+  "postgresqlVersion": "16",
+  "stateVerified": "Ready",
+  "highAvailability": "Disabled",
+  "storageAutoGrow": "Disabled",
+  "backupRetentionDays": 7,
+  "firewallRules": 1,
+  "onlyDevelopmentIpVerified": true,
+  "subscriptionOfferVerified": "FreeTrial_2014-09-01",
+  "spendingLimitVerified": "On",
+  "exactCreditBalanceRead": false,
+  "subscriptionUpgraded": false,
+  "source": "Lecturas Azure CLI previas y verificaci\u00f3n de conexi\u00f3n TLS real"
+}

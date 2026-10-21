@@ -7,7 +7,7 @@ import {resolve} from 'node:path';
 import {randomUUID,createHash} from 'node:crypto';
 const runId=process.env.AZURE_RECEIPT_TEST_RUN??randomUUID(),directory=resolve('tmp/tests','azure-real-'+runId);await mkdir(directory,{recursive:true});
 const base='http://127.0.0.1:3217',cli='C:/Program Files/Microsoft SDKs/Azure/CLI2/wbin';
-const env={...process.env,APP_MODE:'local',AUTH_MODE:'local',ATTACHMENT_STORAGE:'azure',LOCAL_DB_PATH:resolve(directory,'demo.sqlite'),NEXT_TELEMETRY_DISABLED:'1',AZURE_STORAGE_ACCOUNT:'stclouddevlizardo01',AZURE_STORAGE_CONTAINER:'comprobantes'};
+const env={...process.env,APP_MODE:'local',DATABASE_PROVIDER:'sqlite',DATABASE_URL:'',AUTH_MODE:'local',ATTACHMENT_STORAGE:'azure',LOCAL_DB_PATH:resolve(directory,'demo.sqlite'),NEXT_TELEMETRY_DISABLED:'1',AZURE_STORAGE_ACCOUNT:'stclouddevlizardo01',AZURE_STORAGE_CONTAINER:'comprobantes'};
 env.PATH=cli+';'+(env.PATH??env.Path??'');env.Path=env.PATH;delete env.AZURE_CLIENT_ID;
 const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3217'],{env,stdio:['ignore','pipe','pipe']});let logs='';server.stdout.on('data',b=>logs+=b);server.stderr.on('data',b=>logs+=b);
 async function request(path,body){const response=await fetch(base+'/api/local/'+path,body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json',Origin:base},body:JSON.stringify(body),signal:AbortSignal.timeout(60000)});const value=await response.json();assert(response.ok,JSON.stringify(value));return value;}

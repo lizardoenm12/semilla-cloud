@@ -1,3 +1,4 @@
+import { databaseProvider,one } from "@/lib/local/db";
 import { isAuthorized } from "@/lib/auth";
 import { container, PREFIX, storageErrorCode } from "@/lib/storage";
 
@@ -17,8 +18,10 @@ export async function GET(req: Request) {
     console.error(JSON.stringify({ severity: "WARNING", message: "estado: almacenamiento inaccesible", codigo: storageErrorCode(err) }));
   }
   const keyVault = await checkKeyVault(azureCredential());
+  const database={configurado:databaseProvider()==="postgres",ok:false};
+  if(database.configurado){try{database.ok=(await one<{ok:number}>("SELECT 1 AS ok"))?.ok===1;}catch{}}
   return Response.json({
-    keyVault,
+    keyVault,database,
     identity: { modo: process.env.CONTAINER_APP_NAME ? "managed-identity" : "developer-session", accesoVerificado: storageOk || keyVault.ok },
     compute: {
       entornoDetectado: Boolean(process.env.CONTAINER_APP_NAME),

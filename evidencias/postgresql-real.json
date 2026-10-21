@@ -1,0 +1,15 @@
+{
+  "fechaUTC": "2026-10-21T04:42:32.048Z",
+  "resultado": "aprobado",
+  "target": "pg-cloud-lizardo-dev.postgres.database.azure.com",
+  "database": "negocios",
+  "autenticacion": "Sesión interna temporal del propietario Google ya verificado; no realiza otro login Google",
+  "tls": "Certificado del servidor verificado",
+  "role": "asistente_app",
+  "businesses": 2,
+  "rollback": true,
+  "httpAutenticado": 200,
+  "httpSinSesion": 401,
+  "nuevasOperacionesPersistidas": 0,
+  "blobSinCambios": true
+}

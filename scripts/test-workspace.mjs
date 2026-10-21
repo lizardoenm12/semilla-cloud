@@ -8,7 +8,7 @@ const directory=resolve('tmp/tests',randomUUID());await mkdir(directory,{recursi
 const db=resolve(directory,'test.sqlite'), base='http://127.0.0.1:3213',results=[];
 let server,logs='';
 async function start(mode='local'){
- server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3213'],{env:{...process.env,APP_MODE:mode,AUTH_MODE:"local",ATTACHMENT_STORAGE:"local",LOCAL_DB_PATH:db,NEXT_TELEMETRY_DISABLED:'1'},stdio:['ignore','pipe','pipe']});
+ server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3213'],{env:{...process.env,APP_MODE:mode,DATABASE_PROVIDER:"sqlite",DATABASE_URL:"",AUTH_MODE:"local",ATTACHMENT_STORAGE:"local",LOCAL_DB_PATH:db,NEXT_TELEMETRY_DISABLED:'1'},stdio:['ignore','pipe','pipe']});
  await new Promise((yes,no)=>{const timeout=setTimeout(()=>no(new Error('El servidor no inició')),25000);server.once('error',no);server.once('exit',()=>{clearTimeout(timeout);no(new Error('El servidor terminó antes de iniciar'));});server.stdout.on('data',b=>{logs+=b; if(b.toString().includes('Ready')){clearTimeout(timeout);yes();}});server.stderr.on('data',b=>logs+=b);});
 }
 async function stop(){if(server&&server.exitCode===null){server.kill();await once(server,'exit');}}

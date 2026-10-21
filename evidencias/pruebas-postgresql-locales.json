@@ -1,0 +1,50 @@
+{
+  "fechaUTC": "2026-10-21T04:35:02.007Z",
+  "alcance": "Motor PostgreSQL PGlite local; transporte pg adaptado solo en la prueba. Sin Azure. No valida red, certificados o capacidad de Azure.",
+  "resultados": [
+    {
+      "prueba": "Esquema PostgreSQL, TLS verificado y usuarios Google",
+      "ok": true
+    },
+    {
+      "prueba": "Venta y gasto en una sola transacción PostgreSQL",
+      "ok": true
+    },
+    {
+      "prueba": "Confirmación duplicada se rechaza sin cambiar saldos",
+      "ok": true
+    },
+    {
+      "prueba": "Stock insuficiente revierte toda la operación",
+      "ok": true
+    },
+    {
+      "prueba": "Perfil, aprendizaje idempotente y orden de mensajes",
+      "ok": true
+    },
+    {
+      "prueba": "Adjunto y descarga conservan bytes y no modifican saldos",
+      "ok": true
+    },
+    {
+      "prueba": "Negocios y archivos ajenos se rechazan con PostgreSQL",
+      "ok": true
+    },
+    {
+      "prueba": "Sesiones guardan fechas en milisegundos sin desbordar INTEGER",
+      "ok": true
+    },
+    {
+      "prueba": "Reintento SERIALIZABLE y liberación de la conexión",
+      "ok": true
+    },
+    {
+      "prueba": "Valores parametrizados y enteros seguros",
+      "ok": true
+    },
+    {
+      "prueba": "Migración transaccional conserva hashes, orden y rechaza destino ocupado",
+      "ok": true
+    }
+  ]
+}

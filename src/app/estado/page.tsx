@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useToken } from "../token-context";
 
 type Estado = {
+  database?: {configurado:boolean;ok:boolean};
   compute: { entornoDetectado: boolean; servicio: string | null; revision: string | null };
   storage: { ok: boolean; account: string | null; container: string | null };
   keyVault: { ok: boolean; configurado: boolean; codigo: string };
@@ -25,10 +26,10 @@ function filas(e: Estado | null): Fila[] {
   return [
     cr,
     st,
-    { servicio: "Azure Database for PostgreSQL", funcion: "Negocios, productos y movimientos", estado: "Planeado", clase: "plan" },
+    { servicio: "Azure Database for PostgreSQL", funcion: "Negocios, productos, operaciones y sesiones", estado: e?.database?.ok?"Conexión real verificada":e?.database?.configurado?"Configurado; sin conexión verificada":"Sin configurar", clase: e?.database?.ok?"ok":e?.database?.configurado?"falla":"plan" },
     { servicio: "Microsoft Entra ID / identidades administradas", funcion: "Acceso entre servicios con roles acotados", estado: e?.identity.accesoVerificado ? (e.identity.modo === "managed-identity" ? "Acceso mediante identidad administrada verificado" : "Acceso mediante sesión de desarrollo verificado; identidad administrada pendiente") : "Sin verificar", clase: e?.identity.accesoVerificado ? "ok" : "plan" },
     { servicio: "Azure Monitor", funcion: "Logs, errores, rendimiento y alertas", estado: "Planeado", clase: "plan" },
-    { servicio: "Azure DevOps / Azure Pipelines", funcion: "Pruebas y despliegue desde GitHub", estado: "YAML de CI preparado; ejecución y despliegue pendientes", clase: "plan" },
+    { servicio: "GitHub Actions hacia Azure", funcion: "Pruebas y despliegue desde GitHub", estado: "Despliegue automatizado pendiente", clase: "plan" },
     { servicio: "Azure Key Vault", funcion: "Secretos del backend", estado: e?.keyVault.ok ? "Lectura de secreto verificada; valor oculto" : e ? `Sin acceso verificado: ${e.keyVault.codigo}` : "Sin consultar", clase: e?.keyVault.ok ? "ok" : e ? "falla" : "plan" },
   ];
 }

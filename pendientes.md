@@ -1,3 +1,14 @@
+## Avance confirmado PostgreSQL
+- [x] Inicio Google real y negocios anteriores vinculados al propietario verificado.
+- [x] PostgreSQL Flexible Server B1ms/32 GB en Central US, Ready.
+- [x] Migración verificada de 22 tablas y 50 registros; conserva 2 negocios, 5 operaciones y el adjunto existente.
+- [x] App activa en PostgreSQL con rol de datos, TLS verificado y acceso limitado a IP de desarrollo.
+- [x] Copia SQLite conservada; no se crearon gastos ficticios ni se volvieron a cargar archivos a Blob.
+- [ ] Integrar la credencial de la base con Key Vault y preparar el acceso del servidor para el despliegue.
+- [ ] Container Apps con HTTPS, política de acceso del piloto, Monitor y GitHub Actions.
+
+Las notas de iteraciones anteriores se conservan debajo como historial; el estado actual prevalece.
+
 # Estado y siguientes pasos — 20/10/2026
 
 ## Implementado y verificado

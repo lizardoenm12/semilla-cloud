@@ -20,7 +20,7 @@ Fuente: `Course_Project_2026.docx`, copia del Word entregado por el usuario. El 
 | Azure Blob Storage | Adjuntos de operaciones en contenedor privado | Carga y descarga integradas y verificadas con recursos reales |
 | Microsoft Entra ID / Azure RBAC | Autorizar al servidor con roles acotados y futura identidad administrada | Roles configurados, sesión CLI utilizada; identidad administrada creada, ejecución desplegada pendiente |
 | Azure Key Vault | Credenciales privadas del servidor | Lectura de prueba verificada; integración funcional para secretos de la app pendiente |
-| Azure Database for PostgreSQL | Operaciones, usuarios, membresías y sesiones persistentes | Pendiente; hoy SQLite local |
+| Azure Database for PostgreSQL | Operaciones, usuarios, membresías y sesiones persistentes | Integrado y activo; migración verificada y prueba real con rollback |
 | Azure Container Apps | Ejecutar la app en una URL HTTPS | Pendiente |
 | Azure Monitor | Logs y seguimiento de fallos de la app desplegada | Pendiente; no contar únicamente logs predeterminados sin integración demostrada |
 | CI/CD con GitHub Actions hacia Azure | Compilar y desplegar de forma reproducible | Pendiente; el Word acepta GitHub Actions desplegando a cloud. Reemplaza la necesidad de abrir Azure DevOps solo para este fin |
@@ -29,8 +29,8 @@ Google se plantea para identificar usuarios, sin contarlo por ahora como un octa
 
 ## Orden de trabajo
 
-1. Completar las credenciales Google y verificar un inicio de sesión real. Conservar el control de acceso por propietario y recuperar los negocios solo con una identidad explícitamente verificada.
-2. Preparar PostgreSQL, revisar configuración y costo con el calculador vigente y migrar una copia aislada. No eliminar ni reemplazar SQLite antes de comprobar transacciones y datos.
+1. Acceso Google real completado. Conservar el control de acceso por propietario y recuperar los negocios solo con una identidad explícitamente verificada.
+2. PostgreSQL activado tras verificar el traslado y el costo oficial. No eliminar ni reemplazar SQLite antes de comprobar transacciones y datos.
 3. Integrar las credenciales necesarias con Key Vault y el acceso del servidor por identidad administrada en Azure.
 4. Desplegar una sola instancia de prueba en Container Apps, con HTTPS y persistencia externa; comprobar el flujo completo sin pruebas de carga masivas.
 5. Conectar observabilidad y CI/CD de GitHub Actions; documentar evidencia de los siete servicios.

@@ -1,0 +1,150 @@
+{
+  "fechaUTC": "2026-10-21T04:42:02.286Z",
+  "source": "SQLite local, copia consistente",
+  "target": "pg-cloud-lizardo-dev.postgres.database.azure.com",
+  "database": "negocios",
+  "backup": ".data/backups/antes-postgres-1792557703259.sqlite",
+  "tables": [
+    {
+      "table": "users",
+      "rows": 2,
+      "sha256": "f36a2781ad1c4db03c762bd1a2dfbe6f9ecbefcaa5b8e988cc94984b5b51b7f3",
+      "verified": true
+    },
+    {
+      "table": "businesses",
+      "rows": 2,
+      "sha256": "1217f76fd2917b5b57ca148b0e4c5ab2b9b9a3fb7284d64e6f12ea6a97e735ad",
+      "verified": true
+    },
+    {
+      "table": "memberships",
+      "rows": 4,
+      "sha256": "1cd45838420099f4d13117da0b229309c01d8211b93cc3234a8d93e5757692a6",
+      "verified": true
+    },
+    {
+      "table": "products",
+      "rows": 3,
+      "sha256": "385125bae3baaa882a173be40e62dc228295c8cacf6c1812cc63c337ff52d10e",
+      "verified": true
+    },
+    {
+      "table": "proposals",
+      "rows": 5,
+      "sha256": "9bb98ca25860458f54373bb848bf972c77b25ab92337b8737ca18927c127aeb9",
+      "verified": true
+    },
+    {
+      "table": "movements",
+      "rows": 5,
+      "sha256": "5a6a10c281d6e21dfff9edd5649103d13ea456d3ee86bceb02197d83e280ffed",
+      "verified": true
+    },
+    {
+      "table": "movement_details",
+      "rows": 5,
+      "sha256": "a24d925e129c0ca8cd3b35c55fa7752f02cad0f0cd6d5383ce89a6b12a68f088",
+      "verified": true
+    },
+    {
+      "table": "inventory_entries",
+      "rows": 5,
+      "sha256": "d4ad1503c0cf3249b2230c05c5f977858622d62c1880bd40fc566db496b2e193",
+      "verified": true
+    },
+    {
+      "table": "receipts",
+      "rows": 5,
+      "sha256": "8bdcb0e1085b19df73f82c56f2345a3da8acbd42bf1cde797449bd58e1a4f2bf",
+      "verified": true
+    },
+    {
+      "table": "movement_attachments",
+      "rows": 1,
+      "sha256": "7bd772c938da71b32f93f397e661eccc06aba93d274979832547ee9eeefd26a7",
+      "verified": true
+    },
+    {
+      "table": "attachment_cloud",
+      "rows": 1,
+      "sha256": "56fd9077132c518128573e1d6a59cc9eadf484ca69644df360760c7c1574f076",
+      "verified": true
+    },
+    {
+      "table": "auth_sessions",
+      "rows": 1,
+      "sha256": "05ed45b83c97b46879876b427584e3ceb94811446886752cb3bfc51637599a7f",
+      "verified": true
+    },
+    {
+      "table": "auth_flows",
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "verified": true
+    },
+    {
+      "table": "legacy_claims",
+      "rows": 1,
+      "sha256": "1450ac51f7ff7622b48bca7895f5e2ff41943196d59a48634927d764e8fc78e8",
+      "verified": true
+    },
+    {
+      "table": "entrepreneur_profiles",
+      "rows": 2,
+      "sha256": "1fa6632b535091d0e8f5b348dd6aa67eb137bac0250fda62686849ffa72011f0",
+      "verified": true
+    },
+    {
+      "table": "archetype_evaluations",
+      "rows": 2,
+      "sha256": "91a59497af38d0dc2a3fd799afc3bf701f1f04ac897ba8d8b337a4b2c0028b31",
+      "verified": true
+    },
+    {
+      "table": "diagnostics",
+      "rows": 1,
+      "sha256": "dd1e888a3e6243fad7b8593db9872a705e712b8f8f45dc5032cbe86ae9befe34",
+      "verified": true
+    },
+    {
+      "table": "improvement_plans",
+      "rows": 1,
+      "sha256": "fc3f6c4c992cd15f58b3c2afe581302c8494a640fde6e8b10b27563adebed72f",
+      "verified": true
+    },
+    {
+      "table": "plan_actions",
+      "rows": 4,
+      "sha256": "67080ffda1067dbd3420229eaad7d2112fc09fa0d026e59ec5f5afc91153f9bc",
+      "verified": true
+    },
+    {
+      "table": "learning_progress",
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "verified": true
+    },
+    {
+      "table": "conversations",
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "verified": true
+    },
+    {
+      "table": "messages",
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "verified": true
+    }
+  ],
+  "verified": true,
+  "activated": true,
+  "activadoUTC": "2026-10-21T04:43:49.539Z",
+  "counts": {
+    "businesses": 2,
+    "movements": 5,
+    "movement_attachments": 1,
+    "attachment_cloud": 1
+  }
+}

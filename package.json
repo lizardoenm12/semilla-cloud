@@ -19,18 +19,24 @@
     "test:auth": "node scripts/test-auth.mjs",
     "test:oidc": "node scripts/test-oidc.mjs",
     "test:google": "node scripts/test-google.mjs",
-    "configure:google": "node scripts/configurar-google.mjs"
+    "configure:google": "node scripts/configurar-google.mjs",
+    "test:postgres": "node scripts/test-postgres.mjs",
+    "db:migrate:postgres": "node scripts/migrar-postgres.mjs",
+    "verify:postgres-real": "node scripts/verificar-postgres-real.mjs"
   },
   "dependencies": {
     "@azure/identity": "4.14.0",
     "@azure/storage-blob": "12.34.0",
     "next": "16.4.1",
     "openid-client": "6.8.8",
+    "pg": "8.23.1",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.10",
     "@types/node": "20.19.43",
+    "@types/pg": "8.23.1",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "typescript": "5.9.3"
