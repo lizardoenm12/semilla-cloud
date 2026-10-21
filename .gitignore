@@ -20,3 +20,6 @@ tmp
 
 .env*
 !.env.example
+
+# Descargas OAuth de Google: contienen el secreto del cliente.
+client_secret*.json

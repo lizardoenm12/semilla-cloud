@@ -94,3 +94,7 @@ La app local permite respaldar los adjuntos de ventas, gastos y compras en el co
 ## Inicio de sesión y acceso por usuario
 
 Flujo Microsoft Entra preparado con sesiones y separación por negocio. **Activación real pendiente del registro autorizado por el administrador del directorio universitario.** El modo local sigue disponible. Ver [estado, configuración y pruebas](docs/inicio-sesion-entra.md) y [solicitud para el administrador](docs/solicitud-registro-entra.md).
+
+## Adaptación a los requisitos del curso
+
+Se prepara Google como acceso alternativo, manteniendo Azure para los servicios cloud. Ver [inicio con Google](docs/inicio-sesion-google.md) y [requisitos y orden de implementación](docs/requisitos/plan-segun-curso.md). La activación real de Google requiere su cliente OAuth; el modo local permanece disponible mientras se configura.

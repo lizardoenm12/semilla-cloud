@@ -1,0 +1,38 @@
+{
+  "fechaUTC": "2026-10-21T03:58:48.101Z",
+  "alcance": "Identidades Google simuladas y SQLite aislado. Sin llamadas a Google o Azure. El acceso Google real sigue pendiente de credenciales OAuth.",
+  "resultados": [
+    {
+      "prueba": "Google usa sub y no nombre/correo; no hereda negocios por llegar primero",
+      "ok": true
+    },
+    {
+      "prueba": "Google rechaza issuer ajeno y sub inválido",
+      "ok": true
+    },
+    {
+      "prueba": "Vinculación explícita conserva operaciones y archivos; otro usuario no accede",
+      "ok": true
+    },
+    {
+      "prueba": "Cambiar proveedor no acepta una sesión del proveedor anterior",
+      "ok": true
+    },
+    {
+      "prueba": "Pantalla de Google y API sin sesión protegida, sin contactar Google",
+      "ok": true
+    },
+    {
+      "prueba": "HTTP sesión Google separa negocios y descargas",
+      "ok": true
+    },
+    {
+      "prueba": "Logout Google revoca la sesión",
+      "ok": true
+    },
+    {
+      "prueba": "Configurador privado valida el retorno y conserva las variables Azure",
+      "ok": true
+    }
+  ]
+}

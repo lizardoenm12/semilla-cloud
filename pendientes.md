@@ -30,3 +30,11 @@ Ver `docs/inicio-sesion-entra.md` y `docs/solicitud-registro-entra.md`. Actualme
 - Actualizar diagramas y presentación con el flujo integrado cuando se solicite.
 
 No crear servicios ni ejecutar pruebas de carga sin revisar el presupuesto. La operación aún reside en SQLite local; solo el archivo adjunto se respalda en Azure. La identidad administrada existe, pero la ejecución local usa la sesión de Azure CLI.
+
+## Ajuste después de recibir el Word del curso
+- [x] Copia de los requisitos en `docs/requisitos/Course_Project_2026.docx` y matriz de servicios/estado.
+- [x] Google preparado como proveedor alternativo; no se exige iniciar sesión Microsoft para cumplir IAM.
+- [ ] Crear cliente OAuth Google en un proyecto propio y verificar un inicio de sesión real.
+- [ ] Vincular el sub Google del propietario original después de comprobar su identidad.
+- [ ] PostgreSQL → secretos funcionales en Key Vault → Container Apps → Monitor → GitHub Actions.
+- [ ] Entrega final con URL, PDF y video; ver `docs/requisitos/plan-segun-curso.md`.

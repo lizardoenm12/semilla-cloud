@@ -1,6 +1,6 @@
 import { createHash,randomBytes } from "node:crypto";
 import { one,run,transaction } from "./db";
-import type { Principal } from "./identity";
+import { authMode,type Principal } from "./identity";
 export const SESSION_COOKIE="cloud_session",FLOW_COOKIE="cloud_login";
 export const SESSION_SECONDS=8*60*60;
 const guid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -10,7 +10,9 @@ export const randomToken=()=>randomBytes(32).toString("base64url");
 export function cookieValue(raw:string|null,name:string){return raw?.split(";").map(v=>v.trim()).find(v=>v.startsWith(name+"="))?.slice(name.length+1);}
 export function sessionPrincipal(token:string|undefined):Principal|null {
  if(!token||!tokenPattern.test(token))return null;
- return one<Principal>("SELECT u.id,u.name FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=? AND s.expires_at>?",digest(token),Date.now())??null;
+ const user=one<Principal>("SELECT u.id,u.name FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=? AND s.expires_at>?",digest(token),Date.now())??null;
+ if(user&&authMode()!=="local"&&!user.id.startsWith(authMode()+":"))return null;
+ return user;
 }
 export function revokeSession(token:string|undefined){if(token&&tokenPattern.test(token))run("DELETE FROM auth_sessions WHERE token_hash=?",digest(token));}
 export function createFlow(verifier:string,nonce:string){
@@ -28,13 +30,16 @@ export function consumeFlow(state:string|null,browser:string|undefined){
  });
 }
 /** Solo llamar tras verificar el ID token OIDC. Nunca se vincula por email ni por primer visitante. */
-export function provisionPrincipal(claims:{oid?:unknown;tid?:unknown;name?:unknown;sub?:unknown}){
+export function provisionPrincipal(claims:{oid?:unknown;tid?:unknown;name?:unknown;sub?:unknown;iss?:unknown}){
  const tenant=process.env.AUTH_TENANT_ID?.toLowerCase(),oid=String(claims.oid??"").toLowerCase(),tid=String(claims.tid??"").toLowerCase();
- if(!tenant||!guid.test(tenant)||!guid.test(oid)||tid!==tenant||typeof claims.sub!=="string"||!claims.sub)throw new Error("Identidad no permitida");
- const principal={id:`entra:${tid}:${oid}`,name:typeof claims.name==="string"?claims.name.slice(0,150):"Usuario de Microsoft"};
+ const google=authMode()==="google";
+ if(google){if(claims.iss!=="https://accounts.google.com"||typeof claims.sub!=="string"||!/^[A-Za-z0-9_-]{1,255}$/.test(claims.sub))throw new Error("Identidad Google no permitida");}
+ else if(!tenant||!guid.test(tenant)||!guid.test(oid)||tid!==tenant||typeof claims.sub!=="string"||!claims.sub)throw new Error("Identidad no permitida");
+ const principal={id:google?`google:${claims.sub}`:`entra:${tid}:${oid}`,name:typeof claims.name==="string"?claims.name.slice(0,150):google?"Usuario de Google":"Usuario de Microsoft"};
+ const owner=google?!!process.env.AUTH_LEGACY_GOOGLE_SUB&&claims.sub===process.env.AUTH_LEGACY_GOOGLE_SUB:oid===process.env.AUTH_LEGACY_OWNER_OBJECT_ID?.toLowerCase();
  transaction(()=>{
   run("INSERT INTO users VALUES (?,?) ON CONFLICT(id) DO UPDATE SET name=excluded.name",principal.id,principal.name);
-  if(oid===process.env.AUTH_LEGACY_OWNER_OBJECT_ID?.toLowerCase()){
+  if(owner){
    const existing=one<{owner_user:string}>("SELECT owner_user FROM legacy_claims WHERE legacy_user='usuario-local'");
    if(existing&&existing.owner_user!==principal.id)throw new Error("El propietario anterior ya fue vinculado");
    if(!existing){

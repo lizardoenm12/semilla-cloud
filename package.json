@@ -17,7 +17,9 @@
     "test:attachments": "node scripts/test-attachment-cloud.mjs",
     "verify:azure-operation": "node scripts/verificar-operacion-azure.mjs",
     "test:auth": "node scripts/test-auth.mjs",
-    "test:oidc": "node scripts/test-oidc.mjs"
+    "test:oidc": "node scripts/test-oidc.mjs",
+    "test:google": "node scripts/test-google.mjs",
+    "configure:google": "node scripts/configurar-google.mjs"
   },
   "dependencies": {
     "@azure/identity": "4.14.0",
