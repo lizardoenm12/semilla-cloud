@@ -1,4 +1,5 @@
-import { listAttachments,createAttachment,readAttachment,deleteAttachment } from "@/lib/local/attachments";
+import { cloudEnabled,syncAttachment,attachmentBytes,removeAttachment } from "@/lib/local/attachment-cloud";
+import { listAttachments,createAttachment } from "@/lib/local/attachments";
 import { bootstrap,business,snapshot,createBusiness,createProduct,createProposal,confirmProposal,rejectProposal,saveProfile,diagnose,updateAction,completeLesson,converse,updateBusiness,LocalError } from "@/lib/local/service";
 import { one } from "@/lib/local/db";
 export const runtime="nodejs";
@@ -36,13 +37,14 @@ async function handle(request:Request,context:Context){
    else if(method==="GET"&&path[2]==="receipts"&&path[3]&&path.length===4){const receipt=one<{payload:string}>("SELECT payload FROM receipts WHERE business_id=? AND id=?",id,path[3]);if(!receipt)throw new LocalError("Comprobante no encontrado.",404);result=JSON.parse(receipt.payload);}
    else if(path[2]==="movements"&&path[3]&&path[4]==="attachments"){
     const movementId=path[3];
-    if(method==="GET"&&path.length===5)result={items:listAttachments(id,movementId)};
-    else if(method==="POST"&&path.length===5)result=createAttachment(id,movementId,body);
-    else if(method==="DELETE"&&path.length===6)result=deleteAttachment(id,movementId,path[5]);
+    if(method==="GET"&&path.length===5)result={items:listAttachments(id,movementId),cloudEnabled:cloudEnabled()};
+    else if(method==="POST"&&path.length===5){const made=createAttachment(id,movementId,body); if(cloudEnabled()){try{result=await syncAttachment(id,movementId,made.id);}catch{result={...made,cloud_status:"failed"};}}else result=made;}
+    else if(method==="DELETE"&&path.length===6)result=await removeAttachment(id,movementId,path[5]);
+    else if(method==="POST"&&path.length===7&&path[6]==="sync")result=await syncAttachment(id,movementId,path[5]);
     else if(method==="GET"&&path.length===6){
-     const item=readAttachment(id,movementId,path[5]);
-     const bytes=Uint8Array.from(Buffer.from(item.content_base64,"base64"));
-     return new Response(bytes,{headers:{...headers,"Content-Type":item.content_type,"Content-Length":String(bytes.length),"Content-Security-Policy":"sandbox; default-src 'none'","Content-Disposition":`attachment; filename="comprobante"; filename*=UTF-8''${encodeURIComponent(item.filename)}`}});
+     const downloaded=await attachmentBytes(id,movementId,path[5]);
+     const item=downloaded.item,bytes=Uint8Array.from(downloaded.bytes);
+     return new Response(bytes,{headers:{...headers,"X-Attachment-Source":downloaded.source,"Content-Type":item.content_type,"Content-Length":String(bytes.length),"Content-Security-Policy":"sandbox; default-src 'none'","Content-Disposition":`attachment; filename="comprobante"; filename*=UTF-8''${encodeURIComponent(item.filename)}`}});
     }else throw new LocalError("Ruta no encontrada.",404);
    }
    else if(method==="POST"&&path.length===3&&path[2]==="products")result=createProduct(id,body);

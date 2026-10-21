@@ -86,3 +86,7 @@ La demo anterior permanece en `/comprobantes` y `/estado`; requiere Azure y su t
 Siguientes fases: proveedor real de IA, autenticación y roles reales, historial/auditoría más completo, pruebas de concurrencia y migraciones, proyecciones explicables con datos suficientes, mejoras del dashboard por arquetipo, controles de inventario/contabilidad más amplios y migración a PostgreSQL/Azure. Las finanzas personales y pagos recurrentes quedan como una línea futura separada del negocio.
 
 Los documentos M2 fechados 16/10 reflejan el avance anterior. Para el estado actual consultar `docs/avance-local-2026-10-17.md`.
+
+## Comprobantes de operaciones con Azure
+
+La app local permite respaldar los adjuntos de ventas, gastos y compras en el contenedor privado existente, con estado visible y reintento manual. Las operaciones siguen en SQLite. Ver [configuración y alcance](docs/comprobantes-azure.md).

@@ -13,7 +13,9 @@
     "test:workspace": "node scripts/test-workspace.mjs",
     "diagrams:png": "node scripts/exportar-diagramas.mjs",
     "dev:cloud": "node scripts/iniciar-cloud-demo.mjs",
-    "test:cloud": "node scripts/test-cloud.mjs"
+    "test:cloud": "node scripts/test-cloud.mjs",
+    "test:attachments": "node scripts/test-attachment-cloud.mjs",
+    "verify:azure-operation": "node scripts/verificar-operacion-azure.mjs"
   },
   "dependencies": {
     "@azure/identity": "4.14.0",

@@ -1,3 +1,5 @@
+> Actualización 20/10/2026: hay respaldo Azure opcional integrado con los movimientos; ver [comprobantes-azure.md](comprobantes-azure.md). La copia local y los límites descritos aquí se conservan.
+
 # Comprobantes reales de movimientos
 
 Esta función trabaja íntegramente en local. No crea recursos ni realiza llamadas a Azure. La demo cloud de comprobantes sintéticos conserva su funcionamiento separado.

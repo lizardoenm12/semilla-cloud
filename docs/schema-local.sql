@@ -1,7 +1,17 @@
--- Esquema local SQLite. Incluye adjuntos de movimientos (schema_version 2).
--- No ejecutar directamente en PostgreSQL.
+-- Esquema SQLite local, versión 3: adjuntos y ubicación del respaldo Azure.
+-- Referencia; no ejecutar directamente en PostgreSQL.
+
+CREATE INDEX attachments_movement ON movement_attachments(business_id,movement_id);
+
+CREATE INDEX inventory_product ON inventory_entries(business_id,product_id);
+
+CREATE INDEX movements_business ON movements(business_id,created_at);
+
+CREATE INDEX proposals_business ON proposals(business_id,created_at);
 
 CREATE TABLE archetype_evaluations(id TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id), archetype_id TEXT NOT NULL, method TEXT NOT NULL DEFAULT 'autoseleccion', created_at TEXT NOT NULL);
+
+CREATE TABLE attachment_cloud(attachment_id TEXT PRIMARY KEY REFERENCES movement_attachments(id) ON DELETE CASCADE, account TEXT NOT NULL, container TEXT NOT NULL, object_name TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('pending','uploaded','failed')), updated_at TEXT NOT NULL);
 
 CREATE TABLE businesses(id TEXT PRIMARY KEY, name TEXT NOT NULL, sector TEXT NOT NULL, stage TEXT NOT NULL CHECK(stage IN ('idea','en_marcha','crecimiento')), idea TEXT NOT NULL, customer TEXT NOT NULL, value TEXT NOT NULL, created_at TEXT NOT NULL);
 
@@ -38,11 +48,3 @@ CREATE TABLE receipts(id TEXT PRIMARY KEY, business_id TEXT NOT NULL, movement_i
 CREATE TABLE schema_version(version INTEGER PRIMARY KEY);
 
 CREATE TABLE users(id TEXT PRIMARY KEY, name TEXT NOT NULL);
-
-CREATE INDEX attachments_movement ON movement_attachments(business_id,movement_id);
-
-CREATE INDEX inventory_product ON inventory_entries(business_id,product_id);
-
-CREATE INDEX movements_business ON movements(business_id,created_at);
-
-CREATE INDEX proposals_business ON proposals(business_id,created_at);

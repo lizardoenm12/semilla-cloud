@@ -1,0 +1,22 @@
+{
+  "fechaUTC": "2026-10-21T03:07:14.489Z",
+  "resultado": "aprobado",
+  "alcance": "Operación confirmada en SQLite aislado y comprobante PNG real en Azure privado. No usa ni modifica los negocios del usuario.",
+  "businessId": "c7523b4c-8f21-40de-a227-5caaff37514d",
+  "movementId": "a2aed4d6-a7b0-4bad-93db-594a93188907",
+  "attachmentId": "94aca8d0-7f87-4593-81a0-b9bfd7370c5b",
+  "objectName": "operaciones/c7523b4c-8f21-40de-a227-5caaff37514d/a2aed4d6-a7b0-4bad-93db-594a93188907/94aca8d0-7f87-4593-81a0-b9bfd7370c5b",
+  "account": "stclouddevlizardo01",
+  "container": "comprobantes",
+  "bytes": 68,
+  "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+  "source": "azure",
+  "operacionSinCambios": true,
+  "operacionesAzure": {
+    "cargas": 0,
+    "descargas": 1
+  },
+  "notaPrueba": "Una carga inicial y dos intentos de descarga en total: se corrigió el rango solicitado al SDK tras el primer intento.",
+  "archivoPrueba": "Conservado para demostración; puede quitarse desde la app con LOCAL_DB_PATH apuntando al SQLite aislado.",
+  "baseLocalRelativa": "tmp/tests/azure-real-b3de0482-17ee-4490-954a-554a1b3eb0d4/demo.sqlite"
+}

@@ -1,3 +1,5 @@
+> Actualización esquema 3: `attachment_cloud` es una relación opcional 0..1 por `movement_attachments`, con ubicación y estado del respaldo. Las láminas Chen anteriores no incluyen esta ampliación.
+
 ## Actualización: comprobantes adjuntos a movimientos
 
 La nueva tabla `movement_attachments` conserva metadatos y contenido de archivos reales asociados al movimiento. Es una entidad fuerte con PK id. Cada adjunto pertenece obligatoriamente a un movimiento del mismo negocio (MOVIMIENTO 1:N ADJUNTO, participación total del adjunto); un movimiento puede no tener archivos. La implementación limita a cinco por movimiento. Distinguir este adjunto de `receipts`, que conserva el resumen sintético generado al confirmar. Las láminas Chen anteriores aún no incluyen esta entidad adicional. Ver [comprobantes-locales.md](comprobantes-locales.md).

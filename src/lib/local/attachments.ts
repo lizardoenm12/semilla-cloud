@@ -2,14 +2,14 @@ import { createHash, randomUUID } from "node:crypto";
 import { one, rows, run, transaction } from "./db";
 import { business, LocalError } from "./service";
 export const MAX_ATTACHMENT_BYTES = 2 * 1024 * 1024;
-export type Attachment = { id: string; filename: string; content_type: string; byte_size: number; sha256: string; created_at: string };
+export type Attachment = { id: string; filename: string; content_type: string; byte_size: number; sha256: string; created_at: string; cloud_status?: "pending" | "uploaded" | "failed" | null };
 function movement(businessId: string, movementId: string) {
  business(businessId);
  if (!one("SELECT 1 FROM movements WHERE business_id=? AND id=?",businessId,movementId)) throw new LocalError("Movimiento no encontrado en este negocio.",404);
 }
 export function listAttachments(businessId: string, movementId: string) {
  movement(businessId,movementId);
- return rows<Attachment>("SELECT id,filename,content_type,byte_size,sha256,created_at FROM movement_attachments WHERE business_id=? AND movement_id=? ORDER BY created_at,id",businessId,movementId);
+ return rows<Attachment>("SELECT a.id,a.filename,a.content_type,a.byte_size,a.sha256,a.created_at,c.status AS cloud_status FROM movement_attachments a LEFT JOIN attachment_cloud c ON c.attachment_id=a.id WHERE a.business_id=? AND a.movement_id=? ORDER BY a.created_at,a.id",businessId,movementId);
 }
 export function createAttachment(businessId: string, movementId: string, body: Record<string,unknown>) {
  movement(businessId,movementId);

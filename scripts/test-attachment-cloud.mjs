@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import {mkdir,readFile,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {randomUUID} from 'node:crypto';
+import ts from 'typescript';
+const directory=resolve('tmp/tests','cloud-'+randomUUID());await mkdir(directory,{recursive:true});
+process.env.APP_MODE='local';process.env.LOCAL_DB_PATH=resolve(directory,'test.sqlite');process.env.ATTACHMENT_STORAGE='azure';process.env.AZURE_STORAGE_ACCOUNT='teststorage';process.env.AZURE_STORAGE_CONTAINER='comprobantes';
+const state={objects:new Map(),calls:[],fail:false,corrupt:false};globalThis.attachmentTest=state;
+for(const name of ['db','contracts','parser','service','attachments','attachment-cloud']){
+ let source=await readFile(`src/lib/local/${name}.ts`,'utf8');
+ if(name==='attachment-cloud')source=source.replace('import { BlobServiceClient } from "@azure/storage-blob";','import { BlobServiceClient } from "./mock.mjs";').replace('import { azureCredential } from "../azure-credential";','const azureCredential=()=>({});');
+ source=source.replace(/from "\.\/([^".]+)"/g,'from "./$1.mjs"');
+ await writeFile(resolve(directory,name+'.mjs'),ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText);
+}
+await writeFile(resolve(directory,'mock.mjs'),`export class BlobServiceClient{constructor(url){this.url=url;} getContainerClient(container){return {getBlockBlobClient:(name)=>{const key=this.url+'/'+container+'/'+name,s=globalThis.attachmentTest;return {uploadData:async(bytes)=>{s.calls.push('upload');if(s.fail)throw Error('private SDK detail');s.objects.set(key,Buffer.from(bytes));},downloadToBuffer:async(offset,count)=>{if(offset!==0||count!==s.objects.get(key)?.length)throw Error('Rango incorrecto');s.calls.push('download');if(s.fail)throw Error('offline');return s.corrupt?Buffer.from('alterado'):s.objects.get(key);},deleteIfExists:async()=>{s.calls.push('delete');if(s.fail)throw Error('offline');s.objects.delete(key);}};}};}}`);
+const load=name=>import(pathToFileURL(resolve(directory,name+'.mjs')));
+const service=await load('service'),attachments=await load('attachments'),cloud=await load('attachment-cloud'),db=await load('db');
+const bid=service.bootstrap().businesses[0].id;
+const proposal=service.createProposal(bid,{text:'Gasté Q1 de transporte'});service.confirmProposal(bid,proposal.id,proposal.items);
+const mid=service.snapshot(bid).movements[0].id,bytes=Buffer.from('%PDF-1.4\ncomprobante\n%%EOF');
+const made=attachments.createAttachment(bid,mid,{filename:'prueba.pdf',contentType:'application/pdf',base64:bytes.toString('base64')});
+const before=service.snapshot(bid).stats;
+state.fail=true;assert.equal((await cloud.syncAttachment(bid,mid,made.id)).cloud_status,'failed');assert.equal(attachments.listAttachments(bid,mid)[0].cloud_status,'failed');assert((await cloud.attachmentBytes(bid,mid,made.id)).bytes.equals(bytes));
+state.fail=false;await Promise.all([cloud.syncAttachment(bid,mid,made.id),cloud.syncAttachment(bid,mid,made.id)]);assert.equal(state.objects.size,1);assert.equal(state.calls.filter(x=>x==='upload').length,2);assert.equal(attachments.listAttachments(bid,mid)[0].cloud_status,'uploaded');
+const downloaded=await cloud.attachmentBytes(bid,mid,made.id);assert.equal(downloaded.source,'azure');assert(downloaded.bytes.equals(bytes));
+state.corrupt=true;await assert.rejects(()=>cloud.attachmentBytes(bid,mid,made.id),e=>e.status===503);state.corrupt=false;
+const other=service.createBusiness({name:'Otro negocio',sector:'Comercio',stage:'idea'});const calls=state.calls.length;await assert.rejects(()=>cloud.syncAttachment(other.id,mid,made.id),e=>e.status===404);assert.equal(state.calls.length,calls);
+state.fail=true;await assert.rejects(()=>cloud.removeAttachment(bid,mid,made.id),e=>e.status===503);assert.equal(attachments.listAttachments(bid,mid).length,1);
+state.fail=false;await cloud.removeAttachment(bid,mid,made.id);assert.equal(state.objects.size,0);assert.equal(attachments.listAttachments(bid,mid).length,0);assert.equal(db.one('SELECT COUNT(*) AS n FROM attachment_cloud').n,0);assert.deepEqual(service.snapshot(bid).stats,before);
+process.env.ATTACHMENT_STORAGE='local';const local=attachments.createAttachment(bid,mid,{filename:'local.pdf',contentType:'application/pdf',base64:bytes.toString('base64')});await assert.rejects(()=>cloud.syncAttachment(bid,mid,local.id),e=>e.status===409);
+console.log('Aprobado sin Azure: fallo recuperable, reintento concurrente sin duplicados, descarga remota, integridad, separación de negocios, eliminación recuperable, cascada, operación intacta y modo local.');
