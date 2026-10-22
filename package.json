@@ -25,7 +25,8 @@
     "verify:postgres-real": "node scripts/verificar-postgres-real.mjs",
     "test:keyvault": "node scripts/test-keyvault.mjs",
     "configure:keyvault": "node scripts/configurar-keyvault.mjs",
-    "verify:keyvault-real": "node scripts/verificar-keyvault-real.mjs"
+    "verify:keyvault-real": "node scripts/verificar-keyvault-real.mjs",
+    "test:cloud-runtime": "node scripts/test-cloud-runtime.mjs"
   },
   "dependencies": {
     "@azure/identity": "4.14.0",

@@ -23,3 +23,6 @@ tmp
 
 # Descargas OAuth de Google: contienen el secreto del cliente.
 client_secret*.json
+
+__pycache__/
+*.pyc

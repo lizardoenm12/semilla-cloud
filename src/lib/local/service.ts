@@ -27,7 +27,7 @@ export async function products(id: string): Promise<Product[]> {
     return await rows<Product>("SELECT p.*,COALESCE(SUM(i.quantity_delta),0) AS stock FROM products p LEFT JOIN inventory_entries i ON i.product_id=p.id AND i.business_id=p.business_id WHERE p.business_id=? GROUP BY p.id ORDER BY p.name", id);
 }
 export async function bootstrap() {
-    return { user: currentPrincipal(), authMode: authMode(), databaseProvider: databaseProvider(), businesses: await rows<Business>("SELECT b.* FROM businesses b JOIN memberships m ON m.business_id=b.id WHERE m.user_id=? AND m.active=1 ORDER BY b.created_at", currentUserId()), archetypes: ARCHETYPES, lessons: LESSONS, mode: "local" };
+    return { user: currentPrincipal(), authMode: authMode(), databaseProvider: databaseProvider(), businesses: await rows<Business>("SELECT b.* FROM businesses b JOIN memberships m ON m.business_id=b.id WHERE m.user_id=? AND m.active=1 ORDER BY b.created_at", currentUserId()), archetypes: ARCHETYPES, lessons: LESSONS, mode: process.env.APP_MODE === "cloud" ? "cloud" as const : "local" as const };
 }
 export async function snapshot(id: string): Promise<Snapshot> {
     const b = await business(id);

@@ -1,0 +1,53 @@
+name: Construir imagen de desarrollo
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'next.config.mjs'
+      - 'tsconfig.json'
+      - 'Dockerfile'
+      - '.dockerignore'
+      - 'infra/deployment.json'
+      - '.github/workflows/imagen-dev.yml'
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: imagen-asistente-dev
+  cancel-in-progress: false
+jobs:
+  image:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Configuración pública de despliegue
+        id: config
+        shell: bash
+        run: |
+          echo "client=$(jq -r .buildClientId infra/deployment.json)" >> "$GITHUB_OUTPUT"
+          echo "tenant=$(jq -r .tenantId infra/deployment.json)" >> "$GITHUB_OUTPUT"
+          echo "subscription=$(jq -r .subscriptionId infra/deployment.json)" >> "$GITHUB_OUTPUT"
+      - uses: azure/login@7184910d9eb2b1c5e48f7073824a90609bb9b6d6 # v2.3.1
+        with:
+          client-id: ${{ steps.config.outputs.client }}
+          tenant-id: ${{ steps.config.outputs.tenant }}
+          subscription-id: ${{ steps.config.outputs.subscription }}
+      - name: Construir y guardar imagen privada
+        shell: bash
+        run: |
+          set -euo pipefail
+          registry=$(jq -r .registry infra/deployment.json)
+          server=$(jq -r .registryServer infra/deployment.json)
+          image="$server/asistente-negocios:$GITHUB_SHA"
+          az acr login --name "$registry" --only-show-errors
+          docker build --tag "$image" .
+          docker push "$image"
+          echo "Imagen: $image" >> "$GITHUB_STEP_SUMMARY"
+          docker logout "$server"

@@ -1,6 +1,6 @@
 import { maintenance } from "@/lib/local/db";
 import { NextResponse } from "next/server";
-import { authMode } from "@/lib/local/identity";
+import { authMode, workspaceEnabled, workspaceOrigin } from "@/lib/local/identity";
 import { loginSettings, loginConfiguration, oidc } from "@/lib/oidc";
 import { SESSION_COOKIE, FLOW_COOKIE, SESSION_SECONDS, cookieValue, sessionPrincipal, revokeSession, createFlow, consumeFlow, provisionPrincipal, createSession } from "@/lib/local/auth-store";
 export const runtime = "nodejs", dynamic = "force-dynamic";
@@ -11,9 +11,10 @@ type Context = {
     }>;
 };
 async function handle(request: Request, context: Context) {
-    if (process.env.APP_MODE !== "local")
+    if (!workspaceEnabled())
         return Response.json({ error: "No disponible" }, { status: 404, headers: noStore });
     try {
+        if(process.env.APP_MODE === "cloud") workspaceOrigin(request);
         const action = (await context.params).action;
         if(action!=="session"&&maintenance())return Response.json({error:"Estamos trasladando tus datos. Vuelve a intentar en un momento."},{status:503,headers:noStore});
         if (action === "session" && request.method === "GET")

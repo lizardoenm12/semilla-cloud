@@ -1,3 +1,4 @@
+import { workspaceEnabled } from "./identity";
 import { AsyncLocalStorage } from "node:async_hooks";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
@@ -14,7 +15,7 @@ export function databaseProvider(){const provider=process.env.DATABASE_PROVIDER?
 export function maintenance(){return existsSync(resolve(/* turbopackIgnore: true */ process.env.LOCAL_DB_PATH??".data/negocios.sqlite")+".migration-lock");}
 function writable(){if(maintenance()&&process.env.DATABASE_MIGRATION_PROCESS!=="1")throw new Error("Base de datos en mantenimiento");}
 async function pool():Promise<Pool>{
- if(process.env.APP_MODE!=="local")throw new Error("Modo de aplicación deshabilitado");
+ if(!workspaceEnabled())throw new Error("Modo de aplicación deshabilitado");
  if(state.businessPgPool)return state.businessPgPool;
  if(state.businessPgPending)return state.businessPgPending;
  const pending=(async()=>{

@@ -1,0 +1,14 @@
+{
+  "resourceGroup": "rg-cloud-dev",
+  "region": "centralus",
+  "appName": "app-asistente-negocios-dev",
+  "environmentId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.App/managedEnvironments/cae-cloud-dev",
+  "registry": "acrcloudlizardo01",
+  "registryServer": "acrcloudlizardo01.azurecr.io",
+  "runtimeIdentityId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourcegroups/rg-cloud-dev/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-cloud-app-dev",
+  "runtimeClientId": "ad7c7b61-8b8d-43d2-a8be-0a8723f031d3",
+  "buildClientId": "64fe6513-34e2-46c8-b030-7a0a4c159378",
+  "tenantId": "a77a7a5a-e870-4855-82ff-f6c1037880a2",
+  "subscriptionId": "55d0bb03-db9d-4b6e-823d-d845d3e523e8",
+  "baseUrl": "https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io"
+}

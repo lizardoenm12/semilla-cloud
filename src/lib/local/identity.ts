@@ -13,3 +13,30 @@ export function currentPrincipal():Principal {
  return {id:"usuario-local",name:"Emprendedor local"};
 }
 export function currentUserId(){return currentPrincipal().id;}
+
+/** En cloud nunca habilitar usuario local ni almacenamiento efímero por accidente. */
+export function workspaceEnabled(): boolean {
+ if(process.env.APP_MODE === "local") return true;
+ if(process.env.APP_MODE !== "cloud") return false;
+ try {
+  const base=new URL(process.env.AUTH_BASE_URL ?? "");
+  return authMode() !== "local" && process.env.DATABASE_PROVIDER === "postgres"
+   && !!process.env.DATABASE_URL_KEY_VAULT_SECRET && !!process.env.AZURE_KEY_VAULT_NAME
+   && base.protocol === "https:" && !base.username && !base.password
+   && base.pathname === "/" && !base.search && !base.hash
+   && (authMode() !== "google" || !!process.env.GOOGLE_CLIENT_SECRET_KEY_VAULT_SECRET);
+ } catch { return false; }
+}
+/** No confiar en Host/X-Forwarded-* para elegir el origen público permitido. */
+export function workspaceOrigin(request: Request): string {
+ if(!workspaceEnabled()) throw new Error("Aplicación no configurada");
+ const host=request.headers.get("host") ?? "";
+ if(process.env.APP_MODE === "cloud") {
+  const base=new URL(process.env.AUTH_BASE_URL!);
+  if(host !== base.host) throw new Error("Host no permitido");
+  return base.origin;
+ }
+ const origin=new URL(`${new URL(request.url).protocol}//${host}`);
+ if(!["localhost","127.0.0.1","[::1]"].includes(origin.hostname)) throw new Error("Host no permitido");
+ return origin.origin;
+}

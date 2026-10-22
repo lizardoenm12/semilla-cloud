@@ -1,13 +1,13 @@
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { authMode } from "@/lib/local/identity";
+import { authMode, workspaceEnabled } from "@/lib/local/identity";
 import { SESSION_COOKIE, sessionPrincipal } from "@/lib/local/auth-store";
 import { loginSettings } from "@/lib/oidc";
 import Link from "next/link";
 import Workspace from "./workspace";
 export const dynamic = "force-dynamic";
 export default async function Inicio() {
-    if (process.env.APP_MODE === "local") {
+    if (workspaceEnabled()) {
         if (authMode() !== "local") {
             let base: string, label: string;
             try {

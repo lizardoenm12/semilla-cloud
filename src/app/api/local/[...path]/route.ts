@@ -1,4 +1,4 @@
-import { authMode, withPrincipal } from "@/lib/local/identity";
+import { authMode, withPrincipal, workspaceEnabled, workspaceOrigin } from "@/lib/local/identity";
 import { SESSION_COOKIE, cookieValue, sessionPrincipal } from "@/lib/local/auth-store";
 import { cloudEnabled, syncAttachment, attachmentBytes, removeAttachment } from "@/lib/local/attachment-cloud";
 import { listAttachments, createAttachment } from "@/lib/local/attachments";
@@ -13,19 +13,16 @@ type Context = {
 };
 async function dispatch(request: Request, context: Context) {
     const headers = { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" };
-    if (process.env.APP_MODE !== "local")
+    if (!workspaceEnabled())
         return Response.json({ error: "Modo local deshabilitado" }, { status: 404, headers });
     try {
-        const url = new URL(request.url);
-        const host = request.headers.get("host") ?? "";
-        const localOrigin = new URL(`${url.protocol}//${host}`);
-        if (!["localhost", "127.0.0.1", "[::1]"].includes(localOrigin.hostname))
-            throw new LocalError("La versión local solo admite acceso desde este equipo.", 403);
+        let origin: string;
+        try { origin = workspaceOrigin(request); } catch { throw new LocalError("Origen de solicitud no permitido.", 403); }
         const method = request.method, path = (await context.params).path;
         if(method!=="GET"&&maintenance())return Response.json({error:"Estamos trasladando tus datos. Espera un momento y vuelve a intentar; no se guardó esta acción."},{status:503,headers});
         let body: Record<string, unknown> = {};
         if (method !== "GET") {
-            if (request.headers.get("origin") !== localOrigin.origin)
+            if (request.headers.get("origin") !== origin)
                 throw new LocalError("Origen de solicitud no permitido.", 403);
             if (!request.headers.get("content-type")?.startsWith("application/json"))
                 throw new LocalError("Envía contenido JSON.", 415);
@@ -74,7 +71,7 @@ async function dispatch(request: Request, context: Context) {
                 result = await updateBusiness(id, body);
             else if (method === "GET" && path[2] === "profile-export" && path.length === 3) {
                 const s = await snapshot(id);
-                return Response.json({ version: 1, exportedAt: new Date().toISOString(), mode: "local", user: (await bootstrap()).user, ...s }, { headers: { ...headers, "Content-Disposition": 'attachment; filename="perfil-productivo.json"' } });
+                return Response.json({ version: 1, exportedAt: new Date().toISOString(), mode: process.env.APP_MODE === "cloud" ? "cloud" : "local", user: (await bootstrap()).user, ...s }, { headers: { ...headers, "Content-Disposition": 'attachment; filename="perfil-productivo.json"' } });
             }
             else if (method === "GET" && path[2] === "receipts" && path[3] && path.length === 4) {
                 const receipt = await one<{
@@ -147,9 +144,10 @@ async function dispatch(request: Request, context: Context) {
 }
 async function handle(request: Request, context: Context) {
     const headers = { "Cache-Control": "no-store" };
-    if (process.env.APP_MODE !== "local")
+    if (!workspaceEnabled())
         return Response.json({ error: "Modo local deshabilitado" }, { status: 404, headers });
     try {
+        try { workspaceOrigin(request); } catch { return Response.json({error:"Origen no permitido"},{status:403,headers}); }
         if (authMode() === "local")
             return dispatch(request, context);
         const user = await sessionPrincipal(cookieValue(request.headers.get("cookie"), SESSION_COOKIE));
