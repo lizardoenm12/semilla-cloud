@@ -67,3 +67,6 @@ Los enlaces Comprobantes y Estado de servicios pertenecían a la demostración i
 La app cloud ahora oculta ese encabezado y devuelve 404 en `/comprobantes`, `/estado`, `/api/comprobantes` (GET y POST) y `/api/estado`, incluso si se configurara o suministrara un token demo. Los adjuntos reales continúan en Movimientos y comprobantes, con sesión y autorización por negocio. No se eliminan archivos ni se cambian sus permisos de Blob.
 
 Actualizaciones posteriores usan `scripts/actualizar-imagen.py IMAGEN_CON_SHA`: reemplaza solo la imagen de la app existente, conserva configuración, identidad y escala, y espera una revisión lista. No vuelve a configurar PostgreSQL ni sus reglas de red. La compilación se mantiene en GitHub Actions y el despliegue sigue siendo dirigido, no automático.
+
+
+Verificación publicada del retiro de demo: raíz 200 sin enlaces técnicos; las dos pantallas y sus API devolvieron 404 (incluido POST sintético); negocios sin sesión 401 y con sesión temporal autorizada 200. La sesión temporal fue revocada; sin movimientos, descargas de adjuntos ni cambios en permisos. Evidencia: evidencias/demo-publica-deshabilitada.json y evidencias/actualizacion-imagen.json. Imagen activa: 03048b82290e7cb037bcc528cb542d4e41e9dc2a.

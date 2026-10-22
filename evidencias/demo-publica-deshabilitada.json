@@ -1,0 +1,46 @@
+{
+  "fechaUTC": "2026-10-22T04:50:43.930Z",
+  "url": "https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io",
+  "resultados": [
+    {
+      "path": "/",
+      "status": 200,
+      "enlacesTecnicos": false
+    },
+    {
+      "method": "GET",
+      "path": "/comprobantes",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/estado",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/comprobantes",
+      "status": 404
+    },
+    {
+      "method": "POST",
+      "path": "/api/comprobantes",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/estado",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/api/local/bootstrap",
+      "status": 401
+    }
+  ],
+  "datosArchivosYPermisosSinCambios": true,
+  "nuevosRecursosAzure": 0,
+  "imagen": "03048b82290e7cb037bcc528cb542d4e41e9dc2a",
+  "negociosConSesionTemporal": 200,
+  "nuevasOperaciones": 0
+}

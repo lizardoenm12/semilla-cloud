@@ -1,0 +1,10 @@
+{
+  "previousImage": "acrcloudlizardo01.azurecr.io/asistente-negocios:792933773f48969d06dbe930c3ae468e101cd7f6",
+  "image": "acrcloudlizardo01.azurecr.io/asistente-negocios:03048b82290e7cb037bcc528cb542d4e41e9dc2a",
+  "url": "https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io",
+  "revision": "app-asistente-negocios-dev--0000001",
+  "minReplicas": 0,
+  "maxReplicas": 1,
+  "databaseOrFirewallModified": false,
+  "spendingLimit": "On"
+}
