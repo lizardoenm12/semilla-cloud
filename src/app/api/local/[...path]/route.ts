@@ -1,3 +1,4 @@
+import { observeRequest } from "@/lib/observability";
 import { authMode, withPrincipal, workspaceEnabled, workspaceOrigin } from "@/lib/local/identity";
 import { SESSION_COOKIE, cookieValue, sessionPrincipal } from "@/lib/local/auth-store";
 import { cloudEnabled, syncAttachment, attachmentBytes, removeAttachment } from "@/lib/local/attachment-cloud";
@@ -159,7 +160,5 @@ async function handle(request: Request, context: Context) {
         return Response.json({ error: "No se pudo verificar la sesión." }, { status: 503, headers });
     }
 }
-export const GET = handle;
-export const POST = handle;
-export const PATCH = handle;
-export const DELETE = handle;
+async function monitored(request:Request,context:Context){return observeRequest(request,()=>handle(request,context),"business");}
+export const GET = monitored, POST = monitored, PATCH = monitored, DELETE = monitored;

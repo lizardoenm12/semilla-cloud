@@ -1,0 +1,16 @@
+{
+  "workspaceName": "log-cloud-dev",
+  "region": "centralus",
+  "retentionDays": 30,
+  "dailyQuotaGb": 0.025,
+  "logsDestination": "azure-monitor",
+  "categories": [
+    "ContainerAppConsoleLogs",
+    "ContainerAppSystemLogs"
+  ],
+  "alertName": "alert-asistente-errores-dev",
+  "actionGroupName": "ag-asistente-dev",
+  "evaluationFrequency": "PT15M",
+  "windowSize": "PT15M",
+  "severity": 2
+}

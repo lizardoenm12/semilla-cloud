@@ -1,0 +1,15 @@
+{
+  "retrievedUTC": "2026-10-22T22:22:04.677737+00:00",
+  "source": "https://prices.azure.com/api/retail/prices",
+  "region": "centralus",
+  "currency": "USD",
+  "analyticsLogsIngestionPerGB": 2.76,
+  "logAlert15MinutePerMonth": 0.5,
+  "dailyQuotaGb": 0.025,
+  "illustrative30DayIngestionGB": 0.75,
+  "illustrative30DayCostBeforeBenefits": 2.57,
+  "retentionDays": 30,
+  "freeAllowanceAssumed": false,
+  "hardBillingCap": false,
+  "notes": "Ejemplo basado en la salvaguarda diaria. Puede haber exceso antes del corte, notificaciones y otros cargos. No equivale al consumo medido."
+}

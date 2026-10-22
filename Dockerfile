@@ -8,7 +8,7 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN npm run build && npm run test:monitor && npm run test:cloud-runtime
 
 FROM node:24-slim AS run
 WORKDIR /app

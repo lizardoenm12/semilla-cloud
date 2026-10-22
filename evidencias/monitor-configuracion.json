@@ -1,0 +1,17 @@
+{
+  "workspaceId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.OperationalInsights/workspaces/log-cloud-dev",
+  "workspaceCustomerId": "e8b0dc1c-1717-4c8a-9c75-2cf08942ce69",
+  "region": "centralus",
+  "retentionDays": 30,
+  "dailyQuotaGb": 0.025,
+  "sku": "PerGB2018",
+  "logsDestination": "azure-monitor",
+  "categories": [
+    "ContainerAppConsoleLogs",
+    "ContainerAppSystemLogs"
+  ],
+  "httpIngressLogging": false,
+  "localAuthDisabled": true,
+  "spendingLimit": "On",
+  "status": "logs configured; waiting for application telemetry"
+}

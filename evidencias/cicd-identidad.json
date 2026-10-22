@@ -1,0 +1,16 @@
+{
+  "identityName": "id-cloud-deploy-dev",
+  "clientId": "51e90f26-772a-4f8a-9abd-435132a13aa5",
+  "principalId": "2401078e-2039-4b59-b245-45d1ba96ce6e",
+  "assignmentScope": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.App/containerApps/app-asistente-negocios-dev",
+  "roleId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/providers/Microsoft.Authorization/roleDefinitions/242439ce-79b1-5354-89e2-87b47bb74128",
+  "actions": [
+    "Microsoft.App/containerApps/read",
+    "Microsoft.App/containerApps/write",
+    "Microsoft.App/containerApps/revisions/read"
+  ],
+  "oidcSubject": "repo:lizardoenm12@158477878/semilla-cloud@1423989886:ref:refs/heads/main",
+  "directKeyVaultAccess": false,
+  "directDatabaseAccess": false,
+  "spendingLimit": "On"
+}

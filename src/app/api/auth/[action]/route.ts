@@ -1,3 +1,4 @@
+import { observeRequest } from "@/lib/observability";
 import { maintenance } from "@/lib/local/db";
 import { NextResponse } from "next/server";
 import { authMode, workspaceEnabled, workspaceOrigin } from "@/lib/local/identity";
@@ -70,4 +71,5 @@ async function handle(request: Request, context: Context) {
         return response;
     }
 }
-export const GET = handle, POST = handle;
+async function monitored(request:Request,context:Context){return observeRequest(request,()=>handle(request,context),"auth");}
+export const GET = monitored, POST = monitored;
