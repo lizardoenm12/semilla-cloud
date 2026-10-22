@@ -1,0 +1,150 @@
+{
+  "date": "2026-10-22",
+  "sourceCommit": "c2ead71a7c680a13d4ccc157182d1a70919ac8ef",
+  "reference": "docs/referencia-visual.md",
+  "localVisualChecks": [
+    {
+      "name": "login-desktop",
+      "width": 1440,
+      "documentWidth": 1440,
+      "title": "Hagamos crecertu gran idea.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "login-mobile",
+      "width": 390,
+      "documentWidth": 390,
+      "title": "Hagamos crecertu gran idea.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "summary",
+      "width": 1440,
+      "documentWidth": 1425,
+      "title": "Así va Tienda La Ceiba.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "summary-mobile",
+      "width": 390,
+      "documentWidth": 390,
+      "title": "Así va Tienda La Ceiba.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "registro",
+      "width": 1440,
+      "documentWidth": 1440,
+      "title": "Cuéntanos qué pasó.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "movimientos",
+      "width": 1440,
+      "documentWidth": 1440,
+      "title": "Movimientos y comprobantes.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "inventario",
+      "width": 1440,
+      "documentWidth": 1440,
+      "title": "Tu inventario.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "perfil",
+      "width": 1440,
+      "documentWidth": 1425,
+      "title": "Conoce desde dónde empiezas.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "plan",
+      "width": 1440,
+      "documentWidth": 1440,
+      "title": "Avanzar también puede ser simple.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "aprender",
+      "width": 1440,
+      "documentWidth": 1440,
+      "title": "Entender también es avanzar.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "conversar",
+      "width": 1440,
+      "documentWidth": 1440,
+      "title": "No tienes que decidir a solas.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "registro-mobile",
+      "width": 360,
+      "documentWidth": 360,
+      "title": "Cuéntanos qué pasó.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "inventario-mobile",
+      "width": 360,
+      "documentWidth": 360,
+      "title": "Tu inventario.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "perfil-mobile",
+      "width": 360,
+      "documentWidth": 360,
+      "title": "Conoce desde dónde empiezas.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "aprender-mobile",
+      "width": 360,
+      "documentWidth": 360,
+      "title": "Entender también es avanzar.",
+      "font": "friendly, \"friendly Fallback\", sans-serif",
+      "loadedFonts": "loaded"
+    }
+  ],
+  "horizontalOverflow": false,
+  "typecheck": "passed",
+  "cloudRuntimeGuards": "passed",
+  "localPreviewDatabase": "temporary SQLite only",
+  "realCloudOperationsCreated": 0,
+  "newAzureResources": 0,
+  "font": "Nunito variable, self-hosted, SIL OFL",
+  "illustration": "original inline SVG",
+  "status": "deployed",
+  "revision": "app-asistente-negocios-dev--0000003",
+  "url": "https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io",
+  "build": "GitHub Actions successful",
+  "workflowRun": 39843886321,
+  "publicVerification": {
+    "login": 200,
+    "newDesign": true,
+    "googleLinkPreserved": true,
+    "selfHostedFont": 200,
+    "fontBytes": 276932,
+    "privateBootstrap": 401,
+    "legacyStatus": 404
+  },
+  "databaseOrFirewallModified": false
+}

@@ -1,6 +1,6 @@
 {
   "url": "https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io",
-  "image": "acrcloudlizardo01.azurecr.io/asistente-negocios:219eb67bb18e4b52f52e5a609e2875fec746bbbd",
+  "image": "acrcloudlizardo01.azurecr.io/asistente-negocios:c2ead71a7c680a13d4ccc157182d1a70919ac8ef",
   "region": "centralus",
   "cpu": 0.5,
   "memory": "1Gi",
@@ -16,5 +16,5 @@
   "networkRulesVerified": true,
   "postgresFirewallTotalRules": 162,
   "recuperacionRed": "El lote ARM inicial tuvo GatewayTimeout en algunas reglas; se completaron solo las faltantes y se verificaron las 161 IP reportadas, manteniendo la regla local.",
-  "ultimaActualizacionUTC": "2026-10-22T05:13:03.637627+00:00"
+  "ultimaActualizacionUTC": "2026-10-22T19:56:26.425114+00:00"
 }

@@ -24,6 +24,10 @@ La fuente procede del repositorio oficial google/fonts (`ofl/nunito/Nunito[wght]
 
 ## Validación
 
-Se revisan acceso y secciones internas en un entorno local con SQLite temporal. No se crean operaciones en PostgreSQL ni archivos en Azure para revisar estilos. La evidencia de tamaños y verificaciones está en `evidencias/rediseno-amigable.json` tras completar la publicación.
+Se revisaron acceso y secciones internas en un entorno local con SQLite temporal. No se crean operaciones en PostgreSQL ni archivos en Azure para revisar estilos. La evidencia de tamaños y verificaciones está en `evidencias/rediseno-amigable.json` de la publicación completada.
 
 El diseño oscuro anterior se documenta únicamente como historial en `docs/diseno-inicio-anterior.md`.
+
+## Publicación
+
+Versión `c2ead71a7c680a13d4ccc157182d1a70919ac8ef`, revisión `app-asistente-negocios-dev--0000003`. Construcción en GitHub Actions aprobada, acceso público y fuente con respuesta 200, API privada sin sesión 401 y API técnica antigua 404. Se revisaron 15 combinaciones de pantalla y tamaño, sin desbordamiento horizontal. No se crearon recursos Azure ni operaciones de negocio para el cambio.

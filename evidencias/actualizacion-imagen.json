@@ -1,8 +1,8 @@
 {
-  "previousImage": "acrcloudlizardo01.azurecr.io/asistente-negocios:03048b82290e7cb037bcc528cb542d4e41e9dc2a",
-  "image": "acrcloudlizardo01.azurecr.io/asistente-negocios:219eb67bb18e4b52f52e5a609e2875fec746bbbd",
+  "previousImage": "acrcloudlizardo01.azurecr.io/asistente-negocios:219eb67bb18e4b52f52e5a609e2875fec746bbbd",
+  "image": "acrcloudlizardo01.azurecr.io/asistente-negocios:c2ead71a7c680a13d4ccc157182d1a70919ac8ef",
   "url": "https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io",
-  "revision": "app-asistente-negocios-dev--0000002",
+  "revision": "app-asistente-negocios-dev--0000003",
   "minReplicas": 0,
   "maxReplicas": 1,
   "databaseOrFirewallModified": false,
