@@ -1,3 +1,7 @@
+## Actualización: Key Vault funcional
+
+Las credenciales PostgreSQL y Google se obtienen en el servidor desde Key Vault. El archivo activo usa referencias y la aplicación sigue en localhost:3010. Ver [configuración y prueba](docs/keyvault.md). El despliegue público y la identidad administrada en ejecución siguen pendientes.
+
 > Estado actual: inicio Google real, operaciones y sesiones en Azure PostgreSQL y comprobantes en Azure Blob. La app se ejecuta en este equipo; despliegue público pendiente. La instalación sin credenciales conserva el modo SQLite. Ver [PostgreSQL y migración verificada](docs/postgresql.md).
 
 Material de exposición y respuestas: [presentación](docs/presentaciones/Presentacion_defensa_cloud.pptx) y [defensa técnica](docs/defensa-tecnica-cloud.md).

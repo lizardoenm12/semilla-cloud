@@ -1,0 +1,19 @@
+{
+  "fechaUTC": "2026-10-22T03:40:58.104Z",
+  "resultado": "aprobado",
+  "vault": "kv-cloud-lizardo-dev",
+  "secretos": [
+    "asistente-postgresql-url",
+    "asistente-google-client-secret"
+  ],
+  "envSoloReferencias": true,
+  "postgresConsultaReal": true,
+  "httpAutenticado": 200,
+  "httpSinSesion": 401,
+  "googleInicioRedirige": true,
+  "alcanceGoogle": "Secreto leído y descubrimiento OIDC real; no simula un nuevo callback ni inicia sesión por el usuario",
+  "businesses": 2,
+  "credencialAzure": "Sesión CLI del desarrollador; identidad administrada pendiente de despliegue",
+  "nuevasOperaciones": 0,
+  "nuevosBlobs": 0
+}

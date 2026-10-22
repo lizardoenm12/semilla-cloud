@@ -1,0 +1,25 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {randomUUID} from 'node:crypto';
+import ts from 'typescript';
+const directory=resolve('tmp/tests','keyvault-'+randomUUID());await mkdir(directory,{recursive:true});
+const source=await readFile('src/lib/keyvault.ts','utf8');
+await writeFile(resolve(directory,'keyvault.mjs'),ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText);
+const {secretReader}=await import(pathToFileURL(resolve(directory,'keyvault.mjs')));
+let requests=0;const credential={getToken:async()=>({token:'token-simulado'})};
+const reader=secretReader(credential,async(url,options)=>{requests++;assert(url.startsWith('https://vault-test.vault.azure.net/secrets/'));assert.equal(options.redirect,'error');assert.equal(options.cache,'no-store');return Response.json({value:'secreto-simulado',attributes:{enabled:true}});});
+const values=await Promise.all(Array.from({length:10},()=>reader('vault-test','postgres-url')));assert(values.every(x=>x==='secreto-simulado'));assert.equal(requests,1);
+await reader('vault-test','otro');assert.equal(requests,2);
+await assert.rejects(()=>reader('evil.example/path','secret'));
+let fails=0;const retry=secretReader(credential,async()=>{fails++;return fails===1?new Response('informacion-privada',{status:403}):Response.json({value:'recuperado'});});
+await assert.rejects(()=>retry('vault-test','secret'),e=>!e.message.includes('privada')&&e.message.includes('Key Vault'));assert.equal(await retry('vault-test','secret'),'recuperado');assert.equal(fails,2);
+const disabled=secretReader(credential,async()=>Response.json({value:'no-usar',attributes:{enabled:false}}));await assert.rejects(()=>disabled('vault-test','secret'));
+// Verifica prioridad obligatoria y ausencia de fallback sin contactar Azure.
+const runtime=(await readFile('src/lib/secrets.ts','utf8')).replace('from "./azure-credential"','from "./credential.mjs"').replace('from "./keyvault"','from "./keyvault-mock.mjs"');
+await writeFile(resolve(directory,'secrets.mjs'),ts.transpileModule(runtime,{compilerOptions:{module:ts.ModuleKind.ESNext}}).outputText);
+await writeFile(resolve(directory,'credential.mjs'),'export function azureCredential(){return {}}');
+await writeFile(resolve(directory,'keyvault-mock.mjs'),'export function secretReader(){return async()=>{throw Error("Key Vault denegado")}}');
+const {runtimeSecret}=await import(pathToFileURL(resolve(directory,'secrets.mjs')));process.env.DATABASE_URL='fallback-simulado';delete process.env.DATABASE_URL_KEY_VAULT_SECRET;assert.equal(await runtimeSecret('DATABASE_URL'),'fallback-simulado');process.env.DATABASE_URL_KEY_VAULT_SECRET='postgres-url';process.env.AZURE_KEY_VAULT_NAME='vault-test';await assert.rejects(()=>runtimeSecret('DATABASE_URL'),/denegado/);
+console.log('Key Vault: concurrencia, caché, referencias inválidas, rechazo sin fuga, reintento, secreto deshabilitado y ausencia de fallback aprobados. Sin Azure.');

@@ -1,3 +1,7 @@
+## Completado: Key Vault funcional — 21/10/2026
+
+Dos secretos reales integrados (PostgreSQL y Google), prueba real aprobada, sin nuevos recursos ni operaciones. Ver docs/keyvault.md y evidencias/keyvault-integracion-real.json. Próximo paso: preparar despliegue Container Apps, HTTPS y uso real de identidad administrada; después Monitor y CI/CD.
+
 ## Avance confirmado PostgreSQL
 - [x] Inicio Google real y negocios anteriores vinculados al propietario verificado.
 - [x] PostgreSQL Flexible Server B1ms/32 GB en Central US, Ready.

@@ -22,7 +22,10 @@
     "configure:google": "node scripts/configurar-google.mjs",
     "test:postgres": "node scripts/test-postgres.mjs",
     "db:migrate:postgres": "node scripts/migrar-postgres.mjs",
-    "verify:postgres-real": "node scripts/verificar-postgres-real.mjs"
+    "verify:postgres-real": "node scripts/verificar-postgres-real.mjs",
+    "test:keyvault": "node scripts/test-keyvault.mjs",
+    "configure:keyvault": "node scripts/configurar-keyvault.mjs",
+    "verify:keyvault-real": "node scripts/verificar-keyvault-real.mjs"
   },
   "dependencies": {
     "@azure/identity": "4.14.0",

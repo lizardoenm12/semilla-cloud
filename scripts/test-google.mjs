@@ -38,7 +38,7 @@ process.env.AUTH_MODE = 'entra';
 assert.equal(await auth.sessionPrincipal(aToken), null);
 process.env.AUTH_MODE = 'google';
 await check('Cambiar proveedor no acepta una sesión del proveedor anterior', async () => { assert.equal((await auth.sessionPrincipal(aToken)).id, alice.id); await db.run('INSERT INTO users VALUES (?,?)', 'entra:test:otro', 'Usuario anterior'); const previous = await auth.createSession({ id: 'entra:test:otro', name: 'Usuario anterior' }); assert.equal(await auth.sessionPrincipal(previous), null); });
-const base = 'http://localhost:3221', env = { ...process.env, AUTH_MODE: 'google', AUTH_BASE_URL: base, GOOGLE_CLIENT_ID: '1234567890-test.apps.googleusercontent.com', GOOGLE_CLIENT_SECRET: 'solo-secreto-de-prueba-no-real', ATTACHMENT_STORAGE: 'local', NEXT_TELEMETRY_DISABLED: '1' };
+const base = 'http://localhost:3221', env = { ...process.env, AUTH_MODE: 'google', AUTH_BASE_URL: base, GOOGLE_CLIENT_SECRET_KEY_VAULT_SECRET: '', DATABASE_URL_KEY_VAULT_SECRET: '', GOOGLE_CLIENT_ID: '1234567890-test.apps.googleusercontent.com', GOOGLE_CLIENT_SECRET: 'solo-secreto-de-prueba-no-real', ATTACHMENT_STORAGE: 'local', NEXT_TELEMETRY_DISABLED: '1' };
 const server = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '--hostname', '127.0.0.1', '--port', '3221'], { env, stdio: ['ignore', 'pipe', 'pipe'] });
 let logs = '';
 server.stderr.on('data', b => logs += b);
@@ -85,5 +85,5 @@ await check('Configurador privado valida el retorno y conserva las variables Azu
     assert.equal(await readFile(envFile, 'utf8'), content);
 });
 await mkdir('evidencias', { recursive: true });
-await writeFile('evidencias/pruebas-google-locales.json', JSON.stringify({ fechaUTC: new Date().toISOString(), alcance: 'Identidades Google simuladas y SQLite aislado. Sin llamadas a Google o Azure. El acceso Google real sigue pendiente de credenciales OAuth.', resultados: results }, null, 2));
+await writeFile('evidencias/pruebas-google-locales.json', JSON.stringify({ fechaUTC: new Date().toISOString(), alcance: 'Identidades Google simuladas y SQLite aislado. Sin llamadas a Google o Azure. La prueba aislada no determina el estado del acceso Google real.', resultados: results }, null, 2));
 console.log(results.length + ' comprobaciones Google aprobadas, sin servicios remotos.');
