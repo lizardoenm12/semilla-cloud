@@ -1,6 +1,8 @@
-# Material para exposición y defensa
+# Presentación vigente
 
-- [Presentación PowerPoint actualizada](Presentacion_defensa_cloud.pptx): 27 diapositivas con flujo del usuario, capturas, arquitectura, tabla de servicios, comparaciones y supuestos de costos y usuarios.
-- [Defensa técnica con 24 preguntas y respuestas](../defensa-tecnica-cloud.md): fuentes oficiales, alternativas por servicio, límites, costos de planificación y guion breve.
+- [PowerPoint editable: arquitectura y defensa](Asistente_Negocios_Arquitectura_y_Defensa.pptx), actualizado el 22 de octubre de 2026. Incluye 29 diapositivas, capturas del diseño actual, diez tablas y cuatro diagramas editables. Las últimas cuatro diapositivas son anexos de defensa.
+- [Guion y veinte preguntas respondidas](Guion_y_defensa_actualizada.md). Incluye una selección para una exposición de aproximadamente seis minutos, fuentes y las diferencias entre implementado, parcial y pendiente.
 
-Las diapositivas 20 a 26 desarrollan las preguntas de defensa. Para una exposición breve se pueden seleccionar las láminas del producto y usar estas como apoyo para preguntas. Las notas del PowerPoint contienen explicaciones y fuentes. Los costos son reservas internas aproximadas, no una cotización ni la factura real. Los objetivos de usuarios no son capacidad concurrente validada.
+La estructura toma ideas del artículo y los slides de Roastfolio enviados por el catedrático. Se adaptó al estado real de Asistente Negocios. La app pública ya utiliza Google, Container Apps, PostgreSQL, Blob, Key Vault e identidad administrada. Monitor y el despliegue automático completo continúan pendientes.
+
+El archivo `Presentacion_defensa_cloud.pptx` del 19 de octubre permanece como versión histórica. Contiene estados y costos anteriores, por lo que no debe usarse como presentación vigente. Los datos interiores de las capturas nuevas son de una demo local aislada y no agregaron operaciones a Azure.

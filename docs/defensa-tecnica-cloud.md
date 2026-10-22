@@ -1,3 +1,5 @@
+> Versión vigente de exposición (22/10/2026): [guion y defensa actualizada](presentaciones/Guion_y_defensa_actualizada.md). Este documento conserva análisis del 19/10 y cifras históricas. La web HTTPS y las integraciones PostgreSQL, Key Vault e identidad administrada ya están activas.
+
 > Actualización: Google ya fue verificado con la cuenta real y los datos del negocio y sesiones están en PostgreSQL. La app continúa local; los archivos respaldados permanecen en Blob. Ver [estado PostgreSQL](postgresql.md). Las referencias anteriores a SQLite describen el modo alternativo o el estado previo al traslado.
 
 # Defensa técnica y decisiones del proyecto cloud
