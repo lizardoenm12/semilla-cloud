@@ -15,7 +15,7 @@ assert(workspaceEnabled());assert.equal(workspaceOrigin(new Request('http://inte
 assert.throws(()=>workspaceOrigin(new Request('http://internal/',{headers:{host:'evil.invalid','x-forwarded-host':'app.example.test'}})));
 for(const [key,bad] of [['AUTH_MODE','local'],['DATABASE_PROVIDER','sqlite'],['DATABASE_URL_KEY_VAULT_SECRET',''],['GOOGLE_CLIENT_SECRET_KEY_VAULT_SECRET',''],['AUTH_BASE_URL','http://app.example.test'],['AUTH_BASE_URL','https://user:password@app.example.test']]){const previous=process.env[key];process.env[key]=bad;assert.equal(workspaceEnabled(),false,key);process.env[key]=previous;}
 const base='http://127.0.0.1:3227';
-const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3227'],{env:{...process.env,GOOGLE_CLIENT_ID:'123456789-test.apps.googleusercontent.com',GOOGLE_CLIENT_SECRET:'',DATABASE_URL:'',NEXT_TELEMETRY_DISABLED:'1'},stdio:['ignore','pipe','pipe']});
+const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3227'],{env:{...process.env,GOOGLE_CLIENT_ID:'123456789-test.apps.googleusercontent.com',GOOGLE_CLIENT_SECRET:'',DATABASE_URL:'',NEXT_TELEMETRY_DISABLED:'1',DEMO_TOKEN:'token-simulado-no-real-para-probar-bloqueo'},stdio:['ignore','pipe','pipe']});
 try{
  await new Promise((yes,no)=>{const timer=setTimeout(()=>no(Error('No inició')),30000);server.once('error',no);server.once('exit',()=>{clearTimeout(timer);no(Error('Terminó'));});server.stdout.on('data',b=>{if(b.toString().includes('Ready')){clearTimeout(timer);yes();}});});
  const request=(path,host='app.example.test')=>new Promise((yes,no)=>{const req=httpRequest(base+path,{headers:{host}},res=>{let body='';res.on('data',b=>body+=b);res.on('end',()=>yes({status:res.statusCode,body}));});req.on('error',no);req.end();});
@@ -23,6 +23,9 @@ try{
  assert.equal((await request('/api/local/bootstrap')).status,401);
  assert.equal((await request('/api/local/bootstrap','otro.example.test')).status,403);
  assert.equal((await request('/api/auth/session','otro.example.test')).status,400);
- const response=await request('/');assert.equal(response.status,200);assert(response.body.includes('Iniciar sesión con'));
+ for(const path of ['/comprobantes','/estado','/api/comprobantes','/api/estado'])assert.equal((await request(path)).status,404,path);
+ for(const path of ['/api/comprobantes','/api/estado'])assert.equal((await fetch(base+path,{headers:{Authorization:'Bearer token-simulado-no-real-para-probar-bloqueo'}})).status,404,path);
+ assert.equal((await fetch(base+'/api/comprobantes',{method:'POST',headers:{Authorization:'Bearer token-simulado-no-real-para-probar-bloqueo'}})).status,404);
+ const response=await request('/');assert.equal(response.status,200);assert(response.body.includes('Iniciar sesión con'));assert(!response.body.includes('href="/comprobantes"'));assert(!response.body.includes('href="/estado"'));
  console.log('Protecciones cloud aprobadas: sesión obligatoria, HTTPS canónico, Host estricto, sin usuario local ni SQLite; sin llamadas Azure ni Google.');
 }finally{server.kill();if(server.exitCode===null)await once(server,'exit');}

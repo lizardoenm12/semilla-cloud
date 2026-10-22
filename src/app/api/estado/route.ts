@@ -8,6 +8,8 @@ import { checkKeyVault } from "@/lib/keyvault";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
+  if (process.env.APP_MODE === "cloud" || process.env.CONTAINER_APP_NAME)
+    return Response.json({ error: "No encontrado" }, { status: 404, headers: { "Cache-Control": "no-store" } });
   if (!isAuthorized(req)) return Response.json({ error: "No autorizado" }, { status: 401 });
   let storageOk = false;
   try {

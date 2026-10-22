@@ -58,3 +58,12 @@ Fuentes:
 La imagen `acrcloudlizardo01.azurecr.io/asistente-negocios:792933773f48969d06dbe930c3ae468e101cd7f6` fue construida correctamente en GitHub Actions, ejecución 39720933995, intento 2. El primer intento detectó una diferencia del subject OIDC; se ajustó la federación al subject exacto emitido por GitHub, con IDs estables del propietario y repositorio y la rama main. No se aumentaron permisos ni se crearon contraseñas.
 
 El endpoint público no contiene Azure CLI. La prueba de PostgreSQL, Key Vault y Blob se ejecutó con la identidad administrada vinculada. Verificar de nuevo las IP de salida al recrear la infraestructura.
+
+
+## Herramientas históricas retiradas del acceso público
+
+Los enlaces Comprobantes y Estado de servicios pertenecían a la demostración inicial. Sus API requerían DEMO_TOKEN y la de comprobantes solo trabajaba sobre el prefijo `comprobantes-demo/`, separado de los adjuntos reales `operaciones/`. Antes de este cambio, solicitudes públicas sin token devolvieron 401; no se detectó acceso público libre por esas API.
+
+La app cloud ahora oculta ese encabezado y devuelve 404 en `/comprobantes`, `/estado`, `/api/comprobantes` (GET y POST) y `/api/estado`, incluso si se configurara o suministrara un token demo. Los adjuntos reales continúan en Movimientos y comprobantes, con sesión y autorización por negocio. No se eliminan archivos ni se cambian sus permisos de Blob.
+
+Actualizaciones posteriores usan `scripts/actualizar-imagen.py IMAGEN_CON_SHA`: reemplaza solo la imagen de la app existente, conserva configuración, identidad y escala, y espera una revisión lista. No vuelve a configurar PostgreSQL ni sus reglas de red. La compilación se mantiene en GitHub Actions y el despliegue sigue siendo dirigido, no automático.

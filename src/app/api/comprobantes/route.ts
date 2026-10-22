@@ -8,6 +8,8 @@ const unauthorized = () => Response.json({ error: "No autorizado" }, { status: 4
 
 /** POST: crea un comprobante sintético en Azure Blob Storage y lo relee desde el contenedor. */
 export async function POST(req: Request) {
+  if (process.env.APP_MODE === "cloud" || process.env.CONTAINER_APP_NAME)
+    return Response.json({ error: "No encontrado" }, { status: 404, headers: { "Cache-Control": "no-store" } });
   if (!isAuthorized(req)) return unauthorized();
   try {
     const id = randomUUID();
@@ -38,6 +40,8 @@ export async function POST(req: Request) {
  * GET ?id=<uuid>: recupera un comprobante a través del backend.
  */
 export async function GET(req: Request) {
+  if (process.env.APP_MODE === "cloud" || process.env.CONTAINER_APP_NAME)
+    return Response.json({ error: "No encontrado" }, { status: 404, headers: { "Cache-Control": "no-store" } });
   if (!isAuthorized(req)) return unauthorized();
   const parametro = new URL(req.url).searchParams.get("id");
   if (parametro === null) return listar();
