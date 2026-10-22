@@ -1,0 +1,26 @@
+{
+  "fechaUTC": "2026-10-22T03:56:51.543174+00:00",
+  "alcance": "rg-cloud-dev, mes actual hasta la fecha; puede tener retraso",
+  "politica": {
+    "locationPlacementId": "Public_2014-09-01",
+    "quotaId": "FreeTrial_2014-09-01",
+    "spendingLimit": "On"
+  },
+  "consultaDisponible": true,
+  "columnas": [
+    {
+      "name": "PreTaxCost",
+      "type": "Number"
+    },
+    {
+      "name": "Currency",
+      "type": "String"
+    }
+  ],
+  "filas": [
+    [
+      8.622e-05,
+      "USD"
+    ]
+  ]
+}

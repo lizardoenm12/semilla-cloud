@@ -1,0 +1,7 @@
+﻿concepto,estado,minimo_USD_mes,maximo_USD_mes,tipo
+PostgreSQL B1ms 32GiB,implementado,18.1833,18.1833,proyeccion 730 horas
+Container Apps,pendiente,0,5,estimacion uso bajo
+Blob Key Vault margen imagenes y logs,parcialmente implementado,5,10,reserva de planificacion
+Total escenario,,23.1833,33.1833,suma sin impuestos
+Reserva redondeada,,25,35,margen orientativo no limite
+Presupuesto mensual propuesto,no configurado,30,30,aviso no corte automatico

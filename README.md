@@ -1,3 +1,5 @@
+Proyección de costos, crédito y plan de pausa: [docs/costos-y-cierre.md](docs/costos-y-cierre.md). Incluye tabla CSV editable y consumo reportado, separado de estimaciones.
+
 ## Actualización: Key Vault funcional
 
 Las credenciales PostgreSQL y Google se obtienen en el servidor desde Key Vault. El archivo activo usa referencias y la aplicación sigue en localhost:3010. Ver [configuración y prueba](docs/keyvault.md). El despliegue público y la identidad administrada en ejecución siguen pendientes.
