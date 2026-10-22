@@ -18,12 +18,12 @@ Fuente: `Course_Project_2026.docx`, copia del Word entregado por el usuario. El 
 | Servicio | Función en el proyecto | Estado verificable |
 |---|---|---|
 | Azure Blob Storage | Adjuntos de operaciones en contenedor privado | Carga y descarga integradas y verificadas con recursos reales |
-| Microsoft Entra ID / Azure RBAC | Autorizar al servidor con roles acotados y futura identidad administrada | Roles configurados e identidad administrada ejecutada en Container Apps; PostgreSQL, secretos y descarga Blob verificados |
+| Microsoft Entra ID / Azure RBAC | Autorizar al servidor con roles acotados e identidad administrada | Roles configurados e identidad administrada ejecutada en Container Apps; PostgreSQL, secretos y descarga Blob verificados |
 | Azure Key Vault | Credenciales privadas del servidor | Secretos PostgreSQL y Google integrados; lectura desde identidad administrada en la app publicada verificada |
 | Azure Database for PostgreSQL | Operaciones, usuarios, membresías y sesiones persistentes | Integrado y activo; migración verificada y prueba real con rollback |
 | Azure Container Apps | Ejecutar la app en una URL HTTPS | Desplegada; prueba técnica aprobada. Callback Google interactivo confirmado por el usuario |
-| Azure Monitor | Logs y seguimiento de fallos de la app desplegada | Pendiente; no contar únicamente logs predeterminados sin integración demostrada |
-| CI/CD con GitHub Actions hacia Azure | Compilar y desplegar de forma reproducible | Pendiente; el Word acepta GitHub Actions desplegando a cloud. Reemplaza la necesidad de abrir Azure DevOps solo para este fin |
+| Azure Monitor | Logs y seguimiento de fallos de la app desplegada | Integrado: eventos estructurados persistentes, consultas y regla de alerta habilitada; evidencia monitor-real.json |
+| CI/CD con GitHub Actions hacia Azure | Compilar y desplegar de forma reproducible | Integrado: run 39864595655 construyó y desplegó automáticamente la revisión 0000004; evidencia cicd-despliegue.json |
 
 Google se plantea para identificar usuarios, sin contarlo por ahora como un octavo servicio evaluable. La suscripción, el grupo de recursos, cada contenedor Blob y cada asignación de rol no son servicios adicionales. Un recurso creado o una lectura de estado no equivalen por sí solos a una integración funcional terminada. La aceptación académica final corresponde al docente.
 
@@ -33,8 +33,8 @@ Google se plantea para identificar usuarios, sin contarlo por ahora como un octa
 2. PostgreSQL activado tras verificar el traslado y el costo oficial. No eliminar ni reemplazar SQLite antes de comprobar transacciones y datos.
 3. Integrar las credenciales necesarias con Key Vault y el acceso del servidor por identidad administrada en Azure.
 4. Desplegar una sola instancia de prueba en Container Apps, con HTTPS y persistencia externa; comprobar el flujo completo sin pruebas de carga masivas.
-5. Conectar observabilidad y CI/CD de GitHub Actions; documentar evidencia de los siete servicios.
-6. Actualizar presentación, arquitectura, PDF y video con el estado real. No presentar funciones planeadas como implementadas.
+5. Observabilidad y CI/CD conectadas y verificadas el 22/10. Siete integraciones documentadas; ACR auxiliar.
+6. Presentación y guion actualizados con los siete servicios. Preparar PDF, video y ZIP final con el estado real. No presentar funciones planeadas como implementadas.
 
 ## Control de consumo
 

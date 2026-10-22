@@ -1,6 +1,8 @@
 ContainerAppConsoleLogs
 | where ContainerAppName == "app-asistente-negocios-dev"
-| extend Event = parse_json(Log)
+| extend JsonStart = indexof(Log, '{"schema_version"')
+| where JsonStart >= 0
+| extend Event = parse_json(substring(Log, JsonStart))
 | where tostring(Event.service) == "asistente-negocios"
 | where tostring(Event.event) == "application_started"
 | summarize starts=count(), last_seen=max(TimeGenerated) by release=tostring(Event.release)

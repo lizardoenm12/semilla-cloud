@@ -1,0 +1,116 @@
+{
+  "verifiedAtUtc": "2026-10-22T22:38:35.875199+00:00",
+  "release": "5bca0110e138416fe193300d0286a15d90c8c2f8",
+  "persistentTelemetryVerified": true,
+  "startupVerified": true,
+  "requestDurationVerified": true,
+  "queries": {
+    "versiones": {
+      "tables": [
+        {
+          "columns": [
+            {
+              "name": "release",
+              "type": "string"
+            },
+            {
+              "name": "starts",
+              "type": "long"
+            },
+            {
+              "name": "last_seen",
+              "type": "datetime"
+            }
+          ],
+          "name": "PrimaryResult",
+          "rows": [
+            [
+              "5bca0110e138416fe193300d0286a15d90c8c2f8",
+              1,
+              "2026-10-22T22:25:24.8021563Z"
+            ]
+          ]
+        }
+      ]
+    },
+    "rendimiento": {
+      "tables": [
+        {
+          "columns": [
+            {
+              "name": "route",
+              "type": "string"
+            },
+            {
+              "name": "TimeGenerated",
+              "type": "datetime"
+            },
+            {
+              "name": "requests",
+              "type": "long"
+            },
+            {
+              "name": "errors",
+              "type": "long"
+            },
+            {
+              "name": "p95_ms",
+              "type": "real"
+            }
+          ],
+          "name": "PrimaryResult",
+          "rows": [
+            [
+              "/api/local/bootstrap",
+              "2026-10-22T22:15:00Z",
+              1,
+              0,
+              2
+            ]
+          ]
+        }
+      ]
+    },
+    "errores": {
+      "tables": [
+        {
+          "columns": [
+            {
+              "name": "TimeGenerated",
+              "type": "datetime"
+            },
+            {
+              "name": "event",
+              "type": "string"
+            },
+            {
+              "name": "route",
+              "type": "string"
+            },
+            {
+              "name": "status",
+              "type": "int"
+            },
+            {
+              "name": "release",
+              "type": "string"
+            },
+            {
+              "name": "request_id",
+              "type": "string"
+            }
+          ],
+          "name": "PrimaryResult",
+          "rows": []
+        }
+      ]
+    }
+  },
+  "alertConfigured": true,
+  "emailRecipientEnabled": true,
+  "subscriptionNoticeConfirmedByUser": true,
+  "actualErrorEmailDeliveryVerified": false,
+  "notificationTestEndpoint": "unavailable on Free Trial",
+  "syntheticProductionErrors": 0,
+  "businessWritesForVerification": 0
+}

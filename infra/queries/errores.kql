@@ -1,6 +1,8 @@
 ContainerAppConsoleLogs
 | where ContainerAppName == "app-asistente-negocios-dev"
-| extend Event = parse_json(Log)
+| extend JsonStart = indexof(Log, '{"schema_version"')
+| where JsonStart >= 0
+| extend Event = parse_json(substring(Log, JsonStart))
 | where tostring(Event.service) == "asistente-negocios"
 | where tostring(Event.level) == "error"
 | project TimeGenerated, event=tostring(Event.event), route=tostring(Event.route), status=toint(Event.status), release=tostring(Event.release), request_id=tostring(Event.request_id)

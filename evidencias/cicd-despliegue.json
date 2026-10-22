@@ -1,0 +1,19 @@
+{
+  "commit": "5bca0110e138416fe193300d0286a15d90c8c2f8",
+  "image": "acrcloudlizardo01.azurecr.io/asistente-negocios:5bca0110e138416fe193300d0286a15d90c8c2f8",
+  "revision": "app-asistente-negocios-dev--0000004",
+  "url": "https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io",
+  "previousImage": "acrcloudlizardo01.azurecr.io/asistente-negocios:c2ead71a7c680a13d4ccc157182d1a70919ac8ef",
+  "automaticDeployment": true,
+  "verification": {
+    "health": 200,
+    "releaseMatches": true,
+    "login": 200,
+    "privateApiWithoutSession": 401
+  },
+  "databaseOrFirewallModified": false,
+  "minReplicas": 0,
+  "maxReplicas": 1,
+  "workflowRun": 39864595655,
+  "workflowUrl": "https://github.com/lizardoenm12/semilla-cloud/actions/runs/39864595655"
+}

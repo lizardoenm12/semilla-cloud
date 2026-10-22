@@ -1,3 +1,27 @@
+# Siete servicios integrados en Asistente Negocios
+
+Estado verificado el 22/10/2026. Esta sección reemplaza las propuestas y estados históricos conservados debajo.
+
+| Servicio | Función implementada | Evidencia |
+|---|---|---|
+| Container Apps | Ejecuta Next.js y API con HTTPS, mínimo 0 y máximo 1 | publicacion-real.json y cicd-despliegue.json |
+| PostgreSQL | Negocios, movimientos, inventario y sesiones compartidas | PostgreSQL migrado y pruebas transaccionales documentadas |
+| Blob Storage | Comprobantes privados con sesión y membresía | publicacion-real.json y comprobantes-azure.md |
+| Entra ID, RBAC e identidad administrada | Acceso del servidor y federación CI con permisos acotados | cicd-identidad.json y publicacion.md |
+| Key Vault | Credenciales de PostgreSQL y Google recuperadas por el servidor | keyvault.md y publicacion-real.json |
+| Azure Monitor | Eventos estructurados persistentes, consultas y alerta de errores | monitor-real.json y monitor-alertas.json |
+| GitHub Actions hacia Azure | Prueba, construye y despliega automáticamente | Run 39864595655 y cicd-despliegue.json |
+
+ACR es auxiliar. Google identifica a las personas, sin inflar la cuenta de siete. El Word admite CI/CD hacia cloud; la evaluación final corresponde al docente. El grupo, la suscripción, los roles y cada contenedor no cuentan como servicios distintos.
+
+El usuario recibió el aviso de incorporación al grupo de alertas. La entrega por incidente no se ejercitó y Free Trial bloqueó su endpoint de prueba. Los avisos de gasto, la restauración comprobada y la medición de capacidad siguen como mejoras posteriores.
+
+Documentación actual: [plan del curso](requisitos/plan-segun-curso.md), [Monitor](observabilidad.md), [CI/CD](cicd.md), [presentación y guion](presentaciones/README.md).
+
+## Historia del proyecto, estados anteriores
+
+El resto conserva el avance del 17–19/10. Las menciones de pendiente y Azure Pipelines describen ese momento, no la implementación actual. La solución activa usa GitHub Actions, Google para personas e identidad Azure para el servidor. PostgreSQL se autentica con rol SQL y credencial de Key Vault, no directamente con Managed Identity.
+
 ## Conexiones reales verificadas el 19/10/2026
 
 El backend Next.js se ejecutó en el equipo local autenticado con la sesión Azure CLI. Listó Blob Storage, escribió un comprobante sintético y lo recuperó mediante la API. También leyó el secreto prueba-conexion de Key Vault sin exponer su valor. Una consulta sin token de demo devolvió 401. Evidencia: [conexion-azure-real-2026-10-19.json](../evidencias/conexion-azure-real-2026-10-19.json).

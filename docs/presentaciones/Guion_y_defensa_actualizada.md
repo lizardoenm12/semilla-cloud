@@ -14,23 +14,23 @@ Se tomó como referencia de estructura [Roastfolio, de Adrián Catalán](https:/
 | 5–6 | Arquitectura general y flujo de una operación, ambos editables |
 | 7–11 | Acceso público y capturas actuales del resumen, revisión, comprobantes y perfil |
 | 12–16 | Cómputo, despliegue, PostgreSQL, E/R conceptual y archivos privados |
-| 17–20 | IAM, Google, sesiones, secretos y entrega de imágenes |
-| 21–24 | Costos, usuarios, problemas encontrados y pendientes |
-| 25 | Demostración y URL pública |
-| 26–29 | Anexos: otros proveedores, Vercel, defensa y cierre del crédito |
+| 17–22 | IAM, Google, secretos, Monitor, alertas y CI/CD verificada |
+| 23–26 | Costos, usuarios, problemas encontrados y mejoras siguientes |
+| 27 | Demostración y URL pública |
+| 28–31 | Anexos: otros proveedores, Vercel, defensa y cierre del crédito |
 
 Las notas de cada diapositiva contienen explicaciones y fuentes. Las tablas y los diagramas se pueden editar en PowerPoint. Las capturas conservan la interfaz real. El acceso es una captura pública; el interior se capturó con datos locales aislados para no crear operaciones adicionales en Azure.
 
 ## Guion breve de aproximadamente seis minutos
 
-Usar las diapositivas **1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 17, 21, 24 y 25**. Conservar las demás como apoyo y anexos. Ensayar el tiempo antes de grabar el video de cinco a siete minutos.
+Usar las diapositivas **1, 2, 4, 5, 6, 7, 8, 9, 10, 17, 20, 22, 23, 26 y 27**. Conservar las demás como apoyo y anexos. Ensayar el tiempo antes de grabar el video de cinco a siete minutos.
 
-1. **Producto (1–3, aproximadamente 65 segundos).** “Asistente Negocios ayuda a registrar lo que ocurre en un pequeño negocio. El usuario cuenta una venta o gasto, revisa una propuesta y confirma. Elegimos una base compartida para que los datos sobrevivan al reemplazo del contenedor y se vean desde distintos equipos”.
-2. **Servicios y recorrido (4–6, aproximadamente 105 segundos).** “Container Apps ejecuta la web y la API. PostgreSQL conserva el negocio y sus sesiones. Blob conserva los comprobantes. Key Vault protege las credenciales y la identidad administrada autoriza al servidor. La confirmación es el punto donde una transacción actualiza los registros”.
-3. **Interfaz (7–10, aproximadamente 85 segundos).** “Se entra con Google. En esta demo local una venta de Q50 y un gasto de Q20 dejan una diferencia registrada de Q30. Esa diferencia no es utilidad contable. La propuesta sigue siendo editable hasta confirmar y después se puede adjuntar el comprobante”.
-4. **Seguridad (17, aproximadamente 30 segundos).** “La persona, el servidor y la construcción de imágenes tienen identidades diferentes. El backend comprueba membresías por negocio y los archivos permanecen privados”.
-5. **Costos y estado (21 y 24, aproximadamente 50 segundos).** “El escenario pequeño se proyecta en USD 25–35 mensuales antes de impuestos. El crédito es temporal. La web ya está publicada y faltan observabilidad y despliegue automático completo”.
-6. **Cierre (25, aproximadamente 25 segundos).** Mostrar el acceso de la app o una captura. Para presentar no es necesario entrar en Azure Portal.
+1. **Producto (1–3, aproximadamente 55 segundos).** “Asistente Negocios ayuda a registrar lo que ocurre en un pequeño negocio. El usuario cuenta una venta o gasto, revisa una propuesta y confirma. Elegimos una base compartida para que los datos sobrevivan al reemplazo del contenedor y se vean desde distintos equipos”.
+2. **Servicios y recorrido (4–6, aproximadamente 95 segundos).** “Container Apps ejecuta la web y la API. PostgreSQL conserva el negocio y sus sesiones. Blob conserva los comprobantes. Key Vault protege las credenciales y la identidad administrada autoriza al servidor. La confirmación es el punto donde una transacción actualiza los registros”.
+3. **Interfaz (7–10, aproximadamente 80 segundos).** “Se entra con Google. En esta demo local una venta de Q50 y un gasto de Q20 dejan una diferencia registrada de Q30. Esa diferencia no es utilidad contable. La propuesta sigue siendo editable hasta confirmar y después se puede adjuntar el comprobante”.
+4. **Seguridad y operación (17, 20 y 22, aproximadamente 55 segundos).** “Las personas, el servidor, el build y la publicación tienen permisos separados. Monitor ya conserva los eventos de la nueva versión. Actions construye y despliega automáticamente y comprueba salud y rechazo sin sesión”.
+5. **Costos y estado (23 y 26, aproximadamente 50 segundos).** “El escenario pequeño se proyecta en USD 25–35 mensuales antes de impuestos. El crédito es temporal. La web y las siete integraciones están verificadas. La restauración de respaldos y la capacidad siguen como mejoras”.
+6. **Cierre (27, aproximadamente 25 segundos).** Mostrar el acceso de la app o una captura. Para presentar no es necesario entrar en Azure Portal.
 
 ## Acceso para la demostración
 
@@ -100,11 +100,11 @@ No. La interpretación actual usa reglas y el usuario revisa el resultado. No ha
 
 ### 15. ¿Tenemos CI/CD completa?
 
-Actions autentica el build por OIDC, construye y sube la imagen al ACR privado. La actualización de Container Apps se inicia con un script separado. Automatizar ese último paso con las validaciones adecuadas sigue pendiente. Un pipeline que solo existe en YAML no cuenta como ejecutado.
+Sí. El run 39864595655 ejecutó dos jobs correctos: construcción y despliegue. El primero usa OIDC con AcrPush; el segundo usa otra identidad con permiso limitado a la app existente. Publicó la revisión 0000004 y comprobó salud con SHA exacto, login 200 y API sin sesión 401. Conserva escala y recursos y no recrea la base ni su firewall. La recuperación automática solicita la plantilla anterior si falla, pero no se forzó un rollback real en Azure.
 
-### 16. ¿Qué servicios faltan para la rúbrica?
+### 16. ¿Ya están los siete servicios?
 
-La ruta conservadora acredita cinco integraciones principales: Container Apps, PostgreSQL, Blob, Key Vault y Entra/RBAC/identidad administrada. ACR está activo como auxiliar. Azure Monitor sigue pendiente y la entrega automatizada está parcial. La aceptación final de siete servicios corresponde al catedrático. Grupo, suscripción, contenedores y roles no se cuentan por separado.
+Sí, hay siete integraciones verificadas: Container Apps, PostgreSQL, Blob, Entra/RBAC/identidad administrada, Key Vault, Azure Monitor y GitHub Actions desplegando a Azure. ACR es auxiliar. El Word admite CI/CD hacia cloud y exige justificar la identidad mediante permisos explícitos. No contamos grupo, suscripción, cada contenedor o cada rol por separado. La aceptación académica final corresponde al docente.
 
 ### 17. ¿Qué aprendimos de los problemas reales?
 
@@ -133,3 +133,22 @@ Primero exportar PostgreSQL actual y Blob y comprobar una restauración. Conserv
 - [Presupuestos: avisos y límites](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets).
 - [Crédito de Azure](https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/avoid-charges-free-account).
 - [Cloud Run](https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run), [AWS Fargate](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html), [Vercel](https://vercel.com/docs/deployments).
+
+
+### 21. ¿Cómo sabemos que Monitor funciona?
+
+Las consultas reales devolvieron el arranque de 5bca0110 y una petición bootstrap sin sesión rechazada con 401 y duración 2 ms. La consulta de errores estaba vacía. Eso verifica emisión e ingesta persistente, no demuestra capacidad ni ausencia de fallos futuros. Los eventos propios normalizan rutas y excluyen cuerpos, cookies, códigos OAuth, nombres y secretos.
+
+### 22. ¿Ya recibimos una alerta de error por correo?
+
+El destinatario está habilitado y el usuario confirmó el aviso de incorporación al grupo. La regla evalúa errores cada 15 minutos y conserva alertas en Azure. No se ha ejercitado la recepción de un correo por incidente real. Free Trial rechazó el endpoint específico de notificaciones de prueba. No cambiamos el plan ni fabricamos un error en una venta para forzarlo.
+
+### 23. ¿Cuánto añade Monitor?
+
+El ejemplo de 0.025 GB diarios durante 30 días, a USD 2.76/GB, más una regla de 15 minutos a USD 0.50/mes, suma aproximadamente USD 2.57 antes de beneficios, impuestos, notificaciones o sobrepasos. Se incluye en la reserva conjunta de USD 5–10. El límite diario de ingesta es una salvaguarda que puede sobrepasarse y al alcanzarse deja sin visibilidad parte del día.
+
+## Evidencias nuevas
+
+- [CI/CD real](../../evidencias/cicd-despliegue.json), [operación del pipeline](../cicd.md).
+- [Telemetría persistente](../../evidencias/monitor-real.json), [observabilidad y límites](../observabilidad.md).
+- [Precios de Monitor conservados](../../evidencias/precios-monitor-centralus.json).

@@ -1,0 +1,12 @@
+{
+  "actionGroupId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.Insights/actionGroups/ag-asistente-dev",
+  "testType": "logalertv2",
+  "requested": true,
+  "notificationResult": "test endpoint unavailable on Free Trial",
+  "receiverStatus": "Enabled",
+  "emailInGit": false,
+  "testIsProductionIncident": false,
+  "billingPlanChanged": false,
+  "subscriptionNoticeConfirmedByUser": true,
+  "actualErrorEmailDeliveryVerified": false
+}

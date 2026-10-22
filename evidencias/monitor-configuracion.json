@@ -13,5 +13,6 @@
   "httpIngressLogging": false,
   "localAuthDisabled": true,
   "spendingLimit": "On",
-  "status": "logs configured; waiting for application telemetry"
+  "status": "persistent application telemetry verified",
+  "verifiedRelease": "5bca0110e138416fe193300d0286a15d90c8c2f8"
 }

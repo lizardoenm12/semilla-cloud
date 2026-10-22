@@ -1,6 +1,6 @@
 # Costos, crédito de prueba y cierre de Asistente Negocios
 
-Actualizado: 21 de octubre de 2026, Guatemala. Todos los importes se expresan en USD, antes de impuestos. No representan una factura garantizada.
+Actualizado: 22 de octubre de 2026, Guatemala. Todos los importes se expresan en USD, antes de impuestos. No representan una factura garantizada.
 
 ## Estrategia acordada
 
@@ -15,14 +15,16 @@ La política de la suscripción se consultó en esta actualización: `FreeTrial_
 | Concepto | Situación actual | Proyección mensual | Supuesto |
 | --- | --- | ---: | --- |
 | PostgreSQL Flexible Server B1ms | Implementado, con datos y sesiones reales | 18.18 | 730 h a 0.01921/h + 32 GiB a 0.13/GiB-mes; Central US. |
-| Container Apps Consumption | Pendiente de despliegue | 0–5 | Pocas visitas, mínimo 0 y máximo 1 réplica propuestos, dentro o cerca de las cuotas gratuitas. No aplica a carga continua. |
-| Blob, Key Vault y margen para imágenes/logs | Blob y Key Vault implementados; registro de imágenes y logs según despliegue | 5–10 | Reserva de planificación conjunta, no tarifa cotizada ni gasto ya medido. Depende de almacenamiento, solicitudes, egreso y retención. |
-| Total aritmético del escenario | Parcialmente implementado | 23.18–33.18 | Suma de las estimaciones anteriores, no incluye cualquier servicio adicional futuro. |
+| Container Apps Consumption | Publicado en Consumption | 0–5 | Pocas visitas, mínimo 0 y máximo 1 réplica configurados, dentro o cerca de las cuotas gratuitas. No aplica a carga continua. |
+| Blob, Vault, ACR, Monitor y margen | Todos integrados; ingesta y despliegue verificados | 5–10 | Reserva de planificación conjunta, no tarifa cotizada ni gasto ya medido. Depende de almacenamiento, solicitudes, egreso y retención. |
+| Total aritmético del escenario | Servicios integrados | 23.18–33.18 | Suma de las estimaciones anteriores, no incluye cualquier servicio adicional futuro. |
 | Reserva de planificación redondeada | Propuesta | 25–35 | Margen orientativo para pruebas manuales y un entorno pequeño. No es tope de facturación. |
 
 PostgreSQL: cálculo detallado y respuesta de precios oficiales en `evidencias/precios-postgresql-centralus.json`. Cómputo: 14.0233; almacenamiento: 4.16; total: 18.1833 por 730 horas. El costo real de un mes parcial se ajustará al tiempo y uso facturados; no asumir un beneficio gratuito de PostgreSQL no verificado.
 
-Container Apps incluye por suscripción y mes 180,000 vCPU-segundos, 360,000 GiB-segundos y 2 millones de solicitudes HTTP. Como ejemplo ilustrativo, una sola réplica configurada con 0.5 vCPU y 1 GiB consume ambas cuotas de cómputo en aproximadamente 100 horas de ejecución acumulada si ninguna otra aplicación las utiliza. El tamaño final aún debe validarse. No confundir horas de visitas con horas de ejecución: hay arranque, enfriamiento y solicitudes adicionales.
+Container Apps incluye por suscripción y mes 180,000 vCPU-segundos, 360,000 GiB-segundos y 2 millones de solicitudes HTTP. Como ejemplo ilustrativo, una sola réplica configurada con 0.5 vCPU y 1 GiB consume ambas cuotas de cómputo en aproximadamente 100 horas de ejecución acumulada si ninguna otra aplicación las utiliza. El tamaño actual es 0.5 vCPU y 1 GiB. La capacidad con carga aún debe medirse. No confundir horas de visitas con horas de ejecución: hay arranque, enfriamiento y solicitudes adicionales.
+
+Azure Monitor: tarifas conservadas en `evidencias/precios-monitor-centralus.json`, USD 2.76/GB y regla de 15 minutos a USD 0.50/mes. Un ejemplo de 0.025 GB diarios por 30 días suma USD 2.57 con la regla, incluido como planificación dentro de la reserva conjunta de USD 5–10. No asume beneficios gratis. El límite de ingesta puede sobrepasarse y no fija una factura máxima. GitHub Actions usa cuotas y facturación propias, separadas del crédito Azure.
 
 ## Gasto reportado y crédito
 
@@ -49,7 +51,7 @@ Los presupuestos avisan y tienen retraso; no suspenden recursos automáticamente
 
 ## Texto breve para exponer
 
-> Nuestro escenario de desarrollo se estima en USD 25–35 mensuales antes de impuestos, con PostgreSQL como principal costo fijo. Aprovechamos el crédito de prueba de Azure sin retirar el límite de gasto. La aplicación tendrá escalado a cero y un máximo pequeño de réplicas. Diferenciamos proyección y consumo reportado; antes de finalizar la prueba respaldaremos datos y retiraremos los recursos que no se necesiten. Los avisos de presupuesto se han propuesto, pero todavía no están configurados.
+> Nuestro escenario de desarrollo se estima en USD 25–35 mensuales antes de impuestos, con PostgreSQL como principal costo fijo. Aprovechamos el crédito de prueba de Azure sin retirar el límite de gasto. La aplicación tiene escalado a cero y un máximo pequeño de réplicas. Diferenciamos proyección y consumo reportado; antes de finalizar la prueba respaldaremos datos y retiraremos los recursos que no se necesiten. Los avisos de presupuesto se han propuesto, pero todavía no están configurados.
 
 ## Fuentes
 

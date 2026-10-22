@@ -6,17 +6,21 @@ Container Apps ya ejecuta la aplicación con identidad administrada, PostgreSQL,
 
 Proyección de costos, crédito y plan de pausa: [docs/costos-y-cierre.md](docs/costos-y-cierre.md). Incluye tabla CSV editable y consumo reportado, separado de estimaciones.
 
-## Actualización: Key Vault funcional
+## Siete integraciones verificadas, 22/10/2026
 
-Las credenciales PostgreSQL y Google se obtienen en el servidor desde Key Vault. El archivo activo usa referencias y la aplicación sigue en localhost:3010. Ver [configuración y prueba](docs/keyvault.md). El despliegue público y la identidad administrada en ejecución siguen pendientes.
+Container Apps, PostgreSQL, Blob, Entra/RBAC/identidad administrada, Key Vault, Azure Monitor y GitHub Actions desplegando a Azure. ACR conserva las imágenes como auxiliar. [CI/CD](docs/cicd.md) y [Monitor](docs/observabilidad.md) incluyen límites y evidencias. El aviso de incorporación al grupo de alertas se recibió; la entrega de correo por incidente no se ejercitó.
 
-> Estado actual: inicio Google real, operaciones y sesiones en Azure PostgreSQL y comprobantes en Azure Blob. La app se ejecuta en este equipo; despliegue público pendiente. La instalación sin credenciales conserva el modo SQLite. Ver [PostgreSQL y migración verificada](docs/postgresql.md).
+## Key Vault funcional
 
-Material de exposición y respuestas: [presentación](docs/presentaciones/Presentacion_defensa_cloud.pptx) y [defensa técnica](docs/defensa-tecnica-cloud.md).
+Las credenciales PostgreSQL y Google se obtienen en el servidor desde Key Vault. La aplicación publicada usa referencias e identidad administrada. Ver [configuración y prueba](docs/keyvault.md). El despliegue público y la identidad administrada están verificados.
+
+> Estado actual: inicio Google real, operaciones y sesiones en Azure PostgreSQL y comprobantes en Azure Blob. La app está publicada en Container Apps. La instalación sin credenciales conserva el modo SQLite. Ver [PostgreSQL y migración verificada](docs/postgresql.md).
+
+Material de exposición y respuestas: [presentación](docs/presentaciones/Asistente_Negocios_Arquitectura_y_Defensa.pptx) y [defensa técnica](docs/defensa-tecnica-cloud.md).
 
 > **Nuevo: movimientos y comprobantes locales.** En la sección “Movimientos y comprobantes” puedes filtrar los 40 registros recientes, seleccionar uno, adjuntar PNG/JPG/PDF, descargarlos y quitarlos. No requiere Azure. Ver [alcance y límites](docs/comprobantes-locales.md).
 
-> **Actualización 19/10/2026:** backend conectado a Blob Storage y Key Vault, con pruebas reales aprobadas usando Azure CLI. Evidencia en `evidencias/conexion-azure-real-2026-10-19.json`. Container Apps e identidad administrada en ejecución pendientes.
+> **Actualización 19/10/2026:** backend conectado a Blob Storage y Key Vault, con pruebas reales aprobadas usando Azure CLI. Evidencia en `evidencias/conexion-azure-real-2026-10-19.json`. Ese fue el estado inicial; Container Apps y la identidad administrada ya están en ejecución.
 
 > **Guía para Jessel y demo de conexiones Azure:** [docs/GUIA-JESSEL.md](docs/GUIA-JESSEL.md). Ejecutar `npm run dev:cloud` para la demo Azure o `npm run dev:local` para el negocio con SQLite.
 
@@ -25,7 +29,7 @@ Material de exposición y respuestas: [presentación](docs/presentaciones/Presen
 **Versión local 0.2.0 - 17/10/2026.** Semilla es un nombre provisional.
 Equipo: Lizardo Gonzalez (24000682) y Jessel Contreras (23011020).
 
-Repositorio privado: https://github.com/lizardoenm12/semilla-cloud. Para colaborar, leer [CONTRIBUTING.md](CONTRIBUTING.md). Los [siete servicios Azure acordados](docs/servicios-azure.md) y el YAML `azure-pipelines.yml` definen la continuación hacia la versión compartida. El YAML está preparado para validar el código; no se ha ejecutado en Azure DevOps ni desplegado la aplicación.
+Repositorio privado: https://github.com/lizardoenm12/semilla-cloud. Para colaborar, leer [CONTRIBUTING.md](CONTRIBUTING.md). La [arquitectura según el curso](docs/requisitos/plan-segun-curso.md) documenta los siete servicios integrados. El flujo activo es `.github/workflows/imagen-dev.yml`, con construcción y despliegue verificados; `azure-pipelines.yml` se conserva como propuesta histórica sin ejecutar.
 
 Primera implementación del producto ampliado. Conserva el proyecto Next.js existente y la demostración Azure separada. Funciona localmente con SQLite, sin cuenta Azure, sin claves y sin servicios de IA.
 

@@ -1,0 +1,22 @@
+{
+  "workspaceId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.OperationalInsights/workspaces/log-cloud-dev",
+  "alertId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.Insights/scheduledQueryRules/alert-asistente-errores-dev",
+  "actionGroupId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.Insights/actionGroups/ag-asistente-dev",
+  "enabled": true,
+  "evaluationFrequency": "PT15M",
+  "windowSize": "PT15M",
+  "severity": 2,
+  "emailConfigured": true,
+  "emailAddressStoredInGit": false,
+  "portalAlertsEnabled": true,
+  "queriesValidated": true,
+  "savedQueries": [
+    "errores",
+    "rendimiento",
+    "versiones"
+  ],
+  "dailyQuotaGb": 0.025,
+  "retentionDays": 30,
+  "notificationTest": "test endpoint unavailable on Free Trial",
+  "syntheticProductionErrors": 0
+}
