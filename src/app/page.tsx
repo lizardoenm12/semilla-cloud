@@ -1,3 +1,4 @@
+import SignIn from "./sign-in";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { authMode, workspaceEnabled } from "@/lib/local/identity";
@@ -22,7 +23,7 @@ export default async function Inicio() {
                 redirect(base + "/");
             const user = await sessionPrincipal((await cookies()).get(SESSION_COOKIE)?.value);
             if (!user)
-                return <section style={{ maxWidth: 540, margin: "80px auto", padding: 24 }}><p>TU ESPACIO DE NEGOCIO</p><h1>Bienvenido a tu negocio.</h1><p>Inicia sesión con {label} para acceder a tus negocios y comprobantes.</p><a href="/api/auth/login">Iniciar sesión con {label}</a><p>Tu contraseña se introduce únicamente en {label}.</p></section>;
+                return <SignIn provider={label} />;
         }
         return <Workspace />;
     }
