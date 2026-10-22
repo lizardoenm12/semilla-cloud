@@ -69,4 +69,7 @@ La app cloud ahora oculta ese encabezado y devuelve 404 en `/comprobantes`, `/es
 Actualizaciones posteriores usan `scripts/actualizar-imagen.py IMAGEN_CON_SHA`: reemplaza solo la imagen de la app existente, conserva configuración, identidad y escala, y espera una revisión lista. No vuelve a configurar PostgreSQL ni sus reglas de red. La compilación se mantiene en GitHub Actions y el despliegue sigue siendo dirigido, no automático.
 
 
-Verificación publicada del retiro de demo: raíz 200 sin enlaces técnicos; las dos pantallas y sus API devolvieron 404 (incluido POST sintético); negocios sin sesión 401 y con sesión temporal autorizada 200. La sesión temporal fue revocada; sin movimientos, descargas de adjuntos ni cambios en permisos. Evidencia: evidencias/demo-publica-deshabilitada.json y evidencias/actualizacion-imagen.json. Imagen activa: 03048b82290e7cb037bcc528cb542d4e41e9dc2a.
+Verificación publicada del retiro de demo: raíz 200 sin enlaces técnicos; las dos pantallas y sus API devolvieron 404 (incluido POST sintético); negocios sin sesión 401 y con sesión temporal autorizada 200. La sesión temporal fue revocada; sin movimientos, descargas de adjuntos ni cambios en permisos. Evidencia: evidencias/demo-publica-deshabilitada.json y evidencias/actualizacion-imagen.json. Imagen de esa verificación: 03048b82290e7cb037bcc528cb542d4e41e9dc2a.
+
+
+El inicio sin sesión fue rediseñado y publicado con la imagen 219eb67bb18e4b52f52e5a609e2875fec746bbbd. Guía editable y revisión de escritorio/móvil: docs/diseno-inicio.md; evidencia pública: evidencias/diseno-inicio.json. La autenticación, los datos y los permisos no cambiaron.

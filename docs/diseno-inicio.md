@@ -13,3 +13,6 @@ Archivos editables: `src/app/sign-in.tsx` y `src/app/sign-in.css`. El componente
 - Compilación, pruebas de acceso Google y protecciones cloud aprobadas. No se contactó Azure ni Google durante las pruebas locales.
 
 Para verla con una sesión activa hay que cerrar sesión o abrir una ventana privada. El rediseño no borra datos, cambia permisos ni crea recursos Azure. Se publica mediante una nueva imagen en la misma app.
+
+
+Publicado en https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io/ . Verificación pública: HTML y fuente local 200, enlace Google conservado, API de negocios sin sesión 401 y herramientas demo 404. Evidencia: `evidencias/diseno-inicio.json`. Imagen: `219eb67bb18e4b52f52e5a609e2875fec746bbbd`.

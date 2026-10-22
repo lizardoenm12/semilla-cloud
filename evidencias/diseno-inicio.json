@@ -1,0 +1,115 @@
+{
+  "fechaUTC": "2026-10-22T05:09:33.490715+00:00",
+  "alcance": "Vista local aislada con configuración simulada; sin Azure ni Google. CSS final revisado en el navegador.",
+  "viewports": [
+    {
+      "name": "desktop",
+      "width": 1440,
+      "documentWidth": 1440,
+      "title": "El siguientepaso es tuyo.",
+      "button": {
+        "x": 957.609375,
+        "y": 524.671875,
+        "width": 352,
+        "height": 58,
+        "top": 524.671875,
+        "right": 1309.609375,
+        "bottom": 582.671875,
+        "left": 957.609375
+      },
+      "font": "manrope, \"manrope Fallback\"",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "tablet",
+      "width": 1024,
+      "documentWidth": 1024,
+      "title": "El siguientepaso es tuyo.",
+      "button": {
+        "x": 630.125,
+        "y": 472.4375,
+        "width": 352,
+        "height": 58,
+        "top": 472.4375,
+        "right": 982.125,
+        "bottom": 530.4375,
+        "left": 630.125
+      },
+      "font": "manrope, \"manrope Fallback\"",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "mobile",
+      "width": 390,
+      "documentWidth": 390,
+      "title": "El siguientepaso es tuyo.",
+      "button": {
+        "x": 28,
+        "y": 610.6875,
+        "width": 334,
+        "height": 56,
+        "top": 610.6875,
+        "right": 362,
+        "bottom": 666.6875,
+        "left": 28
+      },
+      "font": "manrope, \"manrope Fallback\"",
+      "loadedFonts": "loaded"
+    },
+    {
+      "name": "small",
+      "width": 360,
+      "documentWidth": 360,
+      "title": "El siguientepaso es tuyo.",
+      "button": {
+        "x": 22,
+        "y": 583.90625,
+        "width": 316,
+        "height": 56,
+        "top": 583.90625,
+        "right": 338,
+        "bottom": 639.90625,
+        "left": 22
+      },
+      "font": "manrope, \"manrope Fallback\"",
+      "loadedFonts": "loaded"
+    }
+  ],
+  "desbordamientoHorizontal": false,
+  "compilacion": true,
+  "pruebasGoogleLocales": 8,
+  "proteccionesCloudLocales": true,
+  "nuevosRecursosAzure": 0,
+  "publicacion": {
+    "fechaUTC": "2026-10-22T05:12:14.276Z",
+    "url": "https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io",
+    "home": 200,
+    "fuenteAutoalojada": 200,
+    "fontBytes": 164700,
+    "botonGoogleConservado": true,
+    "enlacesTecnicosAusentes": true,
+    "statuses": [
+      {
+        "path": "/api/local/bootstrap",
+        "status": 401
+      },
+      {
+        "path": "/comprobantes",
+        "status": 404
+      },
+      {
+        "path": "/estado",
+        "status": 404
+      },
+      {
+        "path": "/api/comprobantes",
+        "status": 404
+      },
+      {
+        "path": "/api/estado",
+        "status": 404
+      }
+    ],
+    "image": "219eb67bb18e4b52f52e5a609e2875fec746bbbd"
+  }
+}
