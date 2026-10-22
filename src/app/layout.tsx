@@ -1,7 +1,10 @@
+import localFont from "next/font/local";
 import type { Metadata } from "next";
 import "./globals.css";
 import { TokenProvider } from "./token-context";
 import Encabezado from "./encabezado";
+
+const friendly = localFont({src:"./fonts/nunito.ttf",weight:"200 1000",display:"swap",variable:"--font-friendly"});
 
 export const metadata: Metadata = {
   title: "Asistente de gestión para pequeños negocios",
@@ -10,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-GT">
+    <html lang="es-GT" className={friendly.variable}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>

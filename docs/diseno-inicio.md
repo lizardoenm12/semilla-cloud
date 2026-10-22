@@ -1,18 +1,29 @@
-# Inicio de sesión
+# Diseño de acceso e interior · 22 de octubre de 2026
 
-Pantalla para visitantes sin sesión, con una dirección visual inspirada en el lenguaje editorial de Porsche: composición oscura, tipografía grande, amplios espacios y rojo como acento. Identidad, textos y arte vectorial propios de Asistente Negocios; no se reutilizan el logotipo ni fotografías de Porsche.
+La referencia proporcionada por Lizardo está conservada en `docs/referencia-visual.md`. Se interpreta como referencia visual, no como instrucciones operativas del proyecto.
 
-Archivos editables: `src/app/sign-in.tsx` y `src/app/sign-in.css`. El componente se usa desde la página de inicio después de verificar que no existe una sesión. El espacio de negocio autenticado mantiene sus estilos y funcionamiento.
+## Sistema visual actual
 
-- Diseño de dos columnas en escritorio y una columna en móvil, sin enlaces técnicos ni controles de demostración.
-- Botón real al mismo `/api/auth/login`; Google sigue gestionando la autenticación. No se agregan formularios de contraseña ni pasos nuevos.
-- Ilustración SVG integrada en el componente, sin descargar imágenes de terceros ni video automático.
-- Fuente variable Manrope autoalojada, licencia SIL Open Font License en `src/app/fonts/OFL-Manrope.txt`. Fuente: https://github.com/google/fonts/tree/main/ofl/manrope
-- Acceso por teclado con foco visible, SVG decorativos fuera del árbol accesible y estilos acotados a esta pantalla.
-- Revisión visual en navegador aislado a 1440, 1024, 390 y 360 píxeles; sin desbordamiento horizontal, botón visible en los tamaños móviles revisados y fuente local cargada.
-- Compilación, pruebas de acceso Google y protecciones cloud aprobadas. No se contactó Azure ni Google durante las pruebas locales.
+- Fondo blanco, tipografía redondeada Nunito variable alojada en la propia app y licencia SIL OFL incluida.
+- Verde #58cc02 para acciones; verde más oscuro #438f13 para texto legible. Azul para acciones secundarias y foco visible.
+- Botones con borde inferior grueso, tarjetas con bordes de 2 px, esquinas redondeadas, superficies planas sin degradados ni sombras.
+- Ilustración SVG propia de un brote con una libreta y una bolsa. No reproduce la mascota ni los logotipos de Duolingo.
+- Acceso y ocho secciones internas comparten el sistema. Menú con iconos SVG de trazo redondeado.
+- El flujo de Google, la autorización por negocio, PostgreSQL y los archivos privados conservan su funcionamiento.
 
-Para verla con una sesión activa hay que cerrar sesión o abrir una ventana privada. El rediseño no borra datos, cambia permisos ni crea recursos Azure. Se publica mediante una nueva imagen en la misma app.
+## Archivos editables
 
+- `src/app/sign-in.tsx` y `sign-in.css`: acceso.
+- `src/app/growth-art.tsx`: ilustración e isotipo propios.
+- `src/app/friendly-theme.css`: tema completo del interior, conservando la estructura adaptable de `workspace.css`.
+- `src/app/workspace.tsx`: marca, iconos y componentes funcionales.
+- `src/app/layout.tsx`: fuente compartida.
+- `src/app/fonts/nunito.ttf` y `OFL-Nunito.txt`: fuente variable y licencia.
 
-Publicado en https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io/ . Verificación pública: HTML y fuente local 200, enlace Google conservado, API de negocios sin sesión 401 y herramientas demo 404. Evidencia: `evidencias/diseno-inicio.json`. Imagen: `219eb67bb18e4b52f52e5a609e2875fec746bbbd`.
+La fuente procede del repositorio oficial google/fonts (`ofl/nunito/Nunito[wght].ttf`). El navegador no consulta Google Fonts; Next la incluye como archivo estático de la app.
+
+## Validación
+
+Se revisan acceso y secciones internas en un entorno local con SQLite temporal. No se crean operaciones en PostgreSQL ni archivos en Azure para revisar estilos. La evidencia de tamaños y verificaciones está en `evidencias/rediseno-amigable.json` tras completar la publicación.
+
+El diseño oscuro anterior se documenta únicamente como historial en `docs/diseno-inicio-anterior.md`.
