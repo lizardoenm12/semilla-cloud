@@ -4,7 +4,7 @@ from pathlib import Path
 CLI=[r'C:\Program Files\Microsoft SDKs\Azure\CLI2\python.exe','-m','azure.cli'] if sys.platform=='win32' else ['az']
 ROOT=Path(__file__).resolve().parents[1];RG='rg-cloud-dev';REGION='centralus';APP='app-asistente-negocios-dev';ENV='cae-cloud-dev';ACR='acrcloudlizardo01'
 def az(args,optional=False):
- r=subprocess.run(CLI+args+['--only-show-errors','-o','json'],capture_output=True,text=True,timeout=600)
+ r=subprocess.run(CLI+args+['--only-show-errors','-o','json'],capture_output=True,text=True,timeout=1800 if args[:3]==['deployment','group','create'] else 600)
  if r.returncode:
   if optional:return None
   raise RuntimeError(r.stderr[-2500:])
@@ -40,7 +40,7 @@ if phase=='prepare':
  registry=ready(acr_path)
  build=az(['identity','show','-g',RG,'-n','id-cloud-build-dev'],optional=True)
  if not build:build=az(['identity','create','-g',RG,'-n','id-cloud-build-dev','-l',REGION])
- rest('put',build['id']+'/federatedIdentityCredentials/github-main?api-version=2023-01-31',{'properties':{'issuer':'https://token.actions.githubusercontent.com','subject':'repo:lizardoenm12/semilla-cloud:ref:refs/heads/main','audiences':['api://AzureADTokenExchange']}})
+ rest('put',build['id']+'/federatedIdentityCredentials/github-main?api-version=2023-01-31',{'properties':{'issuer':'https://token.actions.githubusercontent.com','subject':'repo:lizardoenm12@158477878/semilla-cloud@1423989886:ref:refs/heads/main','audiences':['api://AzureADTokenExchange']}})
  role(build['principalId'],registry['id'],'8311e382-0749-4cb8-b61a-304f252e45ec')
  role(identity['principalId'],registry['id'],'7f951dda-4ed3-4680-a7ca-43fe172d538d')
  env_path=BASE+'Microsoft.App/managedEnvironments/'+ENV+'?api-version=2025-01-01'
@@ -51,7 +51,7 @@ if phase=='prepare':
  config={'resourceGroup':RG,'region':REGION,'appName':APP,'environmentId':environment['id'],'registry':ACR,'registryServer':registry['properties']['loginServer'],'runtimeIdentityId':identity['id'],'runtimeClientId':identity['clientId'],'buildClientId':build['clientId'],'tenantId':account['tenantId'],'subscriptionId':SUB,'baseUrl':'https://'+APP+'.'+environment['properties']['defaultDomain']}
  (ROOT/'infra'/'deployment.json').write_text(json.dumps(config,indent=2),encoding='utf-8')
  print(json.dumps({'preparado':True,'urlPrevista':config['baseUrl'],'registro':ACR,'plan':'Consumption','limiteGasto':policy['spendingLimit']}),flush=True)
-elif phase=='app':
+elif phase in ['app','network']:
  config=json.loads((ROOT/'infra'/'deployment.json').read_text(encoding='utf-8'))
  image=sys.argv[2]
  if not image.startswith(config['registryServer']+'/asistente-negocios:') or len(image.split(':')[-1])!=40:raise RuntimeError('Usar imagen del registro y SHA de commit completo')
@@ -61,16 +61,40 @@ elif phase=='app':
  variables={'APP_MODE':'cloud','AUTH_MODE':'google','AUTH_BASE_URL':config['baseUrl'],'GOOGLE_CLIENT_ID':client,'GOOGLE_CLIENT_SECRET_KEY_VAULT_SECRET':'asistente-google-client-secret','DATABASE_PROVIDER':'postgres','DATABASE_URL_KEY_VAULT_SECRET':'asistente-postgresql-url','AZURE_KEY_VAULT_NAME':'kv-cloud-lizardo-dev','AZURE_CLIENT_ID':identity['clientId'],'AZURE_STORAGE_ACCOUNT':'stclouddevlizardo01','AZURE_STORAGE_CONTAINER':'comprobantes','ATTACHMENT_STORAGE':'azure','NEXT_TELEMETRY_DISABLED':'1'}
  app_path=BASE+'Microsoft.App/containerApps/'+APP+'?api-version=2025-01-01'
  payload={'location':REGION,'identity':{'type':'UserAssigned','userAssignedIdentities':{identity['id']:{}}},'properties':{'managedEnvironmentId':config['environmentId'],'workloadProfileName':'Consumption','configuration':{'activeRevisionsMode':'Single','ingress':{'external':True,'targetPort':8080,'transport':'auto','allowInsecure':False,'traffic':[{'latestRevision':True,'weight':100}]},'registries':[{'server':config['registryServer'],'identity':identity['id']}]},'template':{'containers':[{'name':'app','image':image,'env':[{'name':k,'value':v} for k,v in variables.items()],'resources':{'cpu':0.5,'memory':'1Gi'},'probes':[{'type':'Startup','httpGet':{'path':'/api/health','port':8080},'periodSeconds':10,'timeoutSeconds':3,'failureThreshold':30},{'type':'Readiness','httpGet':{'path':'/api/health','port':8080},'periodSeconds':10,'timeoutSeconds':3,'failureThreshold':3},{'type':'Liveness','httpGet':{'path':'/api/health','port':8080},'periodSeconds':30,'timeoutSeconds':3,'failureThreshold':3}]}],'scale':{'minReplicas':0,'maxReplicas':1,'rules':[{'name':'http','http':{'metadata':{'concurrentRequests':'10'}}}]}}}}
- print('Publicando una app de 0.5 vCPU y 1 GiB, mínimo cero, máximo una réplica',flush=True)
- rest('put',app_path,payload);app=ready(app_path)
+ print('Preparando app y acceso de red, sin ampliar el límite de réplicas',flush=True)
+ if phase=='app':rest('put',app_path,payload)
+ app=ready(app_path)
  actual='https://'+app['properties']['configuration']['ingress']['fqdn']
  if actual!=config['baseUrl']:raise RuntimeError('El dominio no coincide; revisar AUTH_BASE_URL antes de habilitar Google')
  ips=app['properties'].get('outboundIpAddresses',[])
  if not ips:raise RuntimeError('No se pudieron determinar las IP de salida; no se abrirá PostgreSQL a todas las redes')
+ # Un despliegue ARM incremental aplica las reglas pendientes sin borrar las demás.
+ import ipaddress
+ existing=az(['postgres','flexible-server','firewall-rule','list','-g',RG,'--server-name','pg-cloud-lizardo-dev'])
+ rules=[]
  for index,ip in enumerate(ips):
-  import ipaddress
-  ipaddress.IPv4Address(ip)
-  az(['postgres','flexible-server','firewall-rule','create','-g',RG,'--name',f'container-app-{index+1}','--server-name','pg-cloud-lizardo-dev','--start-ip-address',ip,'--end-ip-address',ip])
- (ROOT/'evidencias'/'container-app-despliegue.json').write_text(json.dumps({'url':actual,'image':image,'region':REGION,'cpu':0.5,'memory':'1Gi','minReplicas':0,'maxReplicas':1,'identity':'id-cloud-app-dev','registryAdminEnabled':False,'postgresFirewallIps':len(ips),'spendingLimit':'On','logsDestination':'none','googleCallbackPendienteVerificar':True},indent=2),encoding='utf-8')
- print(json.dumps({'publicada':True,'url':actual,'reglasPostgresAgregadas':len(ips)}),flush=True)
+  ipaddress.IPv4Address(ip);name=f'container-app-{index+1}'
+  if any(r['name']==name and r['startIpAddress']==ip and r['endIpAddress']==ip for r in existing):continue
+  rules.append({'type':'Microsoft.DBforPostgreSQL/flexibleServers/firewallRules','apiVersion':'2025-08-01','name':'pg-cloud-lizardo-dev/'+name,'properties':{'startIpAddress':ip,'endIpAddress':ip}})
+ if rules:
+  network_template={'$schema':'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#','contentVersion':'1.0.0.0','resources':rules}
+  template_file=ROOT/'tmp'/'postgres-egress.arm.json';template_file.write_text(json.dumps(network_template),encoding='utf-8')
+  print(f'Configurando {len(rules)} reglas exactas pendientes',flush=True)
+  try:
+   az(['deployment','group','create','-g',RG,'-n','asistente-postgres-egress','--template-file',str(template_file),'--mode','Incremental'])
+  except RuntimeError as error:
+   if 'GatewayTimeout' not in str(error):raise
+   applied=az(['postgres','flexible-server','firewall-rule','list','-g',RG,'--server-name','pg-cloud-lizardo-dev'])
+   remaining=[r for r in rules if not any(e['name']==r['name'].split('/')[-1] and e['startIpAddress']==r['properties']['startIpAddress'] and e['endIpAddress']==r['properties']['endIpAddress'] for e in applied)]
+   if len(remaining)>8:raise RuntimeError('Demasiadas reglas pendientes; revisar el estado de Azure antes de repetir') from None
+   for rule in remaining:
+    print('Recuperando regla con GatewayTimeout: '+rule['name'].split('/')[-1],flush=True)
+    az(['postgres','flexible-server','firewall-rule','create','-g',RG,'--server-name','pg-cloud-lizardo-dev','--name',rule['name'].split('/')[-1],'--start-ip-address',rule['properties']['startIpAddress'],'--end-ip-address',rule['properties']['endIpAddress']])
+ verified=az(['postgres','flexible-server','firewall-rule','list','-g',RG,'--server-name','pg-cloud-lizardo-dev'])
+ for index,ip in enumerate(ips):
+  if not any(r['name']==f'container-app-{index+1}' and r['startIpAddress']==ip and r['endIpAddress']==ip for r in verified):raise RuntimeError('Falta verificar una regla de salida')
+ previous=ROOT/'evidencias'/'publicacion-real.json'
+ confirmed=json.loads(previous.read_text(encoding='utf-8')) if previous.exists() else {}
+ (ROOT/'evidencias'/'container-app-despliegue.json').write_text(json.dumps({'url':actual,'image':image,'region':REGION,'cpu':0.5,'memory':'1Gi','minReplicas':0,'maxReplicas':1,'identity':'id-cloud-app-dev','registryAdminEnabled':False,'postgresFirewallIps':len(ips),'spendingLimit':'On','logsDestination':'none','googleCallbackPendienteVerificar':not bool(confirmed.get('googleConfirmacionUTC') and confirmed.get('url')==actual)},indent=2),encoding='utf-8')
+ print(json.dumps({'publicada':True,'url':actual,'reglasPostgresVerificadas':len(ips)}),flush=True)
 else:raise RuntimeError('Fase no implementada')

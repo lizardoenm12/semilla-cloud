@@ -1,6 +1,10 @@
 # Publicación de desarrollo en Azure Container Apps
 
-En preparación. El código y la configuración pública están en la misma carpeta del proyecto. No afirmar que el acceso Google público ha sido verificado hasta completar su retorno HTTPS y una prueba del usuario.
+App desplegada y prueba técnica pública aprobada el 21/10/2026 (Guatemala).
+
+URL: https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io/
+
+El usuario confirmó el inicio completo con Google desde la URL HTTPS y que ve sus negocios. La prueba técnica utilizó una sesión interna temporal del propietario ya verificado y la revocó al terminar; no se presentó como otro inicio OAuth real. Se verificó el conjunto completo de 161 IP de salida autorizadas y se conservó la regla del equipo local. El despliegue ARM inicial terminó con GatewayTimeout en algunas reglas; se completaron únicamente las pendientes y la comprobación final confirmó todas las reglas esperadas. La aplicación permaneció operativa durante ese cierre.
 
 ## Recursos y límites
 
@@ -25,7 +29,7 @@ En esta fase GitHub construye y sube la imagen; el despliegue se ejecuta con el 
 
 El runtime utiliza la identidad administrada vinculada. La URL PostgreSQL y secreto Google se recuperan de Key Vault únicamente en el servidor. Los comprobantes permanecen en Blob privado. Los datos y sesiones son los mismos de la base actual; un nuevo dominio requiere iniciar sesión allí y no comparte cookies con localhost.
 
-El firewall PostgreSQL debe conservar la IP local autorizada y agregar solo las IP de salida reportadas por la app. No se habilita la regla de todas las IP ni la de todos los servicios Azure. Revisar las IP al recrear el entorno, porque no se contrató salida fija mediante NAT.
+El firewall PostgreSQL debe conservar la IP local autorizada y agregar solo las IP de salida reportadas por la app. Azure reportó un conjunto de 161 IP posibles de salida. Se autoriza ese conjunto exacto; son direcciones compartidas de la plataforma, no una red exclusiva de esta app. PostgreSQL sigue exigiendo credenciales y TLS. No se habilita la regla de todas las IP ni la de todos los servicios Azure. La integración privada o salida fija queda como mejora posterior. Revisar las IP al recrear el entorno, porque no se contrató salida fija mediante NAT.
 
 ## Configurar Google para la URL pública
 
@@ -45,3 +49,12 @@ Fuentes:
 - https://learn.microsoft.com/en-us/azure/container-apps/managed-identity-image-pull
 - https://learn.microsoft.com/en-us/azure/container-apps/scale-app
 - https://learn.microsoft.com/en-us/azure/container-registry/container-registry-tasks-overview
+
+
+## Evidencia técnica pública
+
+`evidencias/publicacion-real.json`: HTTPS y salud 200; negocios sin sesión 401; propietario con sesión temporal 200; origen ajeno 403; dos negocios conservados en PostgreSQL; descarga de comprobante Blob con SHA-256 correcto; redirección Google con retorno público correcto. No se agregaron operaciones ni archivos.
+
+La imagen `acrcloudlizardo01.azurecr.io/asistente-negocios:792933773f48969d06dbe930c3ae468e101cd7f6` fue construida correctamente en GitHub Actions, ejecución 39720933995, intento 2. El primer intento detectó una diferencia del subject OIDC; se ajustó la federación al subject exacto emitido por GitHub, con IDs estables del propietario y repositorio y la rama main. No se aumentaron permisos ni se crearon contraseñas.
+
+El endpoint público no contiene Azure CLI. La prueba de PostgreSQL, Key Vault y Blob se ejecutó con la identidad administrada vinculada. Verificar de nuevo las IP de salida al recrear la infraestructura.

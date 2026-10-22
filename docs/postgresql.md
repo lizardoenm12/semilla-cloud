@@ -1,3 +1,5 @@
+Actualización de publicación: la app HTTPS en Container Apps ya accede a esta misma base PostgreSQL; la prueba técnica y el acceso Google del usuario están confirmados. Ver docs/publicacion.md.
+
 # Operaciones y sesiones en PostgreSQL
 
 ## Estado verificado

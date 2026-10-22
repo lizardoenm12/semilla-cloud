@@ -1,3 +1,12 @@
+## Publicación en Azure — 21/10/2026
+
+- App HTTPS ejecutándose en Container Apps Consumption, con mínimo cero y máximo una réplica por revisión.
+- Identidad administrada real verificada para Key Vault, PostgreSQL y descarga Blob; pruebas 200/401/403 sin datos ficticios nuevos.
+- Registro privado Basic e imagen construida en GitHub Actions mediante federación sin contraseña. El flujo todavía no despliega automáticamente.
+- Callback Google confirmado por el usuario; conjunto completo de reglas de salida PostgreSQL verificado. La publicación quedó completada.
+- Luego: avisos de presupuesto (todavía no creados), Monitor y despliegue automatizado por etapas.
+- URL y evidencia: docs/publicacion.md y evidencias/publicacion-real.json.
+
 ## Completado: Key Vault funcional — 21/10/2026
 
 Dos secretos reales integrados (PostgreSQL y Google), prueba real aprobada, sin nuevos recursos ni operaciones. Ver docs/keyvault.md y evidencias/keyvault-integracion-real.json. Próximo paso: preparar despliegue Container Apps, HTTPS y uso real de identidad administrada; después Monitor y CI/CD.

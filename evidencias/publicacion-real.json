@@ -1,0 +1,19 @@
+{
+  "fechaUTC": "2026-10-22T04:22:39.156Z",
+  "url": "https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io",
+  "health": 200,
+  "sinSesion": 401,
+  "sesionTemporalPropietario": 200,
+  "origenAjeno": 403,
+  "databaseProvider": "postgres",
+  "mode": "cloud",
+  "businesses": 2,
+  "blobDescargaIntegridad": true,
+  "googleRedireccionPreparada": true,
+  "googleCallbackReal": "Confirmado por el usuario: inició sesión desde HTTPS y ve sus negocios",
+  "azureCredential": "Identidad administrada id-cloud-app-dev; no hay Azure CLI en la imagen",
+  "nuevosBlobs": 0,
+  "nuevasOperaciones": 0,
+  "googleConfirmacionFuente": "Respuesta explícita del usuario en este chat; no inspección directa del navegador",
+  "googleConfirmacionUTC": "2026-10-22T04:27:40.855825+00:00"
+}

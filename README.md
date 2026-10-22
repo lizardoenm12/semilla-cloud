@@ -1,3 +1,9 @@
+## Página pública de desarrollo
+
+https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io/
+
+Container Apps ya ejecuta la aplicación con identidad administrada, PostgreSQL, Key Vault y Blob. Prueba técnica pública aprobada y acceso Google confirmado por el usuario. Las reglas de salida de PostgreSQL están completas y verificadas. Detalles: [publicación](docs/publicacion.md). Los avisos de presupuesto todavía no están configurados.
+
 Proyección de costos, crédito y plan de pausa: [docs/costos-y-cierre.md](docs/costos-y-cierre.md). Incluye tabla CSV editable y consumo reportado, separado de estimaciones.
 
 ## Actualización: Key Vault funcional

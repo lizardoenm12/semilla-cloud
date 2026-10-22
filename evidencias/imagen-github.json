@@ -1,0 +1,10 @@
+{
+  "runId": 39720933995,
+  "attempt": 2,
+  "conclusion": "success",
+  "commit": "792933773f48969d06dbe930c3ae468e101cd7f6",
+  "image": "acrcloudlizardo01.azurecr.io/asistente-negocios:792933773f48969d06dbe930c3ae468e101cd7f6",
+  "url": "https://github.com/lizardoenm12/semilla-cloud/actions/runs/39720933995",
+  "authentication": "Federaci\u00f3n OIDC, identidad de construcci\u00f3n con AcrPush solo en el registro",
+  "deploymentAutomatic": false
+}

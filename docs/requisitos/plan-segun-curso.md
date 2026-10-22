@@ -18,10 +18,10 @@ Fuente: `Course_Project_2026.docx`, copia del Word entregado por el usuario. El 
 | Servicio | Función en el proyecto | Estado verificable |
 |---|---|---|
 | Azure Blob Storage | Adjuntos de operaciones en contenedor privado | Carga y descarga integradas y verificadas con recursos reales |
-| Microsoft Entra ID / Azure RBAC | Autorizar al servidor con roles acotados y futura identidad administrada | Roles configurados, sesión CLI utilizada; identidad administrada creada, ejecución desplegada pendiente |
-| Azure Key Vault | Credenciales privadas del servidor | Lectura de prueba verificada; integración funcional para secretos de la app pendiente |
+| Microsoft Entra ID / Azure RBAC | Autorizar al servidor con roles acotados y futura identidad administrada | Roles configurados e identidad administrada ejecutada en Container Apps; PostgreSQL, secretos y descarga Blob verificados |
+| Azure Key Vault | Credenciales privadas del servidor | Secretos PostgreSQL y Google integrados; lectura desde identidad administrada en la app publicada verificada |
 | Azure Database for PostgreSQL | Operaciones, usuarios, membresías y sesiones persistentes | Integrado y activo; migración verificada y prueba real con rollback |
-| Azure Container Apps | Ejecutar la app en una URL HTTPS | Pendiente |
+| Azure Container Apps | Ejecutar la app en una URL HTTPS | Desplegada; prueba técnica aprobada. Callback Google interactivo confirmado por el usuario |
 | Azure Monitor | Logs y seguimiento de fallos de la app desplegada | Pendiente; no contar únicamente logs predeterminados sin integración demostrada |
 | CI/CD con GitHub Actions hacia Azure | Compilar y desplegar de forma reproducible | Pendiente; el Word acepta GitHub Actions desplegando a cloud. Reemplaza la necesidad de abrir Azure DevOps solo para este fin |
 

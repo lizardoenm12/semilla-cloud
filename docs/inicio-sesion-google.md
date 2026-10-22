@@ -1,3 +1,5 @@
+Actualización de publicación: el retorno HTTPS de Container Apps fue agregado en el cliente Google y el usuario confirmó que entra y ve sus negocios. El retorno localhost se conserva para desarrollo. URL y procedimiento: docs/publicacion.md.
+
 > Actualización: Google ya fue verificado con la cuenta real y los datos del negocio y sesiones están en PostgreSQL. La app continúa local; los archivos respaldados permanecen en Blob. Ver [estado PostgreSQL](postgresql.md). Las referencias anteriores a SQLite describen el modo alternativo o el estado previo al traslado.
 
 # Inicio de sesión con Google y servicios Azure

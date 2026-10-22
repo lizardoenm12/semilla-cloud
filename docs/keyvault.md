@@ -1,3 +1,5 @@
+Actualización de publicación: Key Vault ya fue ejercitado desde Container Apps con la identidad administrada `id-cloud-app-dev`. El usuario confirmó el acceso Google desde HTTPS. Ver docs/publicacion.md para la URL y evidencias; las notas que describen la etapa local corresponden al paso anterior.
+
 # Key Vault integrado en Asistente Negocios
 
 Estado verificado el 21 de octubre de 2026 (Guatemala): el servidor obtiene dos credenciales reales desde el almacén existente `kv-cloud-lizardo-dev`:
