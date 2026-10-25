@@ -1,5 +1,7 @@
 # Presentación vigente
 
+- [Guion completo de 30 minutos y pruebas de los siete servicios](Guion_30_minutos_y_pruebas_7_servicios.txt). TXT con discurso para las 31 diapositivas, tiempos, cuatro minutos de demo y verificación paso a paso. Preparado el 24/10/2026; las pruebas nuevas las ejecuta quien ensaya.
+
 - [PowerPoint editable: arquitectura y defensa](Asistente_Negocios_Arquitectura_y_Defensa.pptx), actualizado el 22 de octubre de 2026. Incluye 31 diapositivas, capturas del diseño actual, once tablas y cuatro diagramas editables. Las últimas cuatro diapositivas son anexos de defensa.
 - [Guion y veintitrés preguntas respondidas](Guion_y_defensa_actualizada.md). Incluye una selección para una exposición de aproximadamente seis minutos, fuentes y las diferencias entre integrado, verificado y mejoras futuras.
 

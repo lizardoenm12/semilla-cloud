@@ -1,0 +1,631 @@
+ASISTENTE NEGOCIOS
+GUION DE EXPOSICIÓN DE 30 MINUTOS Y VERIFICACIÓN DE LOS SIETE SERVICIOS
+Preparado el 24 de octubre de 2026, hora de Guatemala.
+
+PowerPoint que acompaña:
+D:\Usuario\Lizardo\cloud\docs\presentaciones\Asistente_Negocios_Arquitectura_y_Defensa.pptx
+
+PARTE A: LO QUE VAMOS A DECIR EN CADA DIAPOSITIVA
+
+La distribución suma exactamente 30:00, incluyendo cuatro minutos de demo.
+El tiempo real depende de la lectura y las pausas: ensayar con cronómetro.
+Las indicaciones MOSTRAR no se leen. El bloque DECIR está listo para hablar.
+Las láminas 28-31, antes anexos, sí entran en esta versión de 30 minutos.
+No se reserva una ronda de preguntas dentro de los treinta minutos.
+El banco de preguntas anterior se conserva aparte, sin ampliarlo aquí.
+Si preguntan durante la charla, descontar ese tiempo o dejarlo para después.
+
+Reparto opcional: persona A presenta 1-16 (13:30), persona B 17-31 (16:30).
+Una sola persona también puede leer todo. Ajustar nombres si cambia el equipo.
+
+Evidencia histórica: las pruebas documentadas son del 21-22 de octubre.
+Este TXT no certifica que se hayan repetido el día 24. La parte B explica
+cómo comprobar el estado actual antes de presentar. Si cambia una cifra,
+versión o resultado, decir el dato que se observa y conservar su fecha.
+No confundir capturas locales con pruebas de los servicios publicados.
+
+============================================================================
+DIAPOSITIVA 01. Asistente Negocios
+TRAMO: 00:00 a 00:30 | DURACIÓN: 00:30
+
+MOSTRAR: Mostrar la portada y presentar al equipo.
+
+DECIR:
+Buenos días. Somos Lizardo Gonzalez y Jessel Contreras, y presentamos Asistente Negocios. Construimos una aplicación para ayudar a pequeños negocios a registrar sus operaciones y organizar su información. Vamos a mostrar cómo se utiliza, cómo se conecta con siete servicios cloud y qué decisiones tomamos sobre seguridad, despliegue y costos. Al final haremos una demostración breve de la aplicación publicada.
+
+============================================================================
+DIAPOSITIVA 02. Qué hace Asistente Negocios
+TRAMO: 00:30 a 01:20 | DURACIÓN: 00:50
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+El punto de partida es una tarea cotidiana: registrar lo que pasó en el negocio. Una persona puede contar una venta, un gasto, una compra o un ajuste. La aplicación interpreta esa entrada, prepara una propuesta y pide revisarla antes de guardar. Después presenta los movimientos, el inventario y un resumen. Queremos reducir el trabajo de ordenar información, conservando el control del usuario sobre cantidades e importes. La versión actual utiliza reglas de interpretación, no inteligencia artificial generativa. Esa diferencia importa porque el resultado puede necesitar correcciones y siempre pasa por una confirmación.
+
+============================================================================
+DIAPOSITIVA 03. Requisitos que definen la arquitectura
+TRAMO: 01:20 a 02:10 | DURACIÓN: 00:50
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+Los requisitos del producto determinaron la arquitectura. Como necesitamos consultar los mismos datos desde equipos diferentes, usamos una base externa al contenedor. Como una venta puede afectar dinero e inventario, agrupamos su confirmación en una transacción. Para separar negocios verificamos la sesión y la membresía en el backend. Los archivos también necesitan ese control. Las credenciales se obtienen de un almacén de secretos. Finalmente, elegimos un entorno pequeño para aprender y demostrar el proyecto sin aumentar recursos innecesariamente. Cada componente responde a una necesidad concreta de la aplicación.
+
+============================================================================
+DIAPOSITIVA 04. Siete servicios integrados en la app
+TRAMO: 02:10 a 03:20 | DURACIÓN: 01:10
+
+MOSTRAR: Recorrer primero las tres filas resaltadas y después las cuatro restantes.
+
+DECIR:
+Esta tabla resume los siete servicios que integramos. Los tres destacados tienen una relación directa con la experiencia del usuario: Container Apps ejecuta la aplicación, PostgreSQL conserva el negocio y Blob Storage guarda los comprobantes privados. Los otros cuatro permiten operar esa solución: Entra y RBAC autorizan a las identidades del servidor, Key Vault suministra sus secretos, Azure Monitor conserva eventos técnicos y GitHub Actions construye y despliega automáticamente. El registro ACR apoya el almacenamiento de imágenes. No contamos cada contenedor, rol o grupo de recursos como un servicio diferente. La aceptación de esta clasificación corresponde al catedrático según la rúbrica.
+
+============================================================================
+DIAPOSITIVA 05. Arquitectura general implementada
+TRAMO: 03:20 a 05:00 | DURACIÓN: 01:40
+
+MOSTRAR: Seguir con el puntero navegador, app, base, Blob, Vault, identidad, Monitor y Actions.
+
+DECIR:
+Voy a recorrer el diagrama siguiendo una petición. El usuario abre la dirección HTTPS en su navegador. Google verifica su identidad y nuestra aplicación administra la sesión. Container Apps ejecuta Next.js y la API. Cuando el usuario confirma una operación, el backend comprueba el negocio y utiliza PostgreSQL. Si adjunta un comprobante, el backend lo guarda en Blob privado. Para conectarse a la base y a Google obtiene las credenciales desde Key Vault. La identidad administrada permite ese acceso a Azure sin colocar una contraseña de Azure dentro del código. Los eventos técnicos llegan a Monitor. Arriba está la entrega: Actions construye una imagen, la guarda en ACR y actualiza la aplicación. Son conexiones con responsabilidades distintas, no siete pantallas independientes.
+
+============================================================================
+DIAPOSITIVA 06. Flujo de una operación para el usuario
+TRAMO: 05:00 a 06:00 | DURACIÓN: 01:00
+
+MOSTRAR: Seguir las flechas y detener el puntero en Revisar y Confirmar.
+
+DECIR:
+Desde el punto de vista de la persona, el recorrido es más sencillo que la arquitectura. Primero entra con Google y elige su negocio. Después cuenta una operación. La aplicación prepara una propuesta que todavía no cambia dinero ni existencias. El usuario revisa cantidades, producto e importe, y puede corregir o descartar. Solo al confirmar se registra la operación. Entonces puede consultar el resumen y adjuntar un comprobante al movimiento. La separación entre proponer y confirmar evita que una interpretación inicial se convierta inmediatamente en un registro definitivo. Durante la demo vamos a seguir exactamente este recorrido.
+
+============================================================================
+DIAPOSITIVA 07. Inicio de sesión en la app publicada
+TRAMO: 06:00 a 06:40 | DURACIÓN: 00:40
+
+MOSTRAR: Señalar el botón Google. No abrir el login durante esta lámina.
+
+DECIR:
+Esta es la pantalla de entrada de la aplicación publicada. La dirección se abre desde otro equipo, sin instalar el proyecto ni entrar al portal de Azure. El botón lleva a Google para identificar a la persona. La contraseña se introduce allí, no en nuestra aplicación. Después del retorno, la app muestra el espacio y los negocios autorizados. Tener la dirección pública no concede acceso a los negocios del propietario. Si Google conserva una audiencia de pruebas, la cuenta utilizada para presentar debe estar autorizada previamente.
+
+============================================================================
+DIAPOSITIVA 08. Resumen del negocio
+TRAMO: 06:40 a 07:25 | DURACIÓN: 00:45
+
+MOSTRAR: Señalar Q50, Q20 y Q30. Aclarar que son datos locales de la captura.
+
+DECIR:
+El resumen reúne los resultados de los movimientos registrados. En esta captura de una demostración local hay una venta de cincuenta quetzales y un gasto de veinte. La diferencia registrada es treinta quetzales. No la llamamos utilidad contable ni saldo bancario, porque la aplicación no representa toda la contabilidad del negocio. Estas capturas interiores se tomaron con datos locales aislados para explicar la interfaz sin agregar movimientos repetidos en Azure. Durante la demostración pública veremos sus propios datos, que pueden tener cifras diferentes.
+
+============================================================================
+DIAPOSITIVA 09. Registro y revisión antes de guardar
+TRAMO: 07:25 a 08:10 | DURACIÓN: 00:45
+
+MOSTRAR: Señalar cantidad, precio y confirmación.
+
+DECIR:
+Aquí vemos la revisión de una propuesta. El ejemplo dice: vendí dos aguas a cinco quetzales cada una. La aplicación presenta el tipo de movimiento, el producto, la cantidad y el precio para que la persona los compruebe. Antes de confirmar, todavía puede corregirlos o rechazar la propuesta. Si el texto no coincide con las reglas de interpretación, hace falta ajustar la información. El sistema no debe presentarse como un modelo que entiende cualquier relato. El valor de esta pantalla es que hace visible lo que se va a guardar antes de modificar el negocio.
+
+============================================================================
+DIAPOSITIVA 10. Comprobantes asociados al movimiento
+TRAMO: 08:10 a 08:50 | DURACIÓN: 00:40
+
+MOSTRAR: Señalar el estado del archivo. La captura local no demuestra Azure.
+
+DECIR:
+Después de confirmar un movimiento se puede agregar un comprobante. Admitimos PNG, JPG o PDF, con un límite de dos mebibytes por archivo. Esta captura muestra un PDF de ejemplo local, por eso no prueba una carga a Azure. En la versión publicada, el flujo guarda el respaldo en Blob privado y muestra su estado. La descarga pasa por el backend, que verifica la sesión y la pertenencia al negocio. Más adelante explicaremos cómo distinguir un archivo respaldado de uno pendiente de reintento.
+
+============================================================================
+DIAPOSITIVA 11. Perfil productivo y próximos pasos
+TRAMO: 08:50 a 09:25 | DURACIÓN: 00:35
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+La aplicación también incluye un perfil productivo y próximos pasos. La persona elige un arquetipo, responde una autoevaluación y conserva su progreso. Esto acompaña la organización del negocio, pero no reemplaza asesoría financiera o fiscal. Las recomendaciones actuales siguen reglas. Esta sección muestra que el producto tiene un recorrido más amplio que una prueba técnica de conexión: el registro cotidiano se combina con información que ayuda al usuario a organizarse y aprender.
+
+============================================================================
+DIAPOSITIVA 12. Dónde ejecutar el código
+TRAMO: 09:25 a 10:10 | DURACIÓN: 00:45
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+Consideramos varias formas de ejecutar la aplicación. Una máquina virtual requiere administrar el sistema y el proceso web. Kubernetes agrega responsabilidades de clúster que todavía no necesitamos. App Service sería una alternativa administrada válida. Elegimos Container Apps porque ya trabajamos con una imagen de Next.js y necesitamos publicarla con un entorno pequeño y escalado a cero. No afirmamos que sea la mejor opción para cualquier proyecto. La decisión responde al tamaño actual, al aprendizaje del equipo y a la forma en que queremos entregar el código.
+
+============================================================================
+DIAPOSITIVA 13. Configuración del despliegue actual
+TRAMO: 10:10 a 10:55 | DURACIÓN: 00:45
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+La configuración actual utiliza medio núcleo virtual y un gibibyte de memoria. El mínimo es cero y el máximo una réplica por revisión, con modo Single. La entrada pública utiliza HTTPS y el puerto interno es 8080. La imagen está en ACR privado y el proceso se ejecuta sin usuario root. Los datos importantes están fuera del contenedor, en PostgreSQL y Blob. Por eso actualizar la imagen no implica perder el negocio. El máximo de una réplica reduce el escalado, pero no equivale a un límite de facturación ni a una capacidad validada para muchos usuarios simultáneos.
+
+============================================================================
+DIAPOSITIVA 14. Por qué PostgreSQL para el negocio
+TRAMO: 10:55 a 11:50 | DURACIÓN: 00:55
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+PostgreSQL encaja con las relaciones del dominio. Tenemos usuarios, membresías, negocios, productos y movimientos que deben mantenerse consistentes. SQL permite expresar esas relaciones y ejecutar una confirmación dentro de una transacción. SQLite sigue disponible para ensayos locales, pero la aplicación publicada utiliza una base administrada compartida. Otra base, incluso documental, podría resolver el problema con un diseño diferente. Nosotros elegimos aprovechar relaciones y transacciones que ya estaban presentes en el modelo. El costo fijo del servidor es una consecuencia importante de esa decisión, aunque la web no reciba visitas.
+
+============================================================================
+DIAPOSITIVA 15. Modelo de datos del registro
+TRAMO: 11:50 a 12:45 | DURACIÓN: 00:55
+
+MOSTRAR: Seguir Usuario, Membresía, Negocio, Propuesta, Movimiento y Adjunto.
+
+DECIR:
+Este es un modelo conceptual simplificado, no la lista completa de tablas. Un usuario puede tener membresías y cada membresía lo vincula con un negocio. El negocio reúne propuestas y productos. Una propuesta confirmada produce movimientos, y un movimiento puede incluir detalles y adjuntos. Las relaciones ayudan a explicar por qué necesitamos comprobar el negocio en cada acceso. No basta con recibir un identificador de movimiento desde el navegador. El backend tiene que comprobar que pertenece al negocio autorizado. En la confirmación, los datos relacionados se actualizan juntos para evitar registros parciales.
+
+============================================================================
+DIAPOSITIVA 16. Archivos privados y recuperación
+TRAMO: 12:45 a 13:30 | DURACIÓN: 00:45
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+La venta y el archivo no forman una sola transacción distribuida. Primero confirmamos el movimiento en PostgreSQL. Después, si el usuario adjunta un archivo, registramos su información y el resultado del respaldo en Blob. El estado puede quedar pendiente, guardado o fallido, con reintento manual. Al recuperar un archivo respaldado comprobamos tamaño y hash para detectar diferencias. Si falla la lectura remota, devolvemos un error recuperable. No presentamos una copia diferente como si hubiera llegado de Azure. Este diseño hace visible un fallo de respaldo sin volver a registrar la venta.
+
+============================================================================
+DIAPOSITIVA 17. IAM: quién puede hacer qué
+TRAMO: 13:30 a 14:50 | DURACIÓN: 01:20
+
+MOSTRAR: Comparar los ámbitos de runtime, construcción y publicación.
+
+DECIR:
+IAM responde quién puede actuar y sobre qué recurso. La persona utiliza Google y las membresías de la aplicación. El servidor tiene la identidad id-cloud-app-dev, con permisos para datos Blob, lectura de secretos y extracción de su imagen. La construcción utiliza otra identidad con AcrPush sobre el registro. La publicación tiene una tercera identidad, id-cloud-deploy-dev, que solo puede actualizar esta Container App. PostgreSQL utiliza un rol SQL de aplicación limitado. Separar responsabilidades evita dar permisos generales a todo el flujo. Además, Google identifica personas y Entra autoriza cargas de trabajo: cumplir una función no sustituye la otra. Los cambios de código en main siguen siendo sensibles porque el código publicado utiliza los permisos del servidor.
+
+============================================================================
+DIAPOSITIVA 18. Acceso Google y sesiones de la app
+TRAMO: 14:50 a 15:40 | DURACIÓN: 00:50
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+La cuenta universitaria no nos permitió registrar la aplicación necesaria para el login de personas con Entra. Adaptamos esa parte a Google y mantuvimos la identidad Azure del servidor. Cuando Google valida al usuario, nuestra aplicación crea una sesión con un token opaco. En PostgreSQL guardamos su hash, y en HTTPS la cookie utiliza las protecciones configuradas. Cada petición de negocio vuelve a comprobar la membresía. Así distinguimos autenticar a alguien de autorizarlo a consultar un negocio. Un inicio de sesión correcto no significa que pueda abrir cualquier registro o descargar cualquier comprobante.
+
+============================================================================
+DIAPOSITIVA 19. Secretos usados por el servidor
+TRAMO: 15:40 a 16:25 | DURACIÓN: 00:45
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+Key Vault ya suministra secretos funcionales de la aplicación. Allí están la credencial de PostgreSQL y el secreto OAuth de Google. El servidor conserva referencias y los recupera utilizando su identidad administrada. Los valores no se incluyen en el repositorio ni en la imagen del contenedor. Esto reduce la exposición de credenciales y concentra su administración. En nuestra versión, cambiar un secreto requiere reiniciar la aplicación para renovar la configuración mantenida en el proceso. Por eso no vamos a rotarlos durante la exposición: explicaremos la configuración y su uso sin mostrar los valores.
+
+============================================================================
+DIAPOSITIVA 20. Monitor: registros de la versión publicada
+TRAMO: 16:25 a 17:20 | DURACIÓN: 00:55
+
+MOSTRAR: Señalar la muestra histórica y aclarar su fecha.
+
+DECIR:
+Monitor conserva eventos técnicos de la aplicación. El veintidós de octubre verificamos un arranque de la versión publicada y una petición a bootstrap, rechazada con 401 porque no tenía sesión, con duración registrada de dos milisegundos. La consulta de errores no devolvió eventos. Es una muestra pequeña que demuestra emisión, ingesta persistente y campos consultables. No demuestra capacidad ni una latencia representativa de todos los usuarios. Los eventos propios normalizan las rutas y excluyen cuerpos, cookies y secretos. Durante el ensayo podemos ejecutar una petición pequeña y comprobar que aparece en la consulta reciente, después del tiempo de ingesta.
+
+============================================================================
+DIAPOSITIVA 21. Monitor: regla de alerta y control de uso
+TRAMO: 17:20 a 18:15 | DURACIÓN: 00:55
+
+MOSTRAR: Separar aviso de incorporación de correo por incidente.
+
+DECIR:
+También configuramos una regla que busca errores del servidor en ventanas de quince minutos. Tiene un grupo de acciones con correo habilitado y las alertas pueden consultarse en Azure. El usuario recibió el aviso de incorporación al grupo. Eso no significa que hayamos recibido un correo provocado por un incidente real. El endpoint de notificaciones de prueba rechazó la suscripción Free Trial y no cambiamos el plan para habilitarlo. La retención es de treinta días y configuramos una salvaguarda diaria de ingesta de 0.025 gigabytes. Puede sobrepasarse antes de aplicarse y, al alcanzarse, deja un período sin nuevos registros.
+
+============================================================================
+DIAPOSITIVA 22. CI/CD: del cambio a la revisión verificada
+TRAMO: 18:15 a 19:45 | DURACIÓN: 01:30
+
+MOSTRAR: Seguir los dos jobs y el número de run real.
+
+DECIR:
+La entrega continua ya ejecutó el recorrido completo. Un cambio relevante en main activa GitHub Actions. El primer job verifica restricciones, compila la imagen y ejecuta las pruebas incorporadas al build. Utiliza OIDC con una identidad que publica en ACR. El segundo job utiliza otra identidad para actualizar la Container App existente. La imagen lleva el SHA del código, lo que permite relacionar una revisión con su origen. Después se comprueba la salud, la versión exacta, el acceso al login y el rechazo de la API sin sesión. El run que documentamos, 39864595655, terminó correctamente y publicó la revisión 0000004. Los cambios solo de documentación no reconstruyen la aplicación. Existe una recuperación hacia la plantilla anterior ante fallos, pero no hemos forzado un rollback real en Azure para presentarlo como probado.
+
+============================================================================
+DIAPOSITIVA 23. Proyección mensual del entorno de prueba
+TRAMO: 19:45 a 21:05 | DURACIÓN: 01:20
+
+MOSTRAR: Mostrar la suma y señalar que es una proyección histórica.
+
+DECIR:
+Esta tabla es una proyección de desarrollo, no la factura actual. Con los precios conservados el veintidós de octubre, PostgreSQL B1ms y treinta y dos gibibytes representan aproximadamente dieciocho dólares con dieciocho centavos por un mes de setecientas treinta horas. Para Container Apps reservamos de cero a cinco dólares bajo poco uso. Para archivos, secretos, registro, Monitor y margen reservamos conjuntamente de cinco a diez. La suma se redondea a una planificación de veinticinco a treinta y cinco dólares antes de impuestos. Monitor tiene un ejemplo adicional de unos dos dólares con cincuenta y siete centavos, incluido en esa reserva conjunta. Los minutos de GitHub Actions se rigen por GitHub y no por el crédito Azure. Estas cifras necesitan contrastarse con consumo real y precios al momento de operar.
+
+============================================================================
+DIAPOSITIVA 24. Proyección de usuarios del piloto
+TRAMO: 21:05 a 21:50 | DURACIÓN: 00:45
+
+MOSTRAR: Señalar el supuesto y diferenciar usuarios activos de simultáneos.
+
+DECIR:
+Las cantidades de usuarios son metas de piloto, no capacidad demostrada. Planteamos etapas de diez, cincuenta y doscientos usuarios activos al mes. La tabla utiliza un supuesto de treinta acciones diarias, treinta días y ocho peticiones por acción. Ese cálculo ayuda a discutir volumen, pero no nos dice cuántas personas puede atender simultáneamente una réplica. Antes de ampliar necesitamos medir latencia, conexiones de base, CPU y errores. No hicimos una prueba masiva para intentar justificar la meta, porque queremos avanzar con consumo controlado y con evidencia de las funciones que sí probamos.
+
+============================================================================
+DIAPOSITIVA 25. Problemas encontrados y decisiones tomadas
+TRAMO: 21:50 a 22:45 | DURACIÓN: 00:55
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+El proyecto obligó a adaptar decisiones reales. La restricción de permisos para registrar el login Entra llevó a utilizar Google para las personas. La disponibilidad de PostgreSQL para nuestra suscripción nos llevó de East US a Central US. La federación de GitHub necesitó el subject exacto emitido para el repositorio y la rama. Finalmente, PostgreSQL requirió autorizar las direcciones de salida reportadas por el contenedor y conservar TLS. Esa lista usa direcciones compartidas de la plataforma, no una red privada exclusiva de nuestra app. Estas dificultades muestran que conectar servicios implica revisar permisos, disponibilidad y red, además de escribir el código.
+
+============================================================================
+DIAPOSITIVA 26. Estado del proyecto y mejoras siguientes
+TRAMO: 22:45 a 23:25 | DURACIÓN: 00:40
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+En este punto tenemos siete integraciones documentadas con evidencia funcional. La web está publicada, los datos y archivos son persistentes, el servidor tiene permisos separados, Monitor recibe eventos y Actions despliega automáticamente. Todavía hay trabajo para una operación más madura: comprobar una restauración de respaldo, activar avisos de presupuesto y medir capacidad de manera gradual. También distinguimos la regla de alerta configurada de una entrega de correo por incidente que aún no ejercitamos. Completar las integraciones del curso no significa que ya hayamos certificado todos los escenarios de producción.
+
+============================================================================
+DIAPOSITIVA 27. Demostración del producto
+TRAMO: 23:25 a 27:25 | DURACIÓN: 04:00
+
+MOSTRAR: DEMO DE CUATRO MINUTOS, previamente ensayada:
+  00:00-00:30 Abrir la app ya autenticada y elegir el negocio de demo.
+  00:30-01:20 Escribir Gasté Q1 de transporte, revisar y confirmar una vez.
+  01:20-01:50 Recargar y mostrar que el movimiento permanece.
+  01:50-02:40 Adjuntar un PNG pequeño, esperar Guardado en Azure y descargar.
+  02:40-03:20 Mostrar una consulta Monitor preparada del ensayo previo.
+  03:20-04:00 Mostrar los dos jobs del run correcto ya abierto en GitHub.
+  No esperar la ingesta de un evento nuevo dentro de estos cuatro minutos.
+  Si aparece un error, mostrar la evidencia guardada y no repetir Confirmar.
+  Si no se desea escribir, usar el movimiento y comprobante del ensayo:
+  decir expresamente que esta vez se consulta una operación ya registrada.
+
+DECIR:
+Ahora vamos a mostrar el recorrido completo. Entramos a la dirección pública y abrimos el negocio de demostración. Registraremos un gasto pequeño identificado como prueba, revisaremos la propuesta y confirmaremos una sola vez. Después comprobaremos que aparece en movimientos y que persiste al recargar. Adjuntaremos un archivo pequeño, esperaremos el estado Guardado en Azure y lo descargaremos. Con esto conectamos lo que ve la persona con los servicios explicados: Container Apps atiende la web, PostgreSQL conserva el registro y Blob devuelve el comprobante. La identidad y los secretos funcionan detrás del servidor. Cerramos mostrando una consulta reciente de Monitor y el run de entrega ya completado, sin ejecutar otro despliegue durante la exposición.
+
+============================================================================
+DIAPOSITIVA 28. Anexo: Azure frente a GCP y AWS
+TRAMO: 27:25 a 28:05 | DURACIÓN: 00:40
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+Azure, GCP y AWS pueden resolver este mismo problema. La tabla compara funciones posibles: ejecutar contenedores, guardar archivos, utilizar PostgreSQL y administrar secretos e identidades. Elegimos Azure por la suscripción disponible, las integraciones del proyecto y el contexto del curso. No realizamos un benchmark que pruebe superioridad universal en velocidad, seguridad o precio. Migrar a otro proveedor exigiría revisar red, permisos, despliegue y costos; cambiar los nombres de los servicios no sería suficiente.
+
+============================================================================
+DIAPOSITIVA 29. Anexo: por qué Azure y no Vercel
+TRAMO: 28:05 a 28:40 | DURACIÓN: 00:35
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+Vercel también es una alternativa válida para Next.js y ofrece capacidades de backend. Nuestra elección de Azure permite demostrar el contenedor, la base, los archivos, los secretos y la identidad dentro de la arquitectura que ya integramos. Una comparación económica justa necesitaría la misma carga y las mismas necesidades de persistencia. La justificación es la adecuación a este proyecto, no afirmar que una plataforma siempre sea mejor que la otra.
+
+============================================================================
+DIAPOSITIVA 30. Anexo: preguntas para defender el proyecto
+TRAMO: 28:40 a 29:25 | DURACIÓN: 00:45
+
+MOSTRAR: Recorrer la lámina con el puntero mientras se explica, sin leer toda la tabla.
+
+DECIR:
+Esta lámina resume tres límites importantes de la solución. La confirmación de una operación utiliza una transacción, mientras el respaldo del archivo tiene un estado y un reintento aparte. Un aumento de usuarios requiere medir la aplicación y la base antes de escalar. Finalmente, no incorporamos IA generativa ni una cola por el solo hecho de agregar servicios. El flujo actual usa reglas y confirmación inmediata. Cada integración adicional necesita un problema concreto que resolver, pruebas apropiadas y una revisión del costo.
+
+============================================================================
+DIAPOSITIVA 31. Anexo: crédito, respaldo y pausa
+TRAMO: 29:25 a 30:00 | DURACIÓN: 00:35
+
+MOSTRAR: Cerrar con el resultado y el plan de pausa. No eliminar recursos en vivo.
+
+DECIR:
+Para cerrar, el crédito de prueba es temporal y no se renueva cada mes. Cerrar el navegador no detiene PostgreSQL, ACR ni el almacenamiento. Antes de una pausa larga debemos exportar los datos actuales y comprobar que se restauran. Los avisos de gasto siguen propuestos y no apagan recursos automáticamente. Nuestro resultado es una aplicación publicada con siete integraciones funcionales, más un plan gradual para mejorar recuperación y operación. Muchas gracias.
+
+
+PARTE B: PASOS PARA PROBAR Y VERIFICAR LOS SIETE SERVICIOS
+
+Objetivo: un ensayo pequeño, con una operación y un archivo de prueba como
+máximo, sin crear servicios, ampliar capacidad ni forzar fallos en producción.
+Esta guía indica acciones para realizar; no son resultados nuevos ejecutados
+al preparar este TXT. Registrar fecha y resultado de cada prueba propia.
+
+0. PREPARAR EL ENSAYO, FUERA DE LOS TREINTA MINUTOS
+
+1) Abrir el PowerPoint vigente y este TXT. Evitar la presentación histórica.
+2) Tener Internet y una cuenta Google autorizada. Usar un negocio exclusivo
+   de demostración, no el negocio donde se conservan datos reales.
+   Si no existe, crearlo una sola vez desde la app antes de la exposición.
+3) Preparar un PNG o PDF sin datos personales, preferiblemente menor de
+   100 KB y siempre menor de 2 MiB. Nombrarlo comprobante-demo.png o .pdf.
+4) Abrir estas pestañas y dejarlas listas:
+   App: https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io/
+   Azure Portal: https://portal.azure.com/
+   GitHub: https://github.com/lizardoenm12/semilla-cloud/actions
+5) El usuario de Azure necesita permisos de lectura apropiados para ver
+   recursos y roles. La cuenta Google de la app y la cuenta Azure pueden
+   ser distintas. No compartir contraseñas, tokens o archivos .env.
+6) Para usar solo la web publicada NO ejecutar npm, iniciar localhost ni
+   mantener encendida la computadora que desarrolló el proyecto.
+7) Si se usan los comandos siguientes, abrir PowerShell. curl.exe viene
+   explícito para evitar el alias curl de Windows PowerShell.
+   Los comandos HTTP públicos no necesitan az login ni la carpeta local.
+
+   $base = 'https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io'
+
+No ejecutar los scripts antiguos configurar-*, migrar-*, verificar-publicacion,
+verify:postgres-real ni verify:azure-operation como una batería de demo.
+Algunos crean sesiones, escriben datos, cambian configuración o usan pruebas
+históricas locales. Aquí se sigue el flujo publicado y consultas acotadas.
+
+1. AZURE CONTAINER APPS: LA WEB Y EL BACKEND ESTÁN PUBLICADOS
+
+Acción:
+  a) Abrir la URL pública. La primera carga puede tardar por escalado a cero.
+  b) En PowerShell, ejecutar una vez:
+
+     curl.exe -sS -i --max-time 120 "$base/api/health"
+
+  c) Esperar HTTP 200 y JSON de salud con status, service y release.
+     No exigir un SHA fijo si se publicó una versión después del 22/10.
+  d) Azure Portal > rg-cloud-dev > app-asistente-negocios-dev.
+     Consultar la revisión activa y su imagen, sin pulsar editar o reiniciar.
+     La etiqueta SHA de la imagen debe corresponder a release.
+
+Qué demuestra:
+  El proceso publicado atiende HTTPS y permite identificar su versión.
+  Health no consulta PostgreSQL, Vault o Blob; un 200 no prueba los otros seis.
+
+Si falla:
+  Esperar el arranque y repetir una sola vez. Un timeout o error persistente
+  requiere revisar revisión, suscripción y logs; no crear otra Container App.
+
+2. POSTGRESQL: LA OPERACIÓN QUEDA GUARDADA EN LA BASE COMPARTIDA
+
+Acción:
+  a) Entrar con Google y elegir el negocio de demostración.
+  b) Anotar el total actual de gastos o el último movimiento visible.
+  c) Contar mi día: escribir Gasté Q1 de transporte.
+  d) Revisar que la propuesta sea gasto, importe Q1 y descripción adecuada.
+     Corregir antes de confirmar si la interpretación no coincide.
+  e) Confirmar UNA vez y abrir Movimientos y comprobantes.
+  f) Verificar el movimiento y el cambio esperado en el resumen.
+  g) Recargar la página. Cerrar y volver a entrar, o abrir otra sesión del
+     mismo usuario, para comprobar que el registro sigue disponible.
+
+Resultado esperado:
+  Un movimiento nuevo, persistente. El gasto adicional es Q1.
+  Un gasto de transporte no debe cambiar existencias de productos.
+  El precio de prueba no obliga a tener el mismo saldo que las capturas.
+
+Corroboración de configuración, sin credenciales:
+  En la pestaña autenticada abrir herramientas del navegador > Network.
+  Recargar y seleccionar la petición /api/local/bootstrap.
+  En Response comprobar databaseProvider = postgres y mode = cloud.
+  La respuesta contiene datos de cuenta; no proyectar cookies ni copiarla
+  completa a un documento público. Bastan esos dos campos.
+
+Qué demuestra y límite:
+  El backend declarado PostgreSQL conserva el movimiento entre peticiones
+  y sesiones. La persistencia por sí sola no identifica al proveedor; por eso
+  se combina con bootstrap y la configuración/evidencia del proyecto.
+  Una consulta mínima opcional en una conexión SQL YA autorizada es
+  SELECT current_database(), current_user;
+  Debe indicar negocios y el rol de aplicación si esa conexión utiliza
+  asistente_app. No abrir el firewall ni dar permisos nuevos para demostrarlo.
+
+Evitar duplicados:
+  Si tarda Confirmar, consultar movimientos antes de volver a enviar.
+  Conservar el registro como demo. No borrar operaciones reales ni inventar
+  un botón de eliminación o una reversión contable que no se haya probado.
+
+3. AZURE BLOB STORAGE: RESPALDO Y DESCARGA DEL COMPROBANTE
+
+Acción:
+  a) Seleccionar el movimiento del paso anterior o uno de demo ya existente.
+  b) Adjuntar UNA vez el archivo pequeño preparado.
+  c) Esperar que la app indique Guardado en Azure.
+     Pendiente de reintentar no es prueba de carga aprobada.
+  d) Descargarlo desde la app y abrirlo para comprobar su contenido.
+  e) Opcional: Network > petición de descarga > Response Headers.
+     Esperar x-attachment-source: azure y HTTP 200.
+  f) Azure Portal > stclouddevlizardo01 > Contenedores > comprobantes.
+     Buscar en operaciones/<negocio>/<movimiento>/<adjunto>.
+     Se usan identificadores, por eso el objeto puede no llamarse como el
+     nombre original del archivo. No cambiar el acceso privado para verlo.
+     Un 403 del portal puede ser permiso de TU cuenta, no fallo del backend.
+
+Integridad opcional, local y sin llamadas Azure adicionales:
+  Get-FileHash -Algorithm SHA256 -LiteralPath 'C:\ruta\comprobante-demo.png'
+  Get-FileHash -Algorithm SHA256 -LiteralPath 'C:\ruta\archivo-descargado.png'
+  Sustituir ambas rutas por las reales. Los hashes deben ser idénticos.
+
+Qué demuestra:
+  La app escribió y recuperó el objeto privado usando su backend.
+  La captura local que dice Sin respaldo en Blob no sirve para esta prueba.
+
+Si falla:
+  Conservar el estado y consultar Monitor. Usar Reintentar respaldo una vez
+  después de revisar el problema. No confirmar otra venta para reintentar.
+
+4. MICROSOFT ENTRA / RBAC / IDENTIDAD ADMINISTRADA
+
+Acción de lectura en Azure:
+  a) Container App > Identidad: comprobar id-cloud-app-dev vinculada.
+  b) Storage stclouddevlizardo01 > Control de acceso (IAM): buscar esa
+     identidad, con Colaborador de datos de Storage Blob al ámbito previsto.
+  c) Key Vault kv-cloud-lizardo-dev > IAM: buscar Usuario de secretos de
+     Key Vault para la identidad del servidor.
+  d) ACR acrcloudlizardo01 > IAM: runtime con AcrPull y build con AcrPush.
+  e) Container App > IAM: id-cloud-deploy-dev con el rol personalizado
+     de publicación, asignado a esta app. No exigir Contributor de suscripción.
+
+Prueba complementaria de seguridad de la APP, no de Azure RBAC:
+  Ejecutar sin cookies, desde PowerShell:
+
+  curl.exe -sS -i --max-time 90 "$base/api/local/bootstrap"
+
+  Esperar HTTP 401. Desde el navegador autenticado, la misma ruta debe
+  responder 200 para el usuario autorizado. No copiar cookies a la terminal.
+
+Qué demuestra:
+  Los roles muestran la autorización Azure explícita; la descarga Blob y
+  lectura de secretos desde el contenedor acreditan su uso operativo.
+  El 401 prueba el control de sesión de nuestra aplicación. No prueba por
+  sí solo la denegación de un rol Azure ni aislamiento entre dos usuarios.
+  Para comprobar aislamiento entre cuentas se necesitarían dos cuentas
+  autorizadas y negocios separados; no se da por aprobado con un solo 401.
+  Google identifica a la persona y no cuenta como reemplazo de Entra/RBAC.
+
+No retirar roles para provocar un error durante la exposición.
+
+5. AZURE KEY VAULT: SECRETOS REALES UTILIZADOS POR EL SERVIDOR
+
+Acción:
+  a) Azure Portal > kv-cloud-lizardo-dev > Secretos.
+     Revisar existencia y estado habilitado de:
+       asistente-postgresql-url
+       asistente-google-client-secret
+     No pulsar Mostrar valor del secreto ni proyectar valores.
+  b) Comprobar los permisos de runtime indicados en el paso IAM.
+  c) Revisar src/lib/secrets.ts y la configuración de referencias del
+     despliegue, sin abrir .env.local ni respaldos privados en pantalla.
+  d) Relacionarlo con el funcionamiento de la app publicada: inicio Google,
+     consulta de negocios y guardado PostgreSQL, configurados con referencias
+     Vault y la identidad del servidor, no una contraseña Azure en el código.
+
+Qué demuestra y límite:
+  Existencia, referencia, permiso y uso funcional forman la evidencia conjunta.
+  Ver el nombre de un secreto solo demuestra que existe. Una lectura hecha
+  con la cuenta personal del desarrollador no demuestra Managed Identity.
+  Como el proceso mantiene configuración en caché, cada petición no implica
+  una lectura nueva de Vault. No reiniciar ni rotar secretos para forzarla.
+  Evidencia histórica complementaria: evidencias/publicacion-real.json y
+  docs/keyvault.md; el callback Google real fue confirmado por el usuario.
+
+Si el portal no deja listar secretos pero la app funciona, revisar primero
+el permiso de tu usuario; no sustituir los roles del servidor por otros más
+amplios. Nunca enviar el secreto como captura o texto para pedir ayuda.
+
+6. AZURE MONITOR: EVENTOS RECIENTES, CONSULTAS Y REGLA
+
+Preparación:
+  El acceso a bootstrap del paso IAM genera una petición pequeña observable.
+  Anotar la hora. No hace falta fabricar un error 500 ni una venta fallida.
+
+Acción:
+  a) Azure Portal > log-cloud-dev > Logs.
+     Usar el workspace indicado; no crear otro para la demostración.
+  b) Ejecutar esta consulta una vez con intervalo reciente:
+
+ContainerAppConsoleLogs
+| where TimeGenerated > ago(30m)
+| where ContainerAppName == "app-asistente-negocios-dev"
+| extend JsonStart = indexof(Log, '{"schema_version"')
+| where JsonStart >= 0
+| extend Event = parse_json(substring(Log, JsonStart))
+| where tostring(Event.service) == "asistente-negocios"
+| where tostring(Event.event) == "request_completed"
+| project TimeGenerated, route=tostring(Event.route), status=toint(Event.status), duration_ms=todouble(Event.duration_ms), release=tostring(Event.release)
+| order by TimeGenerated desc
+| take 20
+
+  c) Esperar datos de la hora del ensayo, ruta, estado, duración y release.
+     El 401 sin sesión es esperado y no es un error 5xx.
+  d) Si todavía no aparece, esperar varios minutos y repetir una vez.
+     La ingesta tiene retraso; no dejar la consulta actualizando sin parar.
+     Si se alcanzó la salvaguarda diaria, investigar antes de aumentarla.
+  e) Las consultas guardadas son asistente-errores, asistente-rendimiento
+     y asistente-versiones. También están en infra/queries/*.kql.
+     Para revisar arranques históricos elegir un intervalo que incluya
+     el 22/10 o el arranque más reciente. Una app ya encendida no emite
+     application_started en cada visita.
+  f) Monitor > Alertas > Reglas de alerta:
+     alert-asistente-errores-dev habilitada, evaluación y ventana 15 minutos,
+     umbral de conteo mayor que cero, grupo ag-asistente-dev.
+  g) Abrir ese grupo y revisar receptor habilitado. El aviso de incorporación
+     ya se recibió. Ocultar la dirección personal al proyectar si corresponde.
+
+Qué demuestra:
+  Una fila reciente demuestra ingesta de un evento nuevo. La configuración
+  habilitada demuestra la regla y el destino, no un disparo ya ejercitado.
+  Cero filas de errores es válido y no significa que Monitor no funcione.
+  Free Trial rechazó el endpoint de notificaciones de prueba el 22/10.
+  No afirmar correo de incidente recibido, no repetir ese endpoint y no
+  pasar a pago por uso. No llamar alerta de presupuesto a esta alerta de errores.
+
+7. GITHUB ACTIONS: CONSTRUCCIÓN Y DESPLIEGUE COMPLETOS
+
+Verificación recomendada, sin publicar otra imagen:
+  a) GitHub > semilla-cloud > Actions > flujo
+     Validar, construir y desplegar desarrollo.
+  b) Abrir el run 39864595655 o un run de DESPLIEGUE posterior correcto.
+     https://github.com/lizardoenm12/semilla-cloud/actions/runs/39864595655
+  c) Comprobar ambos jobs correctos: image y deploy. Un build correcto sin
+     deploy correcto no acredita todo el flujo.
+  d) Leer el resumen del job: SHA, imagen, revisión y verificaciones.
+     El run histórico publicó 5bca0110e138416fe193300d0286a15d90c8c2f8
+     y app-asistente-negocios-dev--0000004.
+  e) Comparar /api/health.release con el SHA del ÚLTIMO despliegue exitoso.
+     No compararlo necesariamente con el último commit de main: los cambios
+     solo de documentación se excluyen del despliegue.
+  f) En Azure, revisión activa e imagen deben corresponder al mismo SHA.
+
+Prueba nueva opcional, solo si quieren ensayar el pipeline completo:
+  Actions > flujo > Run workflow > rama main > ejecutar UNA vez.
+  Esto sí construye y publica, consume minutos GitHub y recursos Azure.
+  No requiere cambiar código ni servicios. Esperar image y después deploy.
+  No volver a pulsar mientras esté en cola o ejecutándose. Hacerlo antes
+  del día de presentación, no dentro de los cuatro minutos de demo.
+  Si falta el botón, puede faltar permiso de escritura; no ampliar roles
+  de Azure para resolver un permiso de GitHub.
+
+Qué demuestra:
+  Dos jobs correctos más la versión servida comprueban entrega funcional.
+  El YAML por sí solo no prueba una ejecución. El rollback real no se ha
+  forzado; no decir que se probó creando una revisión rota en producción.
+
+LISTA PARA MARCAR EN EL ENSAYO
+
+[ ] 1 Container Apps: HTTPS y salud 200; versión relacionada con revisión.
+[ ] 2 PostgreSQL: bootstrap postgres/cloud y movimiento conservado al recargar.
+[ ] 3 Blob: Guardado en Azure, descarga remota y archivo íntegro.
+[ ] 4 Entra/RBAC: identidad vinculada, roles acotados y uso desde runtime.
+[ ] 5 Key Vault: referencias, permisos y flujo publicado con secretos Vault.
+[ ] 6 Monitor: evento reciente consultable y regla/destino habilitados.
+[ ] 7 Actions: image y deploy correctos, SHA coherente con la app activa.
+
+FECHA Y HORA DEL ENSAYO: ____________________
+PERSONA QUE VERIFICÓ: ______________________
+SHA SERVIDO: ______________________________
+RUN DE DESPLIEGUE: _________________________
+OPERACIÓN Y ARCHIVO DE DEMO: ________________
+OBSERVACIONES / PASOS NO APROBADOS: _________
+
+Estas casillas las marca quien ejecute la prueba; no vienen aprobadas por
+haber leído este documento. Diferenciar resultado actual de evidencia histórica.
+
+QUÉ TENER LISTO PARA MOSTRAR SIN ABRIR SECRETOS
+
+- Movimiento y adjunto del negocio de demostración.
+- Respuesta de salud y su SHA, sin cookies.
+- Revisión activa e identidades/roles, sin valores de secretos.
+- Una consulta Monitor reciente y configuración de la regla.
+- Los dos jobs del run correcto en GitHub.
+- Evidencias históricas: evidencias/cicd-despliegue.json,
+  evidencias/monitor-real.json y evidencias/monitor-notificacion.json.
+
+SI ALGO FALLA EN VIVO
+
+1) Decir qué falló y qué se había verificado en el ensayo, con su fecha.
+2) Mostrar la captura o evidencia previa sin presentarla como resultado nuevo.
+3) No duplicar operaciones, ampliar servidores, abrir todos los IP del firewall
+   ni cambiar secretos o facturación para intentar arreglarlo durante la charla.
+4) Conservar hora, ruta y código HTTP para revisar después. No copiar tokens.
+5) Tras la presentación, cerrar sesión si se usó un equipo compartido.
+   Cerrar el navegador no apaga los servicios ni finaliza sus cargos.
+
+DOCUMENTOS DE APOYO DEL PROYECTO
+
+docs/requisitos/plan-segun-curso.md
+docs/publicacion.md
+docs/cicd.md
+docs/observabilidad.md
+docs/costos-y-cierre.md
+docs/presentaciones/Guion_y_defensa_actualizada.md
+
+Las cifras de costos y resultados históricos del discurso proceden de la
+documentación y evidencia del 21-22/10/2026; no son una cotización nueva
+ni una medición actual de costos. Para defensa de precios y restricciones,
+ver las fuentes conservadas en esos documentos.
