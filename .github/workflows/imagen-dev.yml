@@ -25,6 +25,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   image:
+    # Proyecto pausado el 2026-11-04. Retirar este if solo al reactivar Azure.
+    if: ${{ false }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
