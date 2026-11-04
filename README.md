@@ -1,4 +1,4 @@
-> **Pausa parcial, 04/11/2026:** app detenida, despliegues pausados y respaldo restaurado/verificado. La cancelación fue rechazada por recursos existentes y todavía requiere completar el cierre. No es una pausa de costo cero. Ver [pausa y recuperación](docs/pausa-y-recuperacion.md).
+> **Proyecto pausado, 04/11/2026:** rg-cloud-dev eliminado, suscripción cancelada y despliegues automáticos pausados. Base de 23 tablas restaurada/verificada, cuatro blobs y código respaldados localmente. La URL histórica ya no sirve la app. Ver [respaldo y recuperación](docs/pausa-y-recuperacion.md).
 
 ## Página pública de desarrollo
 

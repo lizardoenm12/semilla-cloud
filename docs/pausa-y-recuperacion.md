@@ -2,11 +2,13 @@
 
 Estado al 4 de noviembre de 2026, Guatemala. La aplicación fue detenida y el job `image` de GitHub Actions quedó con `if: ${{ false }}`. El job deploy depende de image, por lo que tampoco publica. Retirar esa condición solo cuando exista de nuevo un entorno Azure preparado.
 
-## Cancelación aún pendiente
+## Cierre completado
 
-La suscripción sigue Enabled, Free Trial, spendingLimit On. Azure rechazó la solicitud de cancelación con `ResourcesExistingOnSubscription`: exige retirar los recursos existentes. No se borró el grupo ni sus recursos. Antes de hacerlo se requiere la decisión del propietario, porque después puede ser necesario reconstruir, no simplemente encender.
+El propietario autorizó eliminar rg-cloud-dev. Se comprobó que el grupo dejó de existir y que no quedaron recursos activos en la suscripción. Azure aceptó después la cancelación. El estado observado y la respuesta están en `evidencias/cierre-azure-2026-11-04.json`.
 
-Se solicitó detener PostgreSQL y se deshabilitó la regla de errores. Consultar `evidencias/cierre-azure-2026-11-04.json` para el último estado observado. PostgreSQL detenido puede reiniciarse automáticamente a los siete días y conserva cargos de almacenamiento. ACR y otros datos retenidos siguen pudiendo generar costos. Esta pausa parcial no es una cancelación ni costo cero.
+La URL anterior y su QR ya no ofrecen la aplicación. Los jobs de despliegue permanecen pausados. No se retiró el límite de gasto ni se convirtió el plan a pago por uso. El consumo anterior puede reflejarse con retraso; la cancelación no borra consumo ya incurrido.
+
+Para continuar no basta con encender la página: habrá que disponer de una suscripción válida y reconstruir los recursos. No se garantiza conservar nombres, URL o crédito de prueba. El repositorio y los respaldos locales permanecen disponibles.
 
 ## Respaldo local privado verificado
 

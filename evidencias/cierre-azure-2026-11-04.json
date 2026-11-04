@@ -1,19 +1,22 @@
 {
-  "fechaUTC": "2026-11-04T17:16:24.173867+00:00",
-  "subscriptionState": "Enabled",
+  "fechaUTC": "2026-11-04T17:48:08.255978+00:00",
+  "subscriptionId": "55d0bb03-db9d-4b6e-823d-d845d3e523e8",
+  "subscriptionState": "Warned",
   "spendingLimit": "On",
-  "subscriptionCancelled": false,
-  "cancellationBlockedByAzure": "ResourcesExistingOnSubscription",
-  "appRunningStatus": "Stopped",
-  "postgresState": "Stopping",
-  "postgresStopRequested": true,
-  "alertEnabled": false,
+  "subscriptionCancelled": true,
+  "cancelResponse": {
+    "subscriptionId": "55d0bb03-db9d-4b6e-823d-d845d3e523e8"
+  },
+  "resourceGroup": "rg-cloud-dev",
+  "resourceGroupExists": false,
+  "remainingActiveResources": 0,
   "workflowPaused": true,
   "backupVerified": {
     "tables": 23,
     "blobs": 4,
     "localRestore": true
   },
-  "nextRequiredApproval": "Eliminar recursos de rg-cloud-dev antes de reintentar cancelaci\u00f3n",
-  "remainingCosts": "ACR, almacenamiento y posibles consumos/retenciones residuales; no es una pausa de costo cero"
+  "backupPath": "D:\\Usuario\\Lizardo\\cloud\\.data\\backups\\cierre-2026-11-04",
+  "secretValuesExported": false,
+  "note": "Cancelaci\u00f3n aceptada. El consumo anterior puede aparecer con retraso. Reconstruir para retomar; cr\u00e9dito y URL no se garantizan."
 }
