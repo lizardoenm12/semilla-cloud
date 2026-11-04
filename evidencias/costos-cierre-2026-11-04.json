@@ -1,0 +1,60 @@
+{
+  "consultaUTC": "2026-11-04T17:09:30.134973+00:00",
+  "periodo": "2026-10-01 a 2026-11-04",
+  "alcance": "rg-cloud-dev",
+  "datos": {
+    "columns": [
+      {
+        "name": "PreTaxCost",
+        "type": "Number"
+      },
+      {
+        "name": "ServiceName",
+        "type": "String"
+      },
+      {
+        "name": "Currency",
+        "type": "String"
+      }
+    ],
+    "nextLink": null,
+    "rows": [
+      [
+        0.0,
+        "Azure Database for PostgreSQL",
+        "USD"
+      ],
+      [
+        0.1982526881720429,
+        "Azure Monitor",
+        "USD"
+      ],
+      [
+        1.118e-05,
+        "Bandwidth",
+        "USD"
+      ],
+      [
+        2.2136593486,
+        "Container Registry",
+        "USD"
+      ],
+      [
+        0.000159,
+        "Key Vault",
+        "USD"
+      ],
+      [
+        0.0,
+        "Log Analytics",
+        "USD"
+      ],
+      [
+        5.32e-05,
+        "Storage",
+        "USD"
+      ]
+    ]
+  },
+  "nota": "Costo reportado con retraso, no saldo ni cargo a tarjeta"
+}

@@ -1,0 +1,19 @@
+{
+  "fechaUTC": "2026-11-04T17:16:24.173867+00:00",
+  "subscriptionState": "Enabled",
+  "spendingLimit": "On",
+  "subscriptionCancelled": false,
+  "cancellationBlockedByAzure": "ResourcesExistingOnSubscription",
+  "appRunningStatus": "Stopped",
+  "postgresState": "Stopping",
+  "postgresStopRequested": true,
+  "alertEnabled": false,
+  "workflowPaused": true,
+  "backupVerified": {
+    "tables": 23,
+    "blobs": 4,
+    "localRestore": true
+  },
+  "nextRequiredApproval": "Eliminar recursos de rg-cloud-dev antes de reintentar cancelaci\u00f3n",
+  "remainingCosts": "ACR, almacenamiento y posibles consumos/retenciones residuales; no es una pausa de costo cero"
+}
