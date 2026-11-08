@@ -1,16 +1,14 @@
 {
-  "resourceGroup": "rg-cloud-dev",
-  "region": "centralus",
+  "resourceGroup": "rg-asistente-negocios-m2",
+  "region": "northcentralus",
   "appName": "app-asistente-negocios-dev",
-  "environmentId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.App/managedEnvironments/cae-cloud-dev",
-  "registry": "acrcloudlizardo01",
-  "registryServer": "acrcloudlizardo01.azurecr.io",
-  "runtimeIdentityId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourcegroups/rg-cloud-dev/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-cloud-app-dev",
-  "runtimeClientId": "ad7c7b61-8b8d-43d2-a8be-0a8723f031d3",
-  "buildClientId": "64fe6513-34e2-46c8-b030-7a0a4c159378",
+  "environmentId": "/subscriptions/48f96e93-6c3a-4f8a-bfd6-afab746a48f5/resourceGroups/rg-asistente-negocios-m2/providers/Microsoft.App/managedEnvironments/cae-cloud-dev",
+  "registry": "acrasistneg48f96e93",
+  "registryServer": "acrasistneg48f96e93.azurecr.io",
+  "runtimeIdentityId": "/subscriptions/48f96e93-6c3a-4f8a-bfd6-afab746a48f5/resourcegroups/rg-asistente-negocios-m2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identidad-negocios-m2",
+  "runtimeClientId": "10ddb166-18be-45ff-858f-24762db4964b",
+  "buildClientId": "50c76743-d673-4a4d-9222-34ec343f84c4",
   "tenantId": "a77a7a5a-e870-4855-82ff-f6c1037880a2",
-  "subscriptionId": "55d0bb03-db9d-4b6e-823d-d845d3e523e8",
-  "baseUrl": "https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io",
-  "deployClientId": "51e90f26-772a-4f8a-9abd-435132a13aa5",
-  "deployIdentityId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourcegroups/rg-cloud-dev/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-cloud-deploy-dev"
+  "subscriptionId": "48f96e93-6c3a-4f8a-bfd6-afab746a48f5",
+  "baseUrl": "https://app-asistente-negocios-dev.kinddesert-d8043170.northcentralus.azurecontainerapps.io"
 }
