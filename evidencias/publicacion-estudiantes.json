@@ -1,0 +1,13 @@
+{
+  "url": "https://app-asistente-negocios-dev.redplant-0de50877.northcentralus.azurecontainerapps.io",
+  "subscriptionPlan": "Azure for Students",
+  "buildSha": "a83a1ba4c1167272d421896762b48e0e354e4591",
+  "smoke": {
+    "health": 200,
+    "releaseMatches": true,
+    "login": 200,
+    "privateApiWithoutSession": 401
+  },
+  "googleLoginVerificado": false,
+  "datosAnterioresImportados": false
+}

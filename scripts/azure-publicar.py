@@ -2,7 +2,7 @@
 import subprocess,json,time,uuid,sys
 from pathlib import Path
 CLI=[r'C:\Program Files\Microsoft SDKs\Azure\CLI2\python.exe','-m','azure.cli'] if sys.platform=='win32' else ['az']
-ROOT=Path(__file__).resolve().parents[1];RG='rg-asistente-negocios-m2';REGION='northcentralus';APP='app-asistente-negocios-dev';ENV='cae-cloud-dev';ACR='acrasistneg48f96e93'
+ROOT=Path(__file__).resolve().parents[1];RG='rg-asistente-negocios-m2';REGION='northcentralus';APP='app-asistente-negocios-dev';ENV='cae-asistente-m2';ACR='acrasistneg48f96e93'
 def az(args,optional=False):
  r=subprocess.run(CLI+args+['--only-show-errors','-o','json'],capture_output=True,text=True,timeout=1800 if args[:3]==['deployment','group','create'] else 600)
  if r.returncode:
@@ -43,10 +43,10 @@ if phase=='prepare':
  rest('put',build['id']+'/federatedIdentityCredentials/github-main?api-version=2023-01-31',{'properties':{'issuer':'https://token.actions.githubusercontent.com','subject':'repo:lizardoenm12@158477878/semilla-cloud@1423989886:ref:refs/heads/main','audiences':['api://AzureADTokenExchange']}})
  role(build['principalId'],registry['id'],'8311e382-0749-4cb8-b61a-304f252e45ec')
  role(identity['principalId'],registry['id'],'7f951dda-4ed3-4680-a7ca-43fe172d538d')
- env_path=BASE+'Microsoft.App/managedEnvironments/'+ENV+'?api-version=2025-01-01'
+ env_path=BASE+'Microsoft.App/managedEnvironments/'+ENV+'?api-version=2026-07-01'
  if not rest('get',env_path,optional=True):
   print('Creando entorno Consumption sin Log Analytics adicional',flush=True)
-  rest('put',env_path,{'location':REGION,'properties':{'workloadProfiles':[{'name':'Consumption','workloadProfileType':'Consumption'}]}})
+  rest('put',env_path,{'location':REGION,'properties':{'environmentMode':'WorkloadProfiles','appLogsConfiguration':{'destination':'azure-monitor'},'workloadProfiles':[{'name':'Consumption','workloadProfileType':'Consumption'}]}})
  environment=ready(env_path)
  config={'resourceGroup':RG,'region':REGION,'appName':APP,'environmentId':environment['id'],'registry':ACR,'registryServer':registry['properties']['loginServer'],'runtimeIdentityId':identity['id'],'runtimeClientId':identity['clientId'],'buildClientId':build['clientId'],'tenantId':account['tenantId'],'subscriptionId':SUB,'baseUrl':'https://'+APP+'.'+environment['properties']['defaultDomain']}
  (ROOT/'infra'/'deployment.json').write_text(json.dumps(config,indent=2),encoding='utf-8')
@@ -58,7 +58,7 @@ elif phase in ['app','network']:
  # Leer solo datos públicos de la configuración privada; no copiar secretos a Azure env.
  result=subprocess.run(['node','--input-type=module','-e',"process.loadEnvFile('.env.local');console.log(JSON.stringify({client:process.env.GOOGLE_CLIENT_ID}))"],cwd=ROOT,capture_output=True,text=True,check=True)
  client=json.loads(result.stdout)['client']
- variables={'APP_MODE':'cloud','AUTH_MODE':'google','AUTH_BASE_URL':config['baseUrl'],'GOOGLE_CLIENT_ID':client,'GOOGLE_CLIENT_SECRET_KEY_VAULT_SECRET':'asistente-google-client-secret','DATABASE_PROVIDER':'postgres','DATABASE_URL_KEY_VAULT_SECRET':'asistente-postgresql-url','AZURE_KEY_VAULT_NAME':'kv-asistneg-10336','AZURE_CLIENT_ID':identity['clientId'],'AZURE_STORAGE_ACCOUNT':'stasistneg294110766','AZURE_STORAGE_CONTAINER':'comprobantes','ATTACHMENT_STORAGE':'azure','NEXT_TELEMETRY_DISABLED':'1'}
+ variables={'APP_MODE':'cloud','AUTH_MODE':'google','AUTH_BASE_URL':config['baseUrl'],'GOOGLE_CLIENT_ID':client,'GOOGLE_CLIENT_SECRET_KEY_VAULT_SECRET':'asistente-google-client-secret','DATABASE_PROVIDER':'postgres','DATABASE_URL_KEY_VAULT_SECRET':'asistente-postgresql-url','AZURE_KEY_VAULT_NAME':'kv-asistneg-10336','AZURE_CLIENT_ID':identity['clientId'],'AZURE_STORAGE_ACCOUNT':'stasistneg294110766','AZURE_STORAGE_CONTAINER':'comprobantes','ATTACHMENT_STORAGE':'azure','NEXT_TELEMETRY_DISABLED':'1','APP_RELEASE':image.split(':')[-1],'OBSERVABILITY_ENABLED':'1'}
  app_path=BASE+'Microsoft.App/containerApps/'+APP+'?api-version=2025-01-01'
  payload={'location':REGION,'identity':{'type':'UserAssigned','userAssignedIdentities':{identity['id']:{}}},'properties':{'managedEnvironmentId':config['environmentId'],'workloadProfileName':'Consumption','configuration':{'activeRevisionsMode':'Single','ingress':{'external':True,'targetPort':8080,'transport':'auto','allowInsecure':False,'traffic':[{'latestRevision':True,'weight':100}]},'registries':[{'server':config['registryServer'],'identity':identity['id']}]},'template':{'containers':[{'name':'app','image':image,'env':[{'name':k,'value':v} for k,v in variables.items()],'resources':{'cpu':0.5,'memory':'1Gi'},'probes':[{'type':'Startup','httpGet':{'path':'/api/health','port':8080},'periodSeconds':10,'timeoutSeconds':3,'failureThreshold':30},{'type':'Readiness','httpGet':{'path':'/api/health','port':8080},'periodSeconds':10,'timeoutSeconds':3,'failureThreshold':3},{'type':'Liveness','httpGet':{'path':'/api/health','port':8080},'periodSeconds':30,'timeoutSeconds':3,'failureThreshold':3}]}],'scale':{'minReplicas':0,'maxReplicas':1,'rules':[{'name':'http','http':{'metadata':{'concurrentRequests':'10'}}}]}}}}
  print('Preparando app y acceso de red, sin ampliar el límite de réplicas',flush=True)
@@ -95,6 +95,6 @@ elif phase in ['app','network']:
   if not any(r['name']==f'container-app-{index+1}' and r['startIpAddress']==ip and r['endIpAddress']==ip for r in verified):raise RuntimeError('Falta verificar una regla de salida')
  previous=ROOT/'evidencias'/'publicacion-real.json'
  confirmed=json.loads(previous.read_text(encoding='utf-8')) if previous.exists() else {}
- (ROOT/'evidencias'/'container-app-despliegue.json').write_text(json.dumps({'url':actual,'image':image,'region':REGION,'cpu':0.5,'memory':'1Gi','minReplicas':0,'maxReplicas':1,'identity':'identidad-negocios-m2','registryAdminEnabled':False,'postgresFirewallIps':len(ips),'spendingLimit':'On','logsDestination':'none','googleCallbackPendienteVerificar':not bool(confirmed.get('googleConfirmacionUTC') and confirmed.get('url')==actual)},indent=2),encoding='utf-8')
+ (ROOT/'evidencias'/'container-app-despliegue.json').write_text(json.dumps({'url':actual,'image':image,'region':REGION,'cpu':0.5,'memory':'1Gi','minReplicas':0,'maxReplicas':1,'identity':'identidad-negocios-m2','registryAdminEnabled':False,'postgresFirewallIps':len(ips),'spendingLimit':'On','logsDestination':'azure-monitor','googleCallbackPendienteVerificar':not bool(confirmed.get('googleConfirmacionUTC') and confirmed.get('url')==actual)},indent=2),encoding='utf-8')
  print(json.dumps({'publicada':True,'url':actual,'reglasPostgresVerificadas':len(ips)}),flush=True)
 else:raise RuntimeError('Fase no implementada')

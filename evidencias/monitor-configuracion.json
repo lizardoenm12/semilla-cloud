@@ -1,7 +1,7 @@
 {
-  "workspaceId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.OperationalInsights/workspaces/log-cloud-dev",
-  "workspaceCustomerId": "e8b0dc1c-1717-4c8a-9c75-2cf08942ce69",
-  "region": "centralus",
+  "workspaceId": "/subscriptions/48f96e93-6c3a-4f8a-bfd6-afab746a48f5/resourceGroups/rg-asistente-negocios-m2/providers/Microsoft.OperationalInsights/workspaces/log-asistente-negocios",
+  "workspaceCustomerId": "65eb25de-bfdf-4e55-af25-0308bf365fc7",
+  "region": "northcentralus",
   "retentionDays": 30,
   "dailyQuotaGb": 0.025,
   "sku": "PerGB2018",
@@ -13,6 +13,5 @@
   "httpIngressLogging": false,
   "localAuthDisabled": true,
   "spendingLimit": "On",
-  "status": "persistent application telemetry verified",
-  "verifiedRelease": "5bca0110e138416fe193300d0286a15d90c8c2f8"
+  "status": "logs configured; waiting for application telemetry"
 }

@@ -1,9 +1,9 @@
 {
   "identityName": "id-cloud-deploy-dev",
-  "clientId": "51e90f26-772a-4f8a-9abd-435132a13aa5",
-  "principalId": "2401078e-2039-4b59-b245-45d1ba96ce6e",
-  "assignmentScope": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.App/containerApps/app-asistente-negocios-dev",
-  "roleId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/providers/Microsoft.Authorization/roleDefinitions/242439ce-79b1-5354-89e2-87b47bb74128",
+  "clientId": "c9282b4b-5ee2-4852-bb4f-daa67482aab0",
+  "principalId": "4d7bb348-d411-48ae-877b-41bf60d2a455",
+  "assignmentScope": "/subscriptions/48f96e93-6c3a-4f8a-bfd6-afab746a48f5/resourceGroups/rg-asistente-negocios-m2/providers/Microsoft.App/containerApps/app-asistente-negocios-dev",
+  "roleId": "/subscriptions/48f96e93-6c3a-4f8a-bfd6-afab746a48f5/providers/Microsoft.Authorization/roleDefinitions/69586f8e-c55c-56e6-8a67-5e2041db83fa",
   "actions": [
     "Microsoft.App/containerApps/read",
     "Microsoft.App/containerApps/write",

@@ -1,6 +1,6 @@
 {
-  "workspaceName": "log-cloud-dev",
-  "region": "centralus",
+  "workspaceName": "log-asistente-negocios",
+  "region": "northcentralus",
   "retentionDays": 30,
   "dailyQuotaGb": 0.025,
   "logsDestination": "azure-monitor",

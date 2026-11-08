@@ -2,7 +2,7 @@
   "resourceGroup": "rg-asistente-negocios-m2",
   "region": "northcentralus",
   "appName": "app-asistente-negocios-dev",
-  "environmentId": "/subscriptions/48f96e93-6c3a-4f8a-bfd6-afab746a48f5/resourceGroups/rg-asistente-negocios-m2/providers/Microsoft.App/managedEnvironments/cae-cloud-dev",
+  "environmentId": "/subscriptions/48f96e93-6c3a-4f8a-bfd6-afab746a48f5/resourceGroups/rg-asistente-negocios-m2/providers/Microsoft.App/managedEnvironments/cae-asistente-m2",
   "registry": "acrasistneg48f96e93",
   "registryServer": "acrasistneg48f96e93.azurecr.io",
   "runtimeIdentityId": "/subscriptions/48f96e93-6c3a-4f8a-bfd6-afab746a48f5/resourcegroups/rg-asistente-negocios-m2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identidad-negocios-m2",
@@ -10,5 +10,7 @@
   "buildClientId": "50c76743-d673-4a4d-9222-34ec343f84c4",
   "tenantId": "a77a7a5a-e870-4855-82ff-f6c1037880a2",
   "subscriptionId": "48f96e93-6c3a-4f8a-bfd6-afab746a48f5",
-  "baseUrl": "https://app-asistente-negocios-dev.kinddesert-d8043170.northcentralus.azurecontainerapps.io"
+  "baseUrl": "https://app-asistente-negocios-dev.redplant-0de50877.northcentralus.azurecontainerapps.io",
+  "deployClientId": "c9282b4b-5ee2-4852-bb4f-daa67482aab0",
+  "deployIdentityId": "/subscriptions/48f96e93-6c3a-4f8a-bfd6-afab746a48f5/resourcegroups/rg-asistente-negocios-m2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-cloud-deploy-dev"
 }
