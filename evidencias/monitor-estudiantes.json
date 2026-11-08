@@ -1,0 +1,11 @@
+{
+  "fechaUTC": "2026-11-08T23:12:56.621417+00:00",
+  "subscriptionId": "48f96e93-6c3a-4f8a-bfd6-afab746a48f5",
+  "workspace": "log-asistente-negocios",
+  "revision": "app-asistente-negocios-dev--0000001",
+  "release": "f624d17312e6253ecf84d4dd5a81ac3c1e122217",
+  "startupRows": 1,
+  "logsVerified": true,
+  "alertConfigured": true,
+  "notificationTested": false
+}

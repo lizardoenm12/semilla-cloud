@@ -9,5 +9,12 @@
     "privateApiWithoutSession": 401
   },
   "googleLoginVerificado": false,
-  "datosAnterioresImportados": false
+  "datosAnterioresImportados": false,
+  "postgresTables": 23,
+  "postgresEgressIpsVerified": 181,
+  "allowAllAzure": false,
+  "workflowRun": 42533221752,
+  "monitorIngestionVerified": true,
+  "googleSecretConfigured": false,
+  "storageContainersPrivate": true
 }

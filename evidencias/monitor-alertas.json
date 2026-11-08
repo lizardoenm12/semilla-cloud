@@ -1,7 +1,7 @@
 {
-  "workspaceId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.OperationalInsights/workspaces/log-cloud-dev",
-  "alertId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.Insights/scheduledQueryRules/alert-asistente-errores-dev",
-  "actionGroupId": "/subscriptions/55d0bb03-db9d-4b6e-823d-d845d3e523e8/resourceGroups/rg-cloud-dev/providers/Microsoft.Insights/actionGroups/ag-asistente-dev",
+  "workspaceId": "/subscriptions/48f96e93-6c3a-4f8a-bfd6-afab746a48f5/resourceGroups/rg-asistente-negocios-m2/providers/Microsoft.OperationalInsights/workspaces/log-asistente-negocios",
+  "alertId": "/subscriptions/48f96e93-6c3a-4f8a-bfd6-afab746a48f5/resourceGroups/rg-asistente-negocios-m2/providers/Microsoft.Insights/scheduledQueryRules/alert-asistente-errores-dev",
+  "actionGroupId": "/subscriptions/48f96e93-6c3a-4f8a-bfd6-afab746a48f5/resourceGroups/rg-asistente-negocios-m2/providers/Microsoft.Insights/actionGroups/ag-asistente-dev",
   "enabled": true,
   "evaluationFrequency": "PT15M",
   "windowSize": "PT15M",
@@ -17,6 +17,7 @@
   ],
   "dailyQuotaGb": 0.025,
   "retentionDays": 30,
-  "notificationTest": "test endpoint unavailable on Free Trial",
-  "syntheticProductionErrors": 0
+  "notificationTest": "not requested for student environment",
+  "syntheticProductionErrors": 0,
+  "ingestionVerification": "startup event for current deployed revision observed"
 }

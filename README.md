@@ -1,6 +1,6 @@
-> **Proyecto pausado, 04/11/2026:** rg-cloud-dev eliminado, suscripción cancelada y despliegues automáticos pausados. Base de 23 tablas restaurada/verificada, cuatro blobs y código respaldados localmente. La URL histórica ya no sirve la app. Ver [respaldo y recuperación](docs/pausa-y-recuperacion.md).
+> **Nueva publicación en Azure for Students:** https://app-asistente-negocios-dev.redplant-0de50877.northcentralus.azurecontainerapps.io. La prueba HTTPS está aprobada; Google requiere terminar la configuración y probar una sesión real. [Estado del entorno estudiantil](docs/publicacion-estudiantes.md).
 
-## Página pública de desarrollo
+## Página pública de desarrollo anterior (cerrada)
 
 https://app-asistente-negocios-dev.happyocean-ee55db6c.centralus.azurecontainerapps.io/
 

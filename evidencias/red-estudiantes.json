@@ -1,0 +1,7 @@
+{
+  "subscriptionId": "48f96e93-6c3a-4f8a-bfd6-afab746a48f5",
+  "server": "pg-asistneg-10584",
+  "egressIpsVerified": 181,
+  "allowAllAzure": false,
+  "temporaryLocalRuleRemoved": true
+}

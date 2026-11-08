@@ -1,0 +1,18 @@
+{
+  "commit": "f624d17312e6253ecf84d4dd5a81ac3c1e122217",
+  "image": "acrasistneg48f96e93.azurecr.io/asistente-negocios:f624d17312e6253ecf84d4dd5a81ac3c1e122217",
+  "revision": "app-asistente-negocios-dev--0000001",
+  "url": "https://app-asistente-negocios-dev.redplant-0de50877.northcentralus.azurecontainerapps.io",
+  "previousImage": "acrasistneg48f96e93.azurecr.io/asistente-negocios:a83a1ba4c1167272d421896762b48e0e354e4591",
+  "automaticDeployment": true,
+  "verification": {
+    "health": 200,
+    "releaseMatches": true,
+    "login": 200,
+    "privateApiWithoutSession": 401
+  },
+  "databaseOrFirewallModified": false,
+  "minReplicas": 0,
+  "maxReplicas": 1,
+  "workflowRun": 42533221752
+}
